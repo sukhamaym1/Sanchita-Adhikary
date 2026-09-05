@@ -1,9 +1,13 @@
 # Cloudflare Pages Clean URLs and Redirects
 /admin                  /pages/admin.html           200
+/admin/                 /pages/admin.html           200
 /admin.html             /pages/admin.html           301
 /privacy-policy         /pages/privacy-policy.html  200
+/privacy-policy/        /pages/privacy-policy.html  200
 /privacy-policy.html    /pages/privacy-policy.html  301
 /disclaimer             /pages/disclaimer.html      200
+/disclaimer/            /pages/disclaimer.html      200
 /disclaimer.html        /pages/disclaimer.html      301
 /terms                  /pages/terms.html           200
+/terms/                 /pages/terms.html           200
 /terms.html             /pages/terms.html           301

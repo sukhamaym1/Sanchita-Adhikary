@@ -20,11 +20,20 @@ function getInputs() {
   return inputs;
 }
 
-// Custom plugin to copy data/ folder into dist/data/ on production build
-function copyDataFolderPlugin() {
+// Custom plugin to copy data/ folder into dist/data/ and create dist/admin/index.html on production build
+function buildHelpersPlugin() {
   return {
-    name: 'copy-data-folder',
+    name: 'build-helpers-plugin',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        if (req.url === '/admin' || req.url === '/admin/') {
+          req.url = '/pages/admin.html';
+        }
+        next();
+      });
+    },
     closeBundle() {
+      // 1. Copy data/ to dist/data/
       const srcDataDir = resolve(__dirname, 'data');
       const distDataDir = resolve(__dirname, 'dist', 'data');
       if (fs.existsSync(srcDataDir)) {
@@ -35,6 +44,17 @@ function copyDataFolderPlugin() {
         files.forEach(file => {
           fs.copyFileSync(resolve(srcDataDir, file), resolve(distDataDir, file));
         });
+      }
+
+      // 2. Mirror pages/admin.html to dist/admin/index.html for native /admin URL support
+      const adminHtml = resolve(__dirname, 'dist', 'pages', 'admin.html');
+      const adminDir = resolve(__dirname, 'dist', 'admin');
+      if (fs.existsSync(adminHtml)) {
+        if (!fs.existsSync(adminDir)) {
+          fs.mkdirSync(adminDir, { recursive: true });
+        }
+        // Adjust relative script and stylesheet paths if necessary, but assets are absolute or Vite-hashed
+        fs.copyFileSync(adminHtml, resolve(adminDir, 'index.html'));
       }
     }
   };
@@ -47,7 +67,7 @@ export default defineConfig({
     hmr: process.env.DISABLE_HMR !== 'true',
     watch: process.env.DISABLE_HMR === 'true' ? null : {}
   },
-  plugins: [copyDataFolderPlugin()],
+  plugins: [buildHelpersPlugin()],
   build: {
     rollupOptions: {
       input: getInputs()

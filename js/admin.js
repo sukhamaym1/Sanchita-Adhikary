@@ -224,12 +224,17 @@ function renderConfigForm() {
     const fields = [
         { key: 'name', label: 'Full Name' },
         { key: 'designation', label: 'Designation' },
+        { key: 'credential', label: 'Club / Honor (e.g. DM Club Member)' },
         { key: 'phone', label: 'Phone Number (Display)' },
         { key: 'whatsapp', label: 'WhatsApp Number (No +, country code only)' },
         { key: 'email', label: 'Email Address' },
         { key: 'serviceArea', label: 'Service Area' },
         { key: 'workingHours', label: 'Working Hours' },
         { key: 'googleAppsScriptUrl', label: 'Google Apps Script URL (For Contact Form)' },
+        { key: 'googleSpreadsheetUrl', label: 'Google Sheets URL (View Client Leads)' },
+        { key: 'facebook', label: 'Facebook Page URL' },
+        { key: 'instagram', label: 'Instagram Profile URL' },
+        { key: 'linkedin', label: 'LinkedIn Profile URL' },
         { key: 'googleMapsUrl', label: 'Google Maps Embed URL' }
     ];
 
@@ -241,6 +246,11 @@ function renderConfigForm() {
         `;
         container.appendChild(div);
     });
+
+    const sheetLink = document.getElementById('admin-sheet-link');
+    if (sheetLink && configData.googleSpreadsheetUrl) {
+        sheetLink.href = configData.googleSpreadsheetUrl;
+    }
 
     document.getElementById('save-config-btn').addEventListener('click', async (e) => {
         const btn = e.target;

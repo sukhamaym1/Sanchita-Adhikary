@@ -89,13 +89,21 @@
         <!-- Dashboard Section -->
         <section id="dashboard-section" class="hidden space-y-8">
             
-            <!-- Status Bar -->
-            <div class="bg-green-50 border border-green-200 rounded-lg p-4 flex justify-between items-center">
-                <div class="flex items-center text-green-800">
-                    <i data-lucide="check-circle" class="w-5 h-5 mr-2"></i>
-                    <span class="font-medium text-sm">Connected to <span id="connected-repo" class="font-bold"></span></span>
+            <!-- Status Bar & Quick Actions -->
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <div class="flex items-center text-slate-800">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 mr-2.5 animate-pulse"></span>
+                    <span class="font-medium text-sm">Connected to <span id="connected-repo" class="font-bold text-slate-950"></span></span>
                 </div>
-                <button id="logout-btn" class="text-sm text-green-800 hover:text-green-900 underline">Disconnect</button>
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <a href="/" target="_blank" class="text-xs px-3 py-1.5 bg-white border border-slate-300 hover:border-slate-400 text-slate-700 rounded-lg font-medium transition-colors flex items-center shadow-xs">
+                        <i data-lucide="external-link" class="w-3.5 h-3.5 mr-1.5 text-slate-500"></i> View Website
+                    </a>
+                    <a id="admin-sheet-link" href="https://docs.google.com/spreadsheets/d/1yiQYarJpyUyIjgbE4QYRQq0SGOwozGC4Me8-CD70O0o/edit" target="_blank" class="text-xs px-3 py-1.5 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 text-emerald-800 rounded-lg font-medium transition-colors flex items-center shadow-xs">
+                        <i data-lucide="table" class="w-3.5 h-3.5 mr-1.5 text-emerald-600"></i> Open Client Leads Sheet
+                    </a>
+                    <button id="logout-btn" class="text-xs text-slate-500 hover:text-red-600 ml-auto sm:ml-2 transition-colors">Disconnect</button>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
