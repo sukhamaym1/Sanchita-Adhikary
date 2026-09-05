@@ -107,6 +107,11 @@ function populateConfigData() {
       el.href = `tel:${SITE_CONFIG.phone}`;
     } else if (key === 'email' && SITE_CONFIG.email && !SITE_CONFIG.email.includes('[ADD')) {
       el.href = `mailto:${SITE_CONFIG.email}`;
+    } else if (key === 'licAppUrl') {
+      const val = SITE_CONFIG.licAppUrl || 'https://play.google.com/store/apps/details?id=com.lic.customer.superapp';
+      el.href = val;
+      el.target = '_blank';
+      el.rel = 'noopener noreferrer';
     } else if (['facebook', 'instagram', 'linkedin', 'twitter'].includes(key)) {
       const val = SITE_CONFIG[key];
       const isPlaceholder = !val || val.trim() === '' || val === 'https://instagram.com/' || val === 'https://linkedin.com/' || val === 'https://twitter.com/';
@@ -981,8 +986,8 @@ function setupLicLinksFilter() {
       btn.classList.remove('bg-brand-purewhite', 'dark:bg-slate-900', 'text-brand-text', 'dark:text-gray-200', 'border-brand-border', 'dark:border-slate-800');
 
       cards.forEach(card => {
-        const cat = card.getAttribute('data-category');
-        if (filter === 'all' || cat === filter) {
+        const cat = card.getAttribute('data-category') || '';
+        if (filter === 'all' || cat.split(' ').includes(filter) || cat === filter) {
           card.classList.remove('hidden');
         } else {
           card.classList.add('hidden');

@@ -1046,7 +1046,7 @@
               data-link-filter="all"
               class="lic-filter-btn active px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-brand-navy text-brand-gold border border-brand-gold shadow-sm"
             >
-              All Links (12)
+              All Links &amp; Apps (13)
             </button>
             <button
               type="button"
@@ -1080,6 +1080,41 @@
 
           <!-- Links Grid -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="lic-links-grid">
+            <!-- Official LIC Customer Super App -->
+            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border-2 border-brand-gold/60 dark:border-brand-gold/40 rounded-2xl p-6 flex flex-col justify-between card-hover shadow-md relative overflow-hidden" data-category="payment helpline">
+              <div class="absolute top-0 right-0 bg-brand-gold text-brand-midnight text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-bl-xl shadow-xs">
+                Official App
+              </div>
+              <div>
+                <div class="flex items-start justify-between mb-4">
+                  <div class="w-12 h-12 rounded-xl bg-brand-gold/15 text-brand-gold flex items-center justify-center">
+                    <i data-lucide="smartphone" class="w-6 h-6"></i>
+                  </div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 mr-16">
+                    Google Play
+                  </span>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
+                  Official LIC Customer Super App
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
+                  Official Android mobile app for LIC policyholders. Check policy details, pay renewal premiums, download premium paid certificates (80C), check loan eligibility, and service policies 24×7.
+                </p>
+              </div>
+              <a
+                href="https://play.google.com/store/apps/details?id=com.lic.customer.superapp"
+                data-config-href="licAppUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-navy hover:bg-slate-800 text-brand-gold font-bold text-sm transition-all shadow-sm group border border-brand-gold/30"
+              >
+                <div class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4 text-brand-gold"></i>
+                  <span>Download on Google Play</span>
+                </div>
+                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+              </a>
+            </div>
             <!-- 1. Loan Payment -->
             <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="loan">
               <div>
@@ -2178,7 +2213,8 @@
                 Official LIC App
               </p>
               <a
-                href="https://play.google.com/store/apps/details?id=com.lic.liccustomer"
+                href="https://play.google.com/store/apps/details?id=com.lic.customer.superapp"
+                data-config-href="licAppUrl"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="group inline-flex items-center gap-3 px-3.5 py-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-brand-gold transition-all shadow-sm max-w-full"
@@ -2188,7 +2224,7 @@
                 </div>
                 <div class="text-left">
                   <span class="block text-[10px] text-gray-400 uppercase tracking-wider leading-none">Download on Google Play</span>
-                  <span class="block text-xs font-bold text-white group-hover:text-brand-gold transition-colors mt-0.5">LIC Customer App</span>
+                  <span class="block text-xs font-bold text-white group-hover:text-brand-gold transition-colors mt-0.5">LIC Customer Super App</span>
                 </div>
                 <svg class="w-4 h-4 text-gray-400 group-hover:text-brand-gold group-hover:translate-x-0.5 transition-all ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
               </a>

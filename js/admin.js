@@ -365,6 +365,7 @@ function renderConfigForm() {
         { key: 'instagram', label: 'Instagram Profile URL' },
         { key: 'linkedin', label: 'LinkedIn Profile URL' },
         { key: 'twitter', label: 'Twitter / X Profile URL' },
+        { key: 'licAppUrl', label: 'Official LIC Customer Super App Play Store URL' },
         { key: 'googleMapsUrl', label: 'Google Maps Embed URL' }
     ];
 
