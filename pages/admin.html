@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Admin Panel</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <script>
+      (function() {
+        try {
+          var f = localStorage.getItem('site_custom_favicon');
+          if (f) {
+            var l = document.querySelector("link[rel~='icon']");
+            if (l) l.href = f;
+            var a = document.querySelector("link[rel='apple-touch-icon']");
+            if (a) a.href = f;
+          }
+        } catch (e) {}
+      })();
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
@@ -164,6 +180,67 @@
 
                 <!-- Right Column: Media -->
                 <div class="space-y-8">
+                    <!-- Favicon Upload -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-lg font-bold text-slate-900 flex items-center">
+                                <i data-lucide="sparkles" class="w-5 h-5 mr-2 text-blue-600"></i> Website Favicon
+                            </h3>
+                            <span class="text-xs px-2.5 py-0.5 bg-blue-50 text-blue-700 font-medium rounded-full border border-blue-200">Browser Icon</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4">Upload a custom favicon image. Once uploaded, it will <strong>automatically update everywhere</strong> on your website, in browser tabs, and bookmarks.</p>
+                        
+                        <!-- Current Favicon & Live Tab Mockup -->
+                        <div class="mb-4 p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                            <div class="flex justify-between items-center mb-1.5">
+                                <span class="text-xs font-semibold text-slate-700">Active Live Favicon:</span>
+                                <button type="button" id="reset-favicon-btn" class="text-[11px] text-blue-600 hover:text-blue-800 font-medium hover:underline">Reset to Default</button>
+                            </div>
+                            <div class="flex items-center gap-2.5 px-3 py-2 bg-white rounded-lg border border-slate-200 shadow-xs">
+                                <img id="admin-current-favicon" src="/favicon.svg" alt="Active Favicon" class="w-5 h-5 object-contain rounded-xs">
+                                <span class="text-xs text-slate-700 font-medium truncate">Sanchita Adhikary Barman | LIC Insurance Advisor</span>
+                            </div>
+                        </div>
+
+                        <!-- Drop Zone -->
+                        <div class="border-2 border-dashed border-slate-300 rounded-lg p-5 text-center hover:border-slate-900 transition-colors cursor-pointer" id="favicon-drop-zone">
+                            <i data-lucide="upload-cloud" class="w-7 h-7 mx-auto text-slate-400 mb-2"></i>
+                            <p class="text-sm text-slate-900 font-medium">Click to upload or drag &amp; drop</p>
+                            <p class="text-xs text-gray-500 mt-1">PNG, SVG, ICO, or JPG (Square 1:1, max 2MB)</p>
+                            <input type="file" id="favicon-upload" accept="image/png, image/svg+xml, image/x-icon, image/vnd.microsoft.icon, image/jpeg, image/webp" class="hidden">
+                        </div>
+
+                        <!-- Preview Area -->
+                        <div id="favicon-preview-container" class="hidden mt-4 space-y-3">
+                            <p class="text-sm font-medium text-gray-700">Selected Favicon Preview:</p>
+                            <div class="flex items-center gap-4 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                                <div class="w-12 h-12 rounded-lg bg-white border border-slate-200 flex items-center justify-center p-1 shadow-xs">
+                                    <img id="favicon-preview-lg" class="max-w-full max-h-full object-contain" src="" alt="Favicon Preview Large">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-1.5">
+                                        <img id="favicon-preview-sm" class="w-4 h-4 object-contain" src="" alt="Favicon Preview 16x16">
+                                        <span class="text-xs font-semibold text-slate-700">Tab View (16×16)</span>
+                                    </div>
+                                    <p id="favicon-file-info" class="text-xs text-gray-500 mt-1 truncate"></p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="button" id="save-favicon-btn" class="flex-1 bg-slate-900 text-white px-4 py-2 rounded-md hover:bg-slate-800 text-sm font-medium transition-colors cursor-pointer flex items-center justify-center shadow-xs">
+                                    <span id="save-favicon-btn-text">Upload &amp; Apply Favicon</span>
+                                    <svg id="save-favicon-spinner" class="hidden animate-spin ml-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                </button>
+                                <button type="button" id="cancel-favicon-btn" class="px-3 py-2 border border-slate-300 text-slate-600 rounded-md hover:bg-slate-100 text-sm font-medium transition-colors cursor-pointer">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                        <div id="favicon-status" class="hidden mt-4 p-3 rounded-md text-sm"></div>
+                    </div>
+
                     <!-- Photo Upload -->
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                         <h3 class="text-lg font-bold text-slate-900 flex items-center mb-4">

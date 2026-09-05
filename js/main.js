@@ -2,6 +2,53 @@ let SITE_CONFIG = {};
 let TESTIMONIALS = [];
 let ACHIEVEMENTS = [];
 
+// Apply favicon dynamically to all icon link tags
+function applyFavicon(url) {
+  if (!url) return;
+  let iconLink = document.querySelector("link[rel~='icon']");
+  if (!iconLink) {
+    iconLink = document.createElement('link');
+    iconLink.rel = 'icon';
+    document.head.appendChild(iconLink);
+  }
+  iconLink.href = url;
+
+  let altIconLink = document.querySelector("link[rel='alternate icon']");
+  if (altIconLink) {
+    altIconLink.href = url;
+  }
+
+  let appleIconLink = document.querySelector("link[rel='apple-touch-icon']");
+  if (appleIconLink) {
+    appleIconLink.href = url;
+  }
+}
+
+// Global real-time favicon sync
+function initFaviconSync() {
+  try {
+    const localFavicon = localStorage.getItem('site_custom_favicon');
+    if (localFavicon) {
+      applyFavicon(localFavicon);
+    }
+  } catch (e) {}
+
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'site_custom_favicon') {
+      applyFavicon(e.newValue || (SITE_CONFIG.faviconUrl || '/favicon.svg'));
+    }
+  });
+
+  window.addEventListener('site-favicon-updated', (e) => {
+    if (e.detail && e.detail.dataUrl) {
+      applyFavicon(e.detail.dataUrl);
+    }
+  });
+}
+
+// Immediate execution for instant tab icon rendering
+initFaviconSync();
+
 // Safe DOM ready execution
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initApp);
@@ -11,6 +58,7 @@ if (document.readyState === 'loading') {
 
 async function initApp() {
   try {
+    initFaviconSync();
     await loadData();
     populateConfigData();
     renderTestimonials();
@@ -43,10 +91,10 @@ function refreshIcons() {
 async function loadData() {
   // Load config.json
   try {
-    let configRes = await fetch('./data/config.json');
-    if (!configRes.ok) configRes = await fetch('/data/config.json');
+    let configRes = await fetch('/data/config.json');
+    if (!configRes.ok) configRes = await fetch('../data/config.json');
+    if (!configRes.ok) configRes = await fetch('./data/config.json');
     if (!configRes.ok) configRes = await fetch('./config.json');
-    if (!configRes.ok) configRes = await fetch('/config.json');
     if (configRes.ok) {
       SITE_CONFIG = await configRes.json();
     }
@@ -56,10 +104,10 @@ async function loadData() {
 
   // Load testimonials.json
   try {
-    let testRes = await fetch('./data/testimonials.json');
-    if (!testRes.ok) testRes = await fetch('/data/testimonials.json');
+    let testRes = await fetch('/data/testimonials.json');
+    if (!testRes.ok) testRes = await fetch('../data/testimonials.json');
+    if (!testRes.ok) testRes = await fetch('./data/testimonials.json');
     if (!testRes.ok) testRes = await fetch('./testimonials.json');
-    if (!testRes.ok) testRes = await fetch('/testimonials.json');
     if (testRes.ok) {
       TESTIMONIALS = await testRes.json();
     }
@@ -69,10 +117,10 @@ async function loadData() {
 
   // Load achievements.json
   try {
-    let achRes = await fetch('./data/achievements.json');
-    if (!achRes.ok) achRes = await fetch('/data/achievements.json');
+    let achRes = await fetch('/data/achievements.json');
+    if (!achRes.ok) achRes = await fetch('../data/achievements.json');
+    if (!achRes.ok) achRes = await fetch('./data/achievements.json');
     if (!achRes.ok) achRes = await fetch('./achievements.json');
-    if (!achRes.ok) achRes = await fetch('/achievements.json');
     if (achRes.ok) {
       ACHIEVEMENTS = await achRes.json();
     }
@@ -139,6 +187,18 @@ function populateConfigData() {
   } else {
     if (mapIframe) mapIframe.classList.add('hidden');
     if (mapPlaceholder) mapPlaceholder.classList.remove('hidden');
+  }
+
+  // Update favicon if set in config and no local override exists
+  if (SITE_CONFIG.faviconUrl) {
+    try {
+      const local = localStorage.getItem('site_custom_favicon');
+      if (!local) {
+        applyFavicon(SITE_CONFIG.faviconUrl);
+      }
+    } catch (e) {
+      applyFavicon(SITE_CONFIG.faviconUrl);
+    }
   }
 }
 

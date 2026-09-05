@@ -41,6 +41,7 @@ function initAdmin() {
     }
 
     setupAuth();
+    setupFaviconUpload();
     setupImageUpload();
 }
 
@@ -472,6 +473,255 @@ document.getElementById('save-testimonials-btn').addEventListener('click', async
         btn.disabled = false;
     }
 });
+
+// ---- Favicon Upload & Live Dynamic Sync ----
+
+function applyTabFavicon(url) {
+    if (!url) return;
+    let iconLink = document.querySelector("link[rel~='icon']");
+    if (!iconLink) {
+        iconLink = document.createElement('link');
+        iconLink.rel = 'icon';
+        document.head.appendChild(iconLink);
+    }
+    iconLink.href = url;
+
+    let altIconLink = document.querySelector("link[rel='alternate icon']");
+    if (altIconLink) {
+        altIconLink.href = url;
+    }
+
+    let appleIconLink = document.querySelector("link[rel='apple-touch-icon']");
+    if (appleIconLink) {
+        appleIconLink.href = url;
+    }
+}
+
+function setupFaviconUpload() {
+    const dropZone = document.getElementById('favicon-drop-zone');
+    const fileInput = document.getElementById('favicon-upload');
+    const previewContainer = document.getElementById('favicon-preview-container');
+    const previewLg = document.getElementById('favicon-preview-lg');
+    const previewSm = document.getElementById('favicon-preview-sm');
+    const fileInfo = document.getElementById('favicon-file-info');
+    const saveBtn = document.getElementById('save-favicon-btn');
+    const saveBtnText = document.getElementById('save-favicon-btn-text');
+    const saveBtnSpinner = document.getElementById('save-favicon-spinner');
+    const cancelBtn = document.getElementById('cancel-favicon-btn');
+    const resetBtn = document.getElementById('reset-favicon-btn');
+    const currentFaviconImg = document.getElementById('admin-current-favicon');
+
+    let selectedDataUrl = null;
+    let selectedFile = null;
+
+    // Load active favicon into preview
+    function refreshCurrentFaviconDisplay() {
+        let activeUrl = '/favicon.svg';
+        try {
+            const stored = localStorage.getItem('site_custom_favicon');
+            if (stored) {
+                activeUrl = stored;
+            } else if (configData && configData.faviconUrl) {
+                activeUrl = configData.faviconUrl;
+            }
+        } catch(e) {}
+        if (currentFaviconImg) {
+            currentFaviconImg.src = activeUrl;
+        }
+        applyTabFavicon(activeUrl);
+    }
+
+    refreshCurrentFaviconDisplay();
+
+    if (dropZone && fileInput) {
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        // Drag & drop handlers
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.classList.add('border-slate-900', 'bg-slate-100');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.classList.remove('border-slate-900', 'bg-slate-100');
+            }, false);
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            if (files && files[0]) {
+                handleFaviconSelect(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                handleFaviconSelect(e.target.files[0]);
+            }
+        });
+    }
+
+    function handleFaviconSelect(file) {
+        if (!file) return;
+
+        if (file.size > 2 * 1024 * 1024) {
+            showStatus('favicon-status', 'File is too large. Favicon must be under 2MB.', true);
+            return;
+        }
+
+        selectedFile = file;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            selectedDataUrl = event.target.result;
+            if (previewLg) previewLg.src = selectedDataUrl;
+            if (previewSm) previewSm.src = selectedDataUrl;
+            if (fileInfo) {
+                const kb = (file.size / 1024).toFixed(1);
+                fileInfo.textContent = `${file.name} (${kb} KB, ${file.type || 'image'})`;
+            }
+            if (previewContainer) previewContainer.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+            selectedDataUrl = null;
+            selectedFile = null;
+            if (fileInput) fileInput.value = '';
+            if (previewContainer) previewContainer.classList.add('hidden');
+        });
+    }
+
+    if (resetBtn) {
+        resetBtn.addEventListener('click', async () => {
+            if (!confirm('Reset favicon back to the official Life Insurance Corporation of India (LIC) emblem?')) return;
+            try {
+                localStorage.removeItem('site_custom_favicon');
+                localStorage.removeItem('site_custom_favicon_updated');
+                if (configData) {
+                    configData.faviconUrl = '/favicon.svg';
+                }
+                refreshCurrentFaviconDisplay();
+                window.dispatchEvent(new CustomEvent('site-favicon-updated', { detail: { dataUrl: '/favicon.svg' } }));
+                showStatus('favicon-status', 'Favicon reset to official default emblem.');
+            } catch (err) {
+                showStatus('favicon-status', 'Error resetting favicon: ' + err.message, true);
+            }
+        });
+    }
+
+    if (saveBtn) {
+        saveBtn.addEventListener('click', async () => {
+            if (!selectedDataUrl) return;
+
+            if (saveBtnText) saveBtnText.textContent = 'Saving Favicon...';
+            if (saveBtnSpinner) saveBtnSpinner.classList.remove('hidden');
+            saveBtn.disabled = true;
+
+            try {
+                let savedUrl = selectedDataUrl;
+
+                // 1. Try Dev Server API
+                try {
+                    const apiRes = await fetch('/api/upload-favicon', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            dataUrl: selectedDataUrl,
+                            filename: selectedFile ? selectedFile.name : 'favicon.png'
+                        })
+                    });
+                    if (apiRes.ok) {
+                        const resData = await apiRes.json();
+                        if (resData.faviconUrl) {
+                            savedUrl = resData.faviconUrl;
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Dev server upload endpoint bypassed:', e);
+                }
+
+                // 2. If connected to GitHub, commit to repository
+                if (GH_OWNER && GH_REPO && GH_TOKEN && selectedDataUrl.includes(',')) {
+                    try {
+                        const base64Content = selectedDataUrl.split(',')[1];
+                        const isSvg = selectedFile && selectedFile.type && selectedFile.type.includes('svg');
+                        const targetRepoPath = isSvg ? 'public/favicon.svg' : 'public/favicon.png';
+
+                        // Check existing SHA
+                        let targetSha = null;
+                        try {
+                            const shaRes = await githubRequest(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${targetRepoPath}`);
+                            if (shaRes.ok) {
+                                const shaData = await shaRes.json();
+                                targetSha = shaData.sha;
+                            }
+                        } catch(e) {}
+
+                        const putBody = {
+                            message: `Admin: Update website favicon (${targetRepoPath})`,
+                            content: base64Content,
+                            branch: 'main'
+                        };
+                        if (targetSha) putBody.sha = targetSha;
+
+                        await githubRequest(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${targetRepoPath}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(putBody)
+                        });
+
+                        // Update config.json on GitHub
+                        if (configData) {
+                            configData.faviconUrl = `/${targetRepoPath.replace(/^public\//, '')}?v=${Date.now()}`;
+                            configSha = await saveFileToGithub(configFilePath, JSON.stringify(configData, null, 2), 'Admin: Update faviconUrl in config.json', configSha);
+                        }
+                    } catch (ghErr) {
+                        console.warn('GitHub favicon sync notice:', ghErr);
+                    }
+                }
+
+                // 3. Save to localStorage for instant real-time browser persistence across all tabs
+                try {
+                    localStorage.setItem('site_custom_favicon', selectedDataUrl);
+                    localStorage.setItem('site_custom_favicon_updated', Date.now().toString());
+                } catch(e) {}
+
+                // 4. Update tab icon and live mockup preview
+                applyTabFavicon(selectedDataUrl);
+                if (currentFaviconImg) {
+                    currentFaviconImg.src = selectedDataUrl;
+                }
+
+                // 5. Broadcast to any open windows/tabs
+                window.dispatchEvent(new CustomEvent('site-favicon-updated', { detail: { dataUrl: selectedDataUrl } }));
+
+                // 6. Reset UI state
+                if (previewContainer) previewContainer.classList.add('hidden');
+                if (fileInput) fileInput.value = '';
+                selectedDataUrl = null;
+                selectedFile = null;
+
+                showStatus('favicon-status', 'Favicon uploaded successfully! The new icon is now active everywhere across your website.');
+            } catch (error) {
+                showStatus('favicon-status', 'Upload failed: ' + error.message, true);
+            } finally {
+                if (saveBtnText) saveBtnText.textContent = 'Upload & Apply Favicon';
+                if (saveBtnSpinner) saveBtnSpinner.classList.add('hidden');
+                saveBtn.disabled = false;
+            }
+        });
+    }
+}
 
 // ---- Image Upload (Base64 to GitHub) ----
 

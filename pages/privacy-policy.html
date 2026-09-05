@@ -4,6 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy | Sanchita Adhikary Barman</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <script>
+      (function() {
+        try {
+          var f = localStorage.getItem('site_custom_favicon');
+          if (f) {
+            var l = document.querySelector("link[rel~='icon']");
+            if (l) l.href = f;
+            var a = document.querySelector("link[rel='apple-touch-icon']");
+            if (a) a.href = f;
+          }
+        } catch (e) {}
+        window.addEventListener('storage', function(e) {
+          if (e.key === 'site_custom_favicon') {
+            var url = e.newValue || '/favicon.svg';
+            var l = document.querySelector("link[rel~='icon']");
+            if (l) l.href = url;
+            var a = document.querySelector("link[rel='apple-touch-icon']");
+            if (a) a.href = url;
+          }
+        });
+      })();
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>

@@ -10,6 +10,7 @@
     "lint": "vite build"
   },
   "devDependencies": {
+    "sharp": "^0.35.4",
     "vite": "^5.1.4"
   },
   "dependencies": {

@@ -13,3 +13,13 @@
 /terms                  /pages/terms.html           200
 /terms/                 /pages/terms.html           200
 /terms.html             /pages/terms.html           301
+/lic-links              /pages/lic-links.html       200
+/lic-links/             /pages/lic-links.html       200
+/lic-links.html         /pages/lic-links.html       301
+/pages/lic-links        /pages/lic-links.html       200
+/pages/lic-links/       /pages/lic-links.html       200
+/resources              /pages/resources.html       200
+/resources/             /pages/resources.html       200
+/resources.html         /pages/resources.html       301
+/pages/resources        /pages/resources.html       200
+/pages/resources/       /pages/resources.html       200

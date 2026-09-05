@@ -20,6 +20,24 @@
     />
     <meta property="og:type" content="website" />
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <script>
+      (function() {
+        try {
+          var f = localStorage.getItem('site_custom_favicon');
+          if (f) {
+            var l = document.querySelector("link[rel~='icon']");
+            if (l) l.href = f;
+            var a = document.querySelector("link[rel='apple-touch-icon']");
+            if (a) a.href = f;
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
@@ -233,7 +251,7 @@
     <header class="bg-brand-navy sticky top-0 z-50 shadow-md">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
-          <div class="flex-shrink-0 flex items-center">
+          <div class="flex-shrink-0 flex items-center gap-3 sm:gap-4">
             <a href="#home" class="flex flex-col">
               <span
                 class="font-heading italic text-brand-gold text-2xl leading-none"
@@ -248,6 +266,11 @@
                 >LIC INSURANCE ADVISOR</span
               >
             </a>
+            <div class="h-10 w-px bg-white/20 hidden sm:block"></div>
+            <!-- LIC Insurer & Product Manufacturer Badge -->
+            <div class="hidden sm:flex items-center gap-2 pl-0.5" title="Life Insurance Corporation of India - Product Manufacturer & Underwriter">
+              <img src="/lic-logo-white.svg" alt="LIC of India - Product Manufacturer" class="h-9 w-auto max-w-[200px] xl:max-w-[220px] object-contain" />
+            </div>
           </div>
 
           <nav class="hidden lg:flex space-x-5 xl:space-x-7 items-center">
@@ -272,12 +295,12 @@
               ><span class="hidden xl:inline">Awards &amp; </span>Achievements</a
             >
             <a
-              href="#lic-links"
+              href="/pages/lic-links.html"
               class="text-brand-purewhite text-base font-medium hover:text-brand-gold transition-colors"
               >LIC Links</a
             >
             <a
-              href="#tools"
+              href="/pages/resources.html"
               class="text-brand-purewhite text-base font-medium hover:text-brand-gold transition-colors"
               >Resources</a
             >
@@ -338,12 +361,12 @@
             >Awards &amp; Achievements</a
           >
           <a
-            href="#lic-links"
+            href="/pages/lic-links.html"
             class="block px-3 py-2 text-brand-purewhite hover:text-brand-gold font-medium mobile-menu-link"
             >LIC Links</a
           >
           <a
-            href="#tools"
+            href="/pages/resources.html"
             class="block px-3 py-2 text-brand-purewhite hover:text-brand-gold font-medium mobile-menu-link"
             >Resources</a
           >
@@ -355,6 +378,14 @@
           <a href="#contact" class="block px-3 py-2 text-brand-gold font-bold mobile-menu-link"
             >Book Consultation</a
           >
+          <!-- Mobile Menu LIC Manufacturer Card -->
+          <div class="pt-3 mt-2 border-t border-brand-navy/80 px-3 pb-2 flex items-center gap-3">
+            <img src="/lic-logo-white.svg" alt="LIC of India" class="h-8 w-auto object-contain flex-shrink-0" />
+            <div>
+              <div class="text-[10px] font-bold uppercase tracking-wider text-brand-gold">Product Manufacturer</div>
+              <div class="text-xs text-blue-100 font-medium">Life Insurance Corporation of India</div>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -374,6 +405,12 @@
           class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16 lg:py-24 flex flex-col lg:flex-row items-center"
         >
           <div class="lg:w-3/5 text-center lg:text-left mb-12 lg:mb-0 pt-8">
+            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-brand-gold/40 mb-4 shadow-sm">
+              <img src="/favicon.svg" alt="LIC Insignia" class="w-5 h-5 object-contain" />
+              <span class="text-xs sm:text-sm font-semibold text-blue-100">
+                <span class="text-brand-gold font-bold">Product Manufacturer:</span> Life Insurance Corporation of India (LIC)
+              </span>
+            </div>
             <h2
               class="text-brand-gold font-heading italic text-2xl md:text-3xl mb-2"
             >
@@ -527,6 +564,73 @@
           </div>
         </div>
       </div>
+
+      <!-- Official Life Insurance Product Manufacturer Showcase -->
+      <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 -mt-6">
+        <div class="bg-gradient-to-r from-brand-navy via-slate-900 to-brand-midnight rounded-3xl border-2 border-brand-gold/50 p-6 sm:p-8 lg:p-10 shadow-2xl relative overflow-hidden">
+          <!-- Background Ambient Glow -->
+          <div class="absolute -right-12 -top-12 w-64 h-64 bg-brand-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -left-12 -bottom-12 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+            <!-- Left: LIC Logo & Manufacturer Information -->
+            <div class="lg:w-7/12 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6">
+              <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-slate-950/80 p-3 flex items-center justify-center flex-shrink-0 border border-brand-gold/40 shadow-inner">
+                <img src="/lic-logo-white.svg" alt="Official LIC of India Logo - Product Manufacturer" class="w-full h-full object-contain" />
+              </div>
+              <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold text-xs font-extrabold uppercase tracking-wider mb-2.5 border border-brand-gold/30">
+                  <i data-lucide="shield-check" class="w-4 h-4 text-brand-gold"></i>
+                  Official Product Manufacturer &amp; Underwriter
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-1.5">
+                  Life Insurance Corporation of India
+                </h3>
+                <p class="text-xs sm:text-sm font-semibold text-brand-softgold mb-3 flex items-center justify-center sm:justify-start gap-2 flex-wrap">
+                  <span>भारतीय जीवन बीमा निगम</span>
+                  <span>&bull;</span>
+                  <span>योगक्षेमं वहाम्यहम्</span>
+                  <span>&bull;</span>
+                  <span class="text-blue-200">Govt. of India Undertaking</span>
+                </p>
+                <p class="text-sm sm:text-base text-blue-100 leading-relaxed max-w-2xl font-sans">
+                  All life insurance policies, savings plans, pensions, child plans, and family term covers recommended by Sanchita Adhikary Barman are manufactured, issued, and underwritten by <strong>LIC of India</strong>. All policy guarantees are backed with complete sovereign security.
+                </p>
+              </div>
+            </div>
+
+            <!-- Right: Three Core Guarantees -->
+            <div class="lg:w-5/12 w-full grid grid-cols-1 sm:grid-cols-2 gap-3.5 flex-shrink-0">
+              <div class="bg-slate-950/70 border border-brand-gold/30 rounded-2xl p-4 text-center sm:text-left">
+                <div class="flex items-center justify-center sm:justify-start gap-2 mb-1">
+                  <i data-lucide="award" class="w-4 h-4 text-brand-gold"></i>
+                  <span class="text-xs font-bold uppercase tracking-wider text-brand-gold">Section 37</span>
+                </div>
+                <div class="text-base font-bold text-white mb-0.5">Sovereign Guarantee</div>
+                <div class="text-xs text-blue-200 leading-normal">Sum Assured &amp; bonus guaranteed by Govt. of India</div>
+              </div>
+
+              <div class="bg-slate-950/70 border border-brand-gold/30 rounded-2xl p-4 text-center sm:text-left">
+                <div class="flex items-center justify-center sm:justify-start gap-2 mb-1">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                  <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Claim Record</span>
+                </div>
+                <div class="text-base font-bold text-white mb-0.5">98.5%+ Claims Paid</div>
+                <div class="text-xs text-blue-200 leading-normal">Industry-benchmark claim settlement reliability</div>
+              </div>
+
+              <div class="bg-slate-950/70 border border-brand-gold/30 rounded-2xl p-4 text-center sm:text-left sm:col-span-2">
+                <div class="flex items-center justify-center sm:justify-start gap-2 mb-1">
+                  <i data-lucide="users" class="w-4 h-4 text-blue-400"></i>
+                  <span class="text-xs font-bold uppercase tracking-wider text-blue-300">National Trust</span>
+                </div>
+                <div class="text-base font-bold text-white mb-0.5">Over 25 Crore+ Lives Protected</div>
+                <div class="text-xs text-blue-200 leading-normal">India's largest and most trusted public financial institution established in 1956</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- About Section -->
       <section id="about" class="py-12 bg-brand-warmwhite dark:bg-slate-950 reveal">
@@ -962,819 +1066,6 @@
               <!-- Dots injected by JS -->
             </div>
           </div>
-        </div>
-      </section>
-
-      <!-- LIC Important Links Section -->
-      <section
-        id="lic-links"
-        class="py-20 bg-brand-purewhite dark:bg-slate-900 border-t border-brand-border dark:border-slate-800 reveal"
-      >
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center max-w-3xl mx-auto mb-12">
-            <div class="section-ornament text-brand-gold">
-              <i data-lucide="link"></i>
-            </div>
-            <h2 class="text-3xl sm:text-4xl font-heading font-bold text-brand-text dark:text-gray-100 mb-4">
-              Official LIC Important Links
-            </h2>
-            <p class="text-base sm:text-lg text-brand-muted dark:text-gray-400">
-              Direct access to verified official Life Insurance Corporation of India (LIC) customer portals for policy loan repayments, premium payments, claim status, and instant online services.
-            </p>
-          </div>
-
-          <!-- Featured Highlight: Policy Loan Repayment & Loan Interest Online -->
-          <div class="bg-gradient-to-r from-brand-navy to-brand-midnight text-brand-purewhite rounded-2xl p-6 sm:p-8 md:p-10 mb-12 shadow-xl border-2 border-brand-gold/40 relative overflow-hidden">
-            <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-brand-gold/10 rounded-full blur-2xl pointer-events-none"></div>
-            
-            <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-              <div class="max-w-2xl">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold text-xs font-bold uppercase tracking-wider mb-4 border border-brand-gold/30">
-                  <i data-lucide="zap" class="w-3.5 h-3.5"></i> Featured Policy Service
-                </div>
-                <h3 class="text-2xl sm:text-3xl font-heading font-bold text-brand-purewhite mb-3">
-                  LIC Policy Loan Interest & Principal Repayment
-                </h3>
-                <p class="text-blue-100 text-sm sm:text-base leading-relaxed mb-4">
-                  Pay your policy loan interest dues or repay the loan principal amount directly online without visiting the branch. Instant digital receipts are generated upon successful payment.
-                </p>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-blue-200">
-                  <div class="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-lg border border-white/10">
-                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-gold flex-shrink-0"></i>
-                    <span>No Login Required</span>
-                  </div>
-                  <div class="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-lg border border-white/10">
-                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-gold flex-shrink-0"></i>
-                    <span>UPI / NetBanking / Cards</span>
-                  </div>
-                  <div class="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-lg border border-white/10">
-                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-gold flex-shrink-0"></i>
-                    <span>Instant Payment Receipt</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex flex-col sm:flex-row lg:flex-col gap-3 w-full sm:w-auto flex-shrink-0">
-                <a
-                  href="https://ebiz.licindia.in/D2CPM/?_ga=2.98994712.76644806.1788621337-1076616713.1787461177#DirectPay"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="px-6 py-3.5 bg-brand-gold hover:bg-yellow-500 text-brand-midnight rounded-xl font-bold transition-all shadow-md flex items-center justify-center text-sm sm:text-base group"
-                >
-                  <i data-lucide="credit-card" class="w-5 h-5 mr-2"></i>
-                  <span>Pay Loan Online Now</span>
-                  <i data-lucide="external-link" class="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-                </a>
-                <a
-                  href="https://licindia.in/web/guest/policy-loan-terms-conditions"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-brand-purewhite border border-white/20 rounded-xl font-medium transition-all flex items-center justify-center text-sm"
-                >
-                  <i data-lucide="info" class="w-4 h-4 mr-2 text-brand-gold"></i>
-                  <span>Loan Eligibility & Rates</span>
-                  <i data-lucide="external-link" class="w-3.5 h-3.5 ml-1.5 opacity-70"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Category Filter Tabs -->
-          <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10">
-            <button
-              type="button"
-              data-link-filter="all"
-              class="lic-filter-btn active px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-brand-navy text-brand-gold border border-brand-gold shadow-sm"
-            >
-              All Links &amp; Apps (13)
-            </button>
-            <button
-              type="button"
-              data-link-filter="loan"
-              class="lic-filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-brand-purewhite dark:bg-slate-900 text-brand-text dark:text-gray-200 border border-brand-border dark:border-slate-800 hover:border-brand-gold"
-            >
-              Policy Loans & Repayments
-            </button>
-            <button
-              type="button"
-              data-link-filter="payment"
-              class="lic-filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-brand-purewhite dark:bg-slate-900 text-brand-text dark:text-gray-200 border border-brand-border dark:border-slate-800 hover:border-brand-gold"
-            >
-              Premium Payments & Portal
-            </button>
-            <button
-              type="button"
-              data-link-filter="claims"
-              class="lic-filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-brand-purewhite dark:bg-slate-900 text-brand-text dark:text-gray-200 border border-brand-border dark:border-slate-800 hover:border-brand-gold"
-            >
-              Claims & Servicing
-            </button>
-            <button
-              type="button"
-              data-link-filter="helpline"
-              class="lic-filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-brand-purewhite dark:bg-slate-900 text-brand-text dark:text-gray-200 border border-brand-border dark:border-slate-800 hover:border-brand-gold"
-            >
-              Helplines & Status
-            </button>
-          </div>
-
-          <!-- Links Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="lic-links-grid">
-            <!-- Official LIC Customer Super App -->
-            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border-2 border-brand-gold/60 dark:border-brand-gold/40 rounded-2xl p-6 flex flex-col justify-between card-hover shadow-md relative overflow-hidden" data-category="payment helpline">
-              <div class="absolute top-0 right-0 bg-brand-gold text-brand-midnight text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-bl-xl shadow-xs">
-                Official App
-              </div>
-              <div>
-                <div class="flex items-start justify-between mb-4">
-                  <div class="w-12 h-12 rounded-xl bg-brand-gold/15 text-brand-gold flex items-center justify-center">
-                    <i data-lucide="smartphone" class="w-6 h-6"></i>
-                  </div>
-                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 mr-16">
-                    Google Play
-                  </span>
-                </div>
-                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
-                  Official LIC Customer Super App
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
-                  Official Android mobile app for LIC policyholders. Check policy details, pay renewal premiums, download premium paid certificates (80C), check loan eligibility, and service policies 24×7.
-                </p>
-              </div>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.lic.customer.superapp"
-                data-config-href="licAppUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-navy hover:bg-slate-800 text-brand-gold font-bold text-sm transition-all shadow-sm group border border-brand-gold/30"
-              >
-                <div class="flex items-center gap-2">
-                  <i data-lucide="download" class="w-4 h-4 text-brand-gold"></i>
-                  <span>Download on Google Play</span>
-                </div>
-                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-              </a>
-            </div>
-            <!-- 1. Loan Payment -->
-            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="loan">
-              <div>
-                <div class="flex items-start justify-between mb-4">
-                  <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 dark:text-brand-gold flex items-center justify-center">
-                    <i data-lucide="coins" class="w-6 h-6"></i>
-                  </div>
-                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-brand-gold/15 text-amber-700 dark:text-brand-gold border border-brand-gold/30">
-                    Direct Pay • No Login
-                  </span>
-                </div>
-                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
-                  Policy Loan Repayment & Interest
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
-                  Online payment facility to clear accrued loan interest or repay policy loan principal with instant official receipt generation.
-                </p>
-              </div>
-              <a
-                href="https://ebiz.licindia.in/D2CPM/?_ga=2.98994712.76644806.1788621337-1076616713.1787461177#DirectPay"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
-              >
-                <span>Pay Loan / Interest Online</span>
-                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-              </a>
-            </div>
-
-            <!-- 2. Loan Eligibility & Conditions -->
-            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="loan">
-              <div>
-                <div class="flex items-start justify-between mb-4">
-                  <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
-                    <i data-lucide="file-text" class="w-6 h-6"></i>
-                  </div>
-                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-300">
-                    Policy Loan Guide
-                  </span>
-                </div>
-                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
-                  Policy Loan Rules & Interest Rates
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
-                  Official eligibility conditions, maximum surrender-value loan limits, applicable interest rates, and loan application procedures.
-                </p>
-              </div>
-              <a
-                href="https://licindia.in/web/guest/policy-loan-terms-conditions"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
-              >
-                <span>View Loan Guidelines</span>
-                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-              </a>
-            </div>
-
-            <!-- 3. Pay Premium Online (Direct) -->
-            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="payment">
-              <div>
-                <div class="flex items-start justify-between mb-4">
-                  <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
-                    <i data-lucide="wallet" class="w-6 h-6"></i>
-                  </div>
-                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
-                    Quick Pay • No Login
-                  </span>
-                </div>
-                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
-                  Pay Premium Online (Pay Direct)
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
-                  Pay renewal premium, advance premium, or revival quotation instantly through UPI, cards, or Net Banking without logging in.
-                </p>
-              </div>
-              <a
-                href="https://ebiz.licindia.in/D2CPM/#DirectPay"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
-              >
-                <span>Pay Premium Online</span>
-                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-              </a>
-            </div>
-
-            <!-- 4. Customer Portal Login -->
-            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="payment">
-              <div>
-                <div class="flex items-start justify-between mb-4">
-                  <div class="w-12 h-12 rounded-xl bg-brand-navy/10 dark:bg-blue-500/20 text-brand-navy dark:text-blue-300 flex items-center justify-center">
-                    <i data-lucide="user-check" class="w-6 h-6"></i>
-                  </div>
-                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-brand-navy/10 text-brand-navy dark:text-gray-300">
-                    e-Services Portal
-                  </span>
-                </div>
-                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
-                  Customer Portal Login
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
-                  Comprehensive dashboard to monitor policy status, accrued bonuses, download 80C premium paid certificates, and update contact info.
-                </p>
-              </div>
-              <a
-                href="https://ebiz.licindia.in/D2CPM/#Login"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
-              >
-                <span>Login to Customer Portal</span>
-                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-              </a>
-            </div>
-
-            <!-- 5. New User Registration -->
-            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="payment">
-              <div>
-                <div class="flex items-start justify-between mb-4">
-                  <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center">
-                    <i data-lucide="user-plus" class="w-6 h-6"></i>
-                  </div>
-                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-700 dark:text-purple-300">
-                    First-Time Users
-                  </span>
-                </div>
-                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
-                  Portal Registration (Sign Up)
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
-                  Create your official LIC customer profile using your policy number, installment premium amount, and date of birth.
-                </p>
-              </div>
-              <a
-                href="https://ebiz.licindia.in/D2CPM/#Register"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
-              >
-                <span>Register as New User</span>
-                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-              </a>
-            </div>
-
-            <!-- 6. Claim Status Tracking -->
-            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="claims">
-              <div>
-                <div class="flex items-start justify-between mb-4">
-                  <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
-                    <i data-lucide="shield-check" class="w-6 h-6"></i>
-                  </div>
-                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-700 dark:text-indigo-300">
-                    Claims Settlement
-                  </span>
-                </div>
-                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
-                  Claim Status & Settlement Process
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
-                  Official guide and portal to check maturity claim settlement, survival benefits, death claim documentation, and claim procedures.
-                </p>
-              </div>
-              <a
-                href="https://licindia.in/web/guest/claims-settlement-process"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
-              >
-                <span>Check Claim Details</span>
-                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-              </a>
-            </div>
-
-            <!-- 7. PAN & Aadhaar Linking -->
-            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="claims">
-              <div>
-                <div class="flex items-start justify-between mb-4">
-                  <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center">
-                    <i data-lucide="link-2" class="w-6 h-6"></i>
-                  </div>
-                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-teal-500/10 text-teal-700 dark:text-teal-300">
-                    Mandatory Seeding
-                  </span>
-                </div>
-                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
-                  Online PAN & Aadhaar Linking
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
-                  Link your PAN with all in-force LIC policies to avoid TDS deductions and ensure uninterrupted electronic claim credits into your bank account.
-                </p>
-              </div>
-              <a
-                href="https://licindia.in/web/guest/online-pan-registration"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
-              >
-                <span>Link PAN Online</span>
-                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-              </a>
-            </div>
-
-            <!-- 8. Download Forms -->
-            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="claims">
-              <div>
-                <div class="flex items-start justify-between mb-4">
-                  <div class="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center">
-                    <i data-lucide="download" class="w-6 h-6"></i>
-                  </div>
-                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-sky-500/10 text-sky-700 dark:text-sky-300">
-                    PDF Downloads
-                  </span>
-                </div>
-                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
-                  Download Official Policy Forms
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
-                  Download printable NEFT Mandate, Change of Nomination, Address Correction, Policy Loan Application, and Assignment forms.
-                </p>
-              </div>
-              <a
-                href="https://licindia.in/web/guest/download-forms"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
-              >
-                <span>Download Service Forms</span>
-                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-              </a>
-            </div>
-
-            <!-- 9. WhatsApp Self-Service -->
-            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="helpline">
-              <div>
-                <div class="flex items-start justify-between mb-4">
-                  <div class="w-12 h-12 rounded-xl bg-green-500/10 text-green-600 dark:text-green-400 flex items-center justify-center">
-                    <i data-lucide="message-circle" class="w-6 h-6"></i>
-                  </div>
-                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-green-500/10 text-green-700 dark:text-green-300">
-                    24x7 Automated Chat
-                  </span>
-                </div>
-                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
-                  LIC Official WhatsApp (+91 8976862090)
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
-                  Instant chatbot assistance on WhatsApp for premium due dates, bonus accrued, loan eligibility quotation, and ULIP unit statements.
-                </p>
-              </div>
-              <a
-                href="https://api.whatsapp.com/send?phone=918976862090&text=Hi"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-green-600 hover:text-white text-green-700 dark:text-green-400 font-semibold text-sm transition-colors group"
-              >
-                <span>Open LIC WhatsApp Chat</span>
-                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-              </a>
-            </div>
-
-            <!-- 10. Search Unclaimed Policy Dues -->
-            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="helpline">
-              <div>
-                <div class="flex items-start justify-between mb-4">
-                  <div class="w-12 h-12 rounded-xl bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center">
-                    <i data-lucide="search" class="w-6 h-6"></i>
-                  </div>
-                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-orange-500/10 text-orange-700 dark:text-orange-300">
-                    Unclaimed Search
-                  </span>
-                </div>
-                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
-                  Search Unclaimed Policy Dues
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
-                  Online lookup facility to check whether any maturity, survival benefit, or claim proceeds are lying unclaimed under your policy.
-                </p>
-              </div>
-              <a
-                href="https://licindia.in/web/guest/unclaimed-policy-dues"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
-              >
-                <span>Search Unclaimed Dues</span>
-                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-              </a>
-            </div>
-
-            <!-- 11. Branch Locator -->
-            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="helpline">
-              <div>
-                <div class="flex items-start justify-between mb-4">
-                  <div class="w-12 h-12 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center">
-                    <i data-lucide="map-pin" class="w-6 h-6"></i>
-                  </div>
-                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-700 dark:text-rose-300">
-                    Office Locator
-                  </span>
-                </div>
-                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
-                  LIC Branch & Satellite Locator
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
-                  Find the exact address, branch code, and servicing contact details of your home branch or nearest LIC servicing center.
-                </p>
-              </div>
-              <a
-                href="https://licindia.in/web/guest/branch-locator"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
-              >
-                <span>Find Nearest Branch</span>
-                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-              </a>
-            </div>
-
-            <!-- 12. Spurious Calls Alert -->
-            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="helpline">
-              <div>
-                <div class="flex items-start justify-between mb-4">
-                  <div class="w-12 h-12 rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center">
-                    <i data-lucide="alert-triangle" class="w-6 h-6"></i>
-                  </div>
-                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-red-500/10 text-red-700 dark:text-red-300">
-                    Consumer Alert
-                  </span>
-                </div>
-                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
-                  Spurious Call & Fraud Alert
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
-                  Official public notice regarding fake callers offering fraudulent bonuses or urging surrender of policies. Protect your hard-earned investments.
-                </p>
-              </div>
-              <a
-                href="https://licindia.in/web/guest/spurious-calls"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
-              >
-                <span>Read Fraud Advisory</span>
-                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-              </a>
-            </div>
-          </div>
-
-          <!-- Need Personal Assistance Box -->
-          <div class="mt-12 bg-brand-purewhite dark:bg-slate-900 rounded-2xl p-6 sm:p-8 border border-brand-border dark:border-slate-800 text-center flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
-            <div class="text-left">
-              <h4 class="text-lg sm:text-xl font-heading font-bold text-brand-text dark:text-gray-100">
-                Need Help with Policy Servicing, Loan Clearance, or Revival?
-              </h4>
-              <p class="text-sm text-brand-muted dark:text-gray-400 mt-1 max-w-2xl">
-                As your authorized LIC Insurance Advisor, Sanchita Adhikary Barman provides personal, step-by-step guidance for premium payments, policy revival, address change, and claim filings at zero additional charge.
-              </p>
-            </div>
-            <a
-              href="#contact"
-              class="flex-shrink-0 px-6 py-3.5 bg-brand-navy hover:bg-brand-midnight text-brand-gold border border-brand-gold/50 rounded-xl font-bold transition-colors text-sm shadow-md"
-            >
-              Request Advisor Assistance &rarr;
-            </a>
-          </div>
-
-          <div class="text-center mt-6">
-            <p class="text-xs text-brand-muted dark:text-gray-400">
-              *Notice: The external links above connect directly to official Life Insurance Corporation of India (licindia.in / ebiz.licindia.in) and IRDAI online portals.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      
-
- 
-      <!-- Testimonials -->
-      <!-- Tools Section -->
-      <section
-        id="tools"
-        class="py-16 bg-brand-warmwhite dark:bg-slate-950 border-t border-brand-border dark:border-slate-800 reveal"
-      >
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div class="section-ornament text-brand-gold">
-            <i data-lucide="diamond"></i>
-          </div>
-          <h2
-            class="text-3xl md:text-4xl font-heading font-bold text-brand-text dark:text-gray-100 mb-10"
-          >
-            Planning Tools
-          </h2>
-
-          <div class="flex flex-wrap justify-center items-center gap-4 mb-8">
-            <button
-              type="button"
-              data-calc-tab="life-cover"
-              class="calc-tab-btn active bg-brand-navy text-brand-gold border-2 border-brand-gold rounded-[16px] p-5 flex flex-col items-center w-36 sm:w-44 h-36 justify-center card-hover cursor-pointer text-center"
-            >
-              <i data-lucide="shield" class="w-8 h-8 mb-2"></i>
-              <span class="font-bold text-sm sm:text-base leading-tight">
-                Life Cover Estimator
-              </span>
-            </button>
-            <button
-              type="button"
-              data-calc-tab="child-edu"
-              class="calc-tab-btn bg-brand-purewhite dark:bg-slate-900 text-brand-navy dark:text-gray-200 border border-brand-border dark:border-slate-800 rounded-[16px] p-5 flex flex-col items-center w-36 sm:w-44 h-36 justify-center card-hover cursor-pointer text-center"
-            >
-              <i data-lucide="graduation-cap" class="w-8 h-8 mb-2 text-brand-navy dark:text-brand-gold"></i>
-              <span class="font-bold text-sm sm:text-base leading-tight">
-                Child Education
-              </span>
-            </button>
-            <button
-              type="button"
-              data-calc-tab="retirement"
-              class="calc-tab-btn bg-brand-purewhite dark:bg-slate-900 text-brand-navy dark:text-gray-200 border border-brand-border dark:border-slate-800 rounded-[16px] p-5 flex flex-col items-center w-36 sm:w-44 h-36 justify-center card-hover cursor-pointer text-center"
-            >
-              <i data-lucide="sunset" class="w-8 h-8 mb-2 text-brand-navy dark:text-brand-gold"></i>
-              <span class="font-bold text-sm sm:text-base leading-tight">
-                Retirement Corpus
-              </span>
-            </button>
-            <button
-              type="button"
-              data-calc-tab="wealth-goal"
-              class="calc-tab-btn bg-brand-purewhite dark:bg-slate-900 text-brand-navy dark:text-gray-200 border border-brand-border dark:border-slate-800 rounded-[16px] p-5 flex flex-col items-center w-36 sm:w-44 h-36 justify-center card-hover cursor-pointer text-center"
-            >
-              <i data-lucide="piggy-bank" class="w-8 h-8 mb-2 text-brand-navy dark:text-brand-gold"></i>
-              <span class="font-bold text-sm sm:text-base leading-tight">
-                Savings Goal
-              </span>
-            </button>
-          </div>
-
-          <!-- Interactive Calculator Panel -->
-          <div class="max-w-4xl mx-auto bg-brand-purewhite dark:bg-slate-900 rounded-2xl p-6 sm:p-10 border border-brand-border dark:border-slate-800 shadow-lg text-left mb-8">
-            <!-- 1. Life Cover Calculator -->
-            <div id="calc-panel-life-cover" class="calc-panel">
-              <div class="border-b border-brand-border dark:border-slate-800 pb-4 mb-6">
-                <h3 class="text-xl sm:text-2xl font-heading font-bold text-brand-text dark:text-gray-100">
-                  Life Cover (Human Life Value) Estimator
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 mt-1">
-                  Estimate the financial protection shield your family needs to sustain their standard of living.
-                </p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                <div class="space-y-4">
-                  <div>
-                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="monthly-expense">
-                      Monthly Family Living Expense (₹)
-                    </label>
-                    <input type="number" id="monthly-expense" value="50000" min="5000" step="5000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="liabilities">
-                      Outstanding Loans / Liabilities (₹)
-                    </label>
-                    <input type="number" id="liabilities" value="1500000" min="0" step="50000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="current-assets">
-                      Existing Savings & Investments (₹)
-                    </label>
-                    <input type="number" id="current-assets" value="500000" min="0" step="50000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="support-years">
-                      Income Replacement Period (Years)
-                    </label>
-                    <select id="support-years" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none">
-                      <option value="10">10 Years</option>
-                      <option value="15" selected>15 Years (Recommended)</option>
-                      <option value="20">20 Years</option>
-                      <option value="25">25 Years</option>
-                    </select>
-                  </div>
-                  <button type="button" id="calc-life-cover-btn" class="w-full py-3.5 bg-brand-navy hover:bg-brand-midnight text-brand-purewhite font-bold rounded-lg transition-colors flex items-center justify-center shadow-md">
-                    <i data-lucide="calculator" class="w-4 h-4 mr-2 text-brand-gold"></i> Calculate Ideal Cover
-                  </button>
-                </div>
-                <div class="bg-brand-navy text-brand-purewhite rounded-xl p-6 flex flex-col justify-between h-full border border-brand-gold/30">
-                  <div>
-                    <div class="text-xs uppercase tracking-wider text-brand-gold font-bold mb-2">Recommended Sum Assured</div>
-                    <div id="life-cover-result">
-                      <div id="life-cover-amount" class="text-3xl sm:text-4xl font-heading font-bold text-brand-gold mb-3">₹ 1,00,00,000</div>
-                      <p class="text-xs text-blue-100 leading-relaxed mb-4">
-                        This life cover ensures your family can clear existing liabilities and sustain essential monthly living costs without financial stress.
-                      </p>
-                    </div>
-                  </div>
-                  <a href="#contact" class="inline-flex items-center justify-center px-4 py-3 bg-brand-gold text-brand-midnight rounded-lg font-bold hover:bg-yellow-500 transition-colors text-sm text-center">
-                    Get Custom Quote for this Cover &rarr;
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- 2. Child Education Calculator -->
-            <div id="calc-panel-child-edu" class="calc-panel hidden">
-              <div class="border-b border-brand-border dark:border-slate-800 pb-4 mb-6">
-                <h3 class="text-xl sm:text-2xl font-heading font-bold text-brand-text dark:text-gray-100">
-                  Child Higher Education Fund Calculator
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 mt-1">
-                  Forecast the future cost of higher education accounting for educational inflation.
-                </p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                <div class="space-y-4">
-                  <div>
-                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="edu-current-cost">
-                      Current Cost of Desired Course (₹)
-                    </label>
-                    <input type="number" id="edu-current-cost" value="1500000" min="100000" step="50000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="edu-years">
-                      Years Until Child Enters College
-                    </label>
-                    <input type="number" id="edu-years" value="10" min="1" max="25" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="edu-inflation">
-                      Expected Education Inflation Rate (%)
-                    </label>
-                    <select id="edu-inflation" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none">
-                      <option value="6">6% per year</option>
-                      <option value="8" selected>8% per year (Standard)</option>
-                      <option value="10">10% per year</option>
-                    </select>
-                  </div>
-                  <button type="button" id="calc-child-edu-btn" class="w-full py-3.5 bg-brand-navy hover:bg-brand-midnight text-brand-purewhite font-bold rounded-lg transition-colors flex items-center justify-center shadow-md">
-                    <i data-lucide="calculator" class="w-4 h-4 mr-2 text-brand-gold"></i> Calculate Future Education Cost
-                  </button>
-                </div>
-                <div class="bg-brand-navy text-brand-purewhite rounded-xl p-6 flex flex-col justify-between h-full border border-brand-gold/30">
-                  <div>
-                    <div class="text-xs uppercase tracking-wider text-brand-gold font-bold mb-2">Estimated Future Fund Required</div>
-                    <div id="child-edu-result">
-                      <div id="child-edu-amount" class="text-3xl sm:text-4xl font-heading font-bold text-brand-gold mb-3">₹ 32,38,387</div>
-                      <p class="text-xs text-blue-100 leading-relaxed mb-4">
-                        Due to education inflation, starting a dedicated child endowment plan early helps build this targeted corpus with convenient small contributions.
-                      </p>
-                    </div>
-                  </div>
-                  <a href="#contact" class="inline-flex items-center justify-center px-4 py-3 bg-brand-gold text-brand-midnight rounded-lg font-bold hover:bg-yellow-500 transition-colors text-sm text-center">
-                    Plan Child's Education Fund &rarr;
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- 3. Retirement Calculator -->
-            <div id="calc-panel-retirement" class="calc-panel hidden">
-              <div class="border-b border-brand-border dark:border-slate-800 pb-4 mb-6">
-                <h3 class="text-xl sm:text-2xl font-heading font-bold text-brand-text dark:text-gray-100">
-                  Retirement Corpus & Pension Estimator
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 mt-1">
-                  Determine the target retirement corpus needed to receive a comfortable lifelong guaranteed pension.
-                </p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                <div class="space-y-4">
-                  <div>
-                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="retire-expense">
-                      Current Monthly Household Expenses (₹)
-                    </label>
-                    <input type="number" id="retire-expense" value="40000" min="5000" step="5000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="retire-years">
-                      Years Until Desired Retirement
-                    </label>
-                    <input type="number" id="retire-years" value="20" min="1" max="40" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="retire-inflation">
-                      Expected Average Inflation Rate (%)
-                    </label>
-                    <select id="retire-inflation" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none">
-                      <option value="5">5% per year</option>
-                      <option value="6" selected>6% per year (Standard)</option>
-                      <option value="7">7% per year</option>
-                    </select>
-                  </div>
-                  <button type="button" id="calc-retire-btn" class="w-full py-3.5 bg-brand-navy hover:bg-brand-midnight text-brand-purewhite font-bold rounded-lg transition-colors flex items-center justify-center shadow-md">
-                    <i data-lucide="calculator" class="w-4 h-4 mr-2 text-brand-gold"></i> Calculate Retirement Corpus
-                  </button>
-                </div>
-                <div class="bg-brand-navy text-brand-purewhite rounded-xl p-6 flex flex-col justify-between h-full border border-brand-gold/30">
-                  <div>
-                    <div class="text-xs uppercase tracking-wider text-brand-gold font-bold mb-2">Target Retirement Corpus</div>
-                    <div id="retire-result">
-                      <div id="retire-amount" class="text-3xl sm:text-4xl font-heading font-bold text-brand-gold mb-3">₹ 3,07,88,400</div>
-                      <p class="text-xs text-blue-100 leading-relaxed mb-4">
-                        A dedicated guaranteed pension/annuity plan secures this nest egg for uninterrupted lifetime post-retirement cash flows.
-                      </p>
-                    </div>
-                  </div>
-                  <a href="#contact" class="inline-flex items-center justify-center px-4 py-3 bg-brand-gold text-brand-midnight rounded-lg font-bold hover:bg-yellow-500 transition-colors text-sm text-center">
-                    Plan Guaranteed Pension &rarr;
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- 4. Savings Goal Calculator -->
-            <div id="calc-panel-wealth-goal" class="calc-panel hidden">
-              <div class="border-b border-brand-border dark:border-slate-800 pb-4 mb-6">
-                <h3 class="text-xl sm:text-2xl font-heading font-bold text-brand-text dark:text-gray-100">
-                  Target Savings & Wealth Goal Calculator
-                </h3>
-                <p class="text-sm text-brand-muted dark:text-gray-400 mt-1">
-                  Discover how much you need to set aside periodically to achieve your milestone financial goals.
-                </p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                <div class="space-y-4">
-                  <div>
-                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="goal-target">
-                      Target Goal Amount (₹)
-                    </label>
-                    <input type="number" id="goal-target" value="2500000" min="50000" step="50000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="goal-years">
-                      Investment Duration (Years)
-                    </label>
-                    <input type="number" id="goal-years" value="10" min="1" max="30" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
-                  </div>
-                  <button type="button" id="calc-goal-btn" class="w-full py-3.5 bg-brand-navy hover:bg-brand-midnight text-brand-purewhite font-bold rounded-lg transition-colors flex items-center justify-center shadow-md">
-                    <i data-lucide="calculator" class="w-4 h-4 mr-2 text-brand-gold"></i> Calculate Monthly Contribution
-                  </button>
-                </div>
-                <div class="bg-brand-navy text-brand-purewhite rounded-xl p-6 flex flex-col justify-between h-full border border-brand-gold/30">
-                  <div>
-                    <div class="text-xs uppercase tracking-wider text-brand-gold font-bold mb-2">Estimated Monthly Savings Needed</div>
-                    <div id="goal-result">
-                      <div id="goal-amount" class="text-3xl sm:text-4xl font-heading font-bold text-brand-gold mb-3">₹ 14,350</div>
-                      <p class="text-xs text-blue-100 leading-relaxed mb-4">
-                        Consistent disciplined savings combined with life cover security turns your aspirations into guaranteed milestones.
-                      </p>
-                    </div>
-                  </div>
-                  <a href="#contact" class="inline-flex items-center justify-center px-4 py-3 bg-brand-gold text-brand-midnight rounded-lg font-bold hover:bg-yellow-500 transition-colors text-sm text-center">
-                    Discuss Goal Savings Strategy &rarr;
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <p class="text-base text-brand-muted dark:text-gray-400">
-            *Illustrative calculation only. This tool does not constitute
-            financial advice or a recommendation of any insurance product.
-          </p>
         </div>
       </section>
 
@@ -2269,14 +1560,14 @@
               </li>
               <li>
                 <a
-                  href="#lic-links"
+                  href="/pages/lic-links.html"
                   class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
                   >LIC Important Links</a
                 >
               </li>
               <li>
                 <a
-                  href="#tools"
+                  href="/pages/resources.html"
                   class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
                   >Resources</a
                 >
@@ -2411,6 +1702,33 @@
                 >
               </li>
             </ul>
+          </div>
+        </div>
+
+        <!-- Insurer & Product Manufacturer Footer Banner -->
+        <div class="mb-10 p-6 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
+          <div class="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
+            <div class="w-20 h-16 rounded-xl bg-slate-950 p-2 flex items-center justify-center flex-shrink-0 border border-brand-gold/30">
+              <img src="/lic-logo-white.svg" alt="LIC Logo" class="max-h-full max-w-full object-contain" />
+            </div>
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider text-brand-gold mb-1 flex items-center justify-center sm:justify-start gap-1.5">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-brand-gold"></i>
+                Official Product Manufacturer &amp; Underwriter
+              </div>
+              <p class="text-sm font-semibold text-white">
+                Life Insurance Corporation of India (भारतीय जीवन बीमा निगम)
+              </p>
+              <p class="text-xs text-gray-400 mt-0.5">
+                Central Office: 'Yogakshema', Jeevan Bima Marg, Nariman Point, Mumbai &bull; Statutory Corporation established under the LIC Act, 1956
+              </p>
+            </div>
+          </div>
+          <div class="flex-shrink-0">
+            <span class="inline-flex items-center gap-1.5 text-xs text-brand-softgold font-semibold px-3 py-1.5 rounded-lg bg-brand-gold/10 border border-brand-gold/30">
+              <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-brand-gold"></i>
+              Govt. Sovereign Guarantee (Sec 37)
+            </span>
           </div>
         </div>
 

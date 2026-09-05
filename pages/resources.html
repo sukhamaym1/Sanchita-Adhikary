@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Financial Planning Tools &amp; Resources | Sanchita Adhikary Barman</title>
+    <meta
+      name="description"
+      content="Interactive financial calculators: Life Cover (Human Life Value), Child Higher Education Fund, Retirement Pension Corpus, and Savings Milestone Calculator."
+    />
+
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Financial Planning Tools &amp; Resources | Sanchita Adhikary Barman" />
+    <meta
+      property="og:description"
+      content="Interactive financial calculators for Life Cover, Child Education, Retirement Corpus, and Wealth Goals."
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <script>
+      (function() {
+        try {
+          var f = localStorage.getItem('site_custom_favicon');
+          if (f) {
+            var l = document.querySelector("link[rel~='icon']");
+            if (l) l.href = f;
+            var a = document.querySelector("link[rel='apple-touch-icon']");
+            if (a) a.href = f;
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                navy: "#062A5A",
+                midnight: "#031B3A",
+                gold: "#D9A62E",
+                softgold: "#F3D98B",
+                warmwhite: "#FAFBFD",
+                purewhite: "#FFFFFF",
+                text: "#172033",
+                muted: "#64748B",
+                border: "#E5EAF0",
+                whatsapp: "#16A34A",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              heading: ['"Playfair Display"', "serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <style>
+      body {
+        background-color: #fafbfd;
+        color: #64748b;
+        font-family: "Inter", sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        color: #172033;
+        font-family: "Playfair Display", serif;
+      }
+      .bg-brand-midnight h1, .bg-brand-midnight h2, .bg-brand-midnight h3,
+      .bg-brand-navy h1, .bg-brand-navy h2, .bg-brand-navy h3 {
+        color: #ffffff;
+      }
+      .section-ornament {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+      .section-ornament::before, .section-ornament::after {
+        content: "";
+        height: 1px;
+        width: 40px;
+        background: linear-gradient(to right, transparent, #d9a62e, transparent);
+      }
+      .card-hover {
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px -10px rgba(6, 42, 90, 0.15);
+      }
+    </style>
+  </head>
+  <body class="flex flex-col min-h-screen relative bg-brand-warmwhite dark:bg-slate-950 text-brand-text dark:text-gray-100">
+    <!-- Header -->
+    <header class="bg-brand-navy sticky top-0 z-50 shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <div class="flex-shrink-0 flex items-center gap-3 sm:gap-4">
+            <a href="/#home" class="flex flex-col">
+              <span class="font-heading italic text-brand-gold text-2xl leading-none">Sanchita</span>
+              <span class="font-sans font-bold text-brand-purewhite text-xs tracking-widest leading-tight mt-1">ADHIKARY BARMAN</span>
+              <span class="font-sans text-[10px] text-blue-200 tracking-wider uppercase mt-1">LIC INSURANCE ADVISOR</span>
+            </a>
+            <div class="h-10 w-px bg-white/20 hidden sm:block"></div>
+            <!-- LIC Product Manufacturer Badge -->
+            <div class="hidden sm:flex items-center gap-2 pl-0.5" title="Life Insurance Corporation of India - Product Manufacturer">
+              <img src="/lic-logo-white.svg" alt="LIC of India - Product Manufacturer" class="h-9 w-auto max-w-[200px] object-contain" />
+            </div>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <nav class="hidden lg:flex space-x-5 xl:space-x-7 items-center">
+            <a href="/#home" class="text-brand-purewhite hover:text-brand-gold font-medium transition-colors text-sm uppercase tracking-wider">Home</a>
+            <a href="/#about" class="text-brand-purewhite hover:text-brand-gold font-medium transition-colors text-sm uppercase tracking-wider">About</a>
+            <a href="/#services" class="text-brand-purewhite hover:text-brand-gold font-medium transition-colors text-sm uppercase tracking-wider">Services</a>
+            <a href="/#achievements" class="text-brand-purewhite hover:text-brand-gold font-medium transition-colors text-sm uppercase tracking-wider">Achievements</a>
+            <a href="/pages/lic-links.html" class="text-brand-purewhite hover:text-brand-gold font-medium transition-colors text-sm uppercase tracking-wider">LIC Links</a>
+            <a href="/pages/resources.html" class="text-brand-gold font-bold transition-colors text-sm uppercase tracking-wider border-b-2 border-brand-gold pb-1">Resources</a>
+            <a href="/#testimonials" class="text-brand-purewhite hover:text-brand-gold font-medium transition-colors text-sm uppercase tracking-wider">Testimonials</a>
+            <a href="/#contact" class="px-5 py-2.5 bg-brand-gold text-brand-midnight font-bold rounded-xl hover:bg-yellow-500 transition-colors shadow-sm text-sm uppercase tracking-wider">Book Consultation</a>
+            <button id="theme-toggle" class="p-2 rounded-full text-brand-gold hover:text-yellow-400 focus:outline-none" aria-label="Toggle Dark Mode">
+              <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+              <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+            </button>
+          </nav>
+
+          <!-- Mobile Hamburger Button -->
+          <div class="flex items-center gap-3 lg:hidden">
+            <button id="theme-toggle-mobile" class="p-2 rounded-full text-brand-gold hover:text-yellow-400 focus:outline-none" aria-label="Toggle Dark Mode">
+              <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+              <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+            </button>
+            <button id="mobile-menu-btn" class="text-brand-purewhite hover:text-brand-gold focus:outline-none p-2" aria-label="Open Navigation Menu">
+              <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+              <i data-lucide="x" id="close-icon" class="w-6 h-6 hidden"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Panel -->
+      <div id="mobile-menu" class="hidden lg:hidden bg-brand-midnight border-t border-brand-navy">
+        <div class="px-3 pt-3 pb-4 space-y-2">
+          <a href="/#home" class="block px-3 py-2 text-brand-purewhite hover:text-brand-gold font-medium mobile-menu-link">Home</a>
+          <a href="/#about" class="block px-3 py-2 text-brand-purewhite hover:text-brand-gold font-medium mobile-menu-link">About</a>
+          <a href="/#services" class="block px-3 py-2 text-brand-purewhite hover:text-brand-gold font-medium mobile-menu-link">Services</a>
+          <a href="/#achievements" class="block px-3 py-2 text-brand-purewhite hover:text-brand-gold font-medium mobile-menu-link">Awards &amp; Achievements</a>
+          <a href="/pages/lic-links.html" class="block px-3 py-2 text-brand-purewhite hover:text-brand-gold font-medium mobile-menu-link">LIC Links</a>
+          <a href="/pages/resources.html" class="block px-3 py-2 text-brand-gold font-bold mobile-menu-link">Resources (Active Page)</a>
+          <a href="/#testimonials" class="block px-3 py-2 text-brand-purewhite hover:text-brand-gold font-medium mobile-menu-link">Testimonials</a>
+          <a href="/#contact" class="block px-3 py-2 text-brand-gold font-bold mobile-menu-link">Book Consultation</a>
+          <!-- Mobile Menu Manufacturer Card -->
+          <div class="pt-3 mt-2 border-t border-brand-navy/80 px-3 pb-2 flex items-center gap-3">
+            <img src="/lic-logo-white.svg" alt="LIC Logo" class="h-8 w-auto object-contain flex-shrink-0" />
+            <div>
+              <div class="text-[10px] font-bold uppercase tracking-wider text-brand-gold">Product Manufacturer</div>
+              <div class="text-xs text-blue-100 font-medium">Life Insurance Corporation of India</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow">
+      <!-- Breadcrumb Bar -->
+      <div class="bg-slate-100 dark:bg-slate-900 border-b border-brand-border dark:border-slate-800 py-3">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-xs sm:text-sm">
+          <div class="flex items-center gap-2 text-brand-muted dark:text-gray-400">
+            <a href="/#home" class="hover:text-brand-gold transition-colors">Home</a>
+            <span>&rsaquo;</span>
+            <span class="text-brand-text dark:text-gray-200 font-semibold">Financial Planning Tools &amp; Resources</span>
+          </div>
+          <a href="/#home" class="inline-flex items-center gap-1.5 text-brand-gold hover:text-yellow-600 font-bold transition-colors">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>Back to Home</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Header Section -->
+      <section class="bg-gradient-to-br from-brand-navy via-slate-900 to-brand-midnight text-brand-purewhite py-14 sm:py-20 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMCIvPgo8cGF0aCBkPSJNMCAwbDhfOFpNOCAwTDAgOFoiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIwLjUiIGZpbGw9Im5vbmUiIG9wYWNpdHk9IjEiLz4KPC9zdmc+')]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-950/80 border border-brand-gold/40 mb-5 shadow-sm">
+            <i data-lucide="calculator" class="w-4 h-4 text-brand-gold"></i>
+            <span class="text-xs sm:text-sm font-semibold text-blue-100">
+              <span class="text-brand-gold font-bold">Interactive Planning Suite</span> &bull; 4 Milestone Calculators
+            </span>
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-heading font-bold text-brand-purewhite mb-4">
+            Financial Planning Tools &amp; Calculators
+          </h1>
+          <p class="text-base sm:text-lg text-blue-100 max-w-3xl mx-auto leading-relaxed mb-8">
+            Make informed decisions for your family's future with interactive estimators for Human Life Value, child higher education funds, retirement pension corpus, and milestone savings targets.
+          </p>
+        </div>
+      </section>
+
+      <!-- Calculator Suite -->
+      <section class="py-14 sm:py-20 bg-brand-warmwhite dark:bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          
+          <!-- Tab Navigation Cards -->
+          <div class="flex flex-wrap justify-center items-center gap-4 mb-10">
+            <button
+              type="button"
+              data-calc-tab="life-cover"
+              class="calc-tab-btn active bg-brand-navy text-brand-gold border-2 border-brand-gold rounded-[20px] p-5 flex flex-col items-center w-36 sm:w-48 h-36 sm:h-40 justify-center card-hover cursor-pointer text-center shadow-sm"
+            >
+              <i data-lucide="shield" class="w-8 h-8 mb-2"></i>
+              <span class="font-bold text-sm sm:text-base leading-tight">
+                Life Cover Estimator
+              </span>
+              <span class="text-[11px] opacity-80 mt-1">Human Life Value</span>
+            </button>
+            <button
+              type="button"
+              data-calc-tab="child-edu"
+              class="calc-tab-btn bg-brand-purewhite dark:bg-slate-900 text-brand-navy dark:text-gray-200 border border-brand-border dark:border-slate-800 rounded-[20px] p-5 flex flex-col items-center w-36 sm:w-48 h-36 sm:h-40 justify-center card-hover cursor-pointer text-center shadow-sm"
+            >
+              <i data-lucide="graduation-cap" class="w-8 h-8 mb-2 text-brand-navy dark:text-brand-gold"></i>
+              <span class="font-bold text-sm sm:text-base leading-tight">
+                Child Education
+              </span>
+              <span class="text-[11px] opacity-80 mt-1">Higher Studies</span>
+            </button>
+            <button
+              type="button"
+              data-calc-tab="retirement"
+              class="calc-tab-btn bg-brand-purewhite dark:bg-slate-900 text-brand-navy dark:text-gray-200 border border-brand-border dark:border-slate-800 rounded-[20px] p-5 flex flex-col items-center w-36 sm:w-48 h-36 sm:h-40 justify-center card-hover cursor-pointer text-center shadow-sm"
+            >
+              <i data-lucide="sunset" class="w-8 h-8 mb-2 text-brand-navy dark:text-brand-gold"></i>
+              <span class="font-bold text-sm sm:text-base leading-tight">
+                Retirement Corpus
+              </span>
+              <span class="text-[11px] opacity-80 mt-1">Guaranteed Pension</span>
+            </button>
+            <button
+              type="button"
+              data-calc-tab="wealth-goal"
+              class="calc-tab-btn bg-brand-purewhite dark:bg-slate-900 text-brand-navy dark:text-gray-200 border border-brand-border dark:border-slate-800 rounded-[20px] p-5 flex flex-col items-center w-36 sm:w-48 h-36 sm:h-40 justify-center card-hover cursor-pointer text-center shadow-sm"
+            >
+              <i data-lucide="piggy-bank" class="w-8 h-8 mb-2 text-brand-navy dark:text-brand-gold"></i>
+              <span class="font-bold text-sm sm:text-base leading-tight">
+                Savings Goal
+              </span>
+              <span class="text-[11px] opacity-80 mt-1">Wealth Accumulation</span>
+            </button>
+          </div>
+
+          <!-- Interactive Calculator Panel Container -->
+          <div class="max-w-4xl mx-auto bg-brand-purewhite dark:bg-slate-900 rounded-3xl p-6 sm:p-10 border border-brand-border dark:border-slate-800 shadow-xl text-left mb-10">
+            
+            <!-- 1. Life Cover Calculator -->
+            <div id="calc-panel-life-cover" class="calc-panel">
+              <div class="border-b border-brand-border dark:border-slate-800 pb-4 mb-6">
+                <h2 class="text-xl sm:text-2xl font-heading font-bold text-brand-text dark:text-gray-100">
+                  Life Cover (Human Life Value) Estimator
+                </h2>
+                <p class="text-sm text-brand-muted dark:text-gray-400 mt-1">
+                  Estimate the financial protection shield your family needs to sustain their standard of living and clear liabilities.
+                </p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="monthly-expense">
+                      Monthly Family Living Expense (₹)
+                    </label>
+                    <input type="number" id="monthly-expense" value="50000" min="5000" step="5000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="liabilities">
+                      Outstanding Loans / Liabilities (₹)
+                    </label>
+                    <input type="number" id="liabilities" value="1500000" min="0" step="50000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="current-assets">
+                      Existing Savings &amp; Investments (₹)
+                    </label>
+                    <input type="number" id="current-assets" value="500000" min="0" step="50000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="support-years">
+                      Income Replacement Period (Years)
+                    </label>
+                    <select id="support-years" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none">
+                      <option value="10">10 Years</option>
+                      <option value="15" selected>15 Years (Recommended)</option>
+                      <option value="20">20 Years</option>
+                      <option value="25">25 Years</option>
+                    </select>
+                  </div>
+                  <button type="button" id="calc-life-cover-btn" class="w-full py-3.5 bg-brand-navy hover:bg-brand-midnight text-brand-purewhite font-bold rounded-xl transition-colors flex items-center justify-center shadow-md">
+                    <i data-lucide="calculator" class="w-4 h-4 mr-2 text-brand-gold"></i> Calculate Ideal Cover
+                  </button>
+                </div>
+                <div class="bg-brand-navy text-brand-purewhite rounded-2xl p-6 sm:p-8 flex flex-col justify-between h-full border border-brand-gold/30 shadow-md">
+                  <div>
+                    <div class="text-xs uppercase tracking-wider text-brand-gold font-bold mb-2">Recommended Sum Assured</div>
+                    <div id="life-cover-result">
+                      <div id="life-cover-amount" class="text-3xl sm:text-4xl font-heading font-bold text-brand-gold mb-3">₹ 1,00,00,000</div>
+                      <p class="text-xs text-blue-100 leading-relaxed mb-4">
+                        This life cover ensures your family can clear existing liabilities and sustain essential monthly living costs without financial stress.
+                      </p>
+                    </div>
+                  </div>
+                  <a href="/#contact" class="inline-flex items-center justify-center px-4 py-3.5 bg-brand-gold text-brand-midnight rounded-xl font-bold hover:bg-yellow-500 transition-colors text-sm text-center shadow-sm">
+                    Get Custom Quote for this Cover &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Child Education Calculator -->
+            <div id="calc-panel-child-edu" class="calc-panel hidden">
+              <div class="border-b border-brand-border dark:border-slate-800 pb-4 mb-6">
+                <h2 class="text-xl sm:text-2xl font-heading font-bold text-brand-text dark:text-gray-100">
+                  Child Higher Education Fund Calculator
+                </h2>
+                <p class="text-sm text-brand-muted dark:text-gray-400 mt-1">
+                  Forecast the future cost of higher education accounting for educational inflation.
+                </p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="edu-current-cost">
+                      Current Cost of Desired Course (₹)
+                    </label>
+                    <input type="number" id="edu-current-cost" value="1500000" min="100000" step="50000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="edu-years">
+                      Years Until Child Enters College
+                    </label>
+                    <input type="number" id="edu-years" value="10" min="1" max="25" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="edu-inflation">
+                      Expected Education Inflation Rate (%)
+                    </label>
+                    <select id="edu-inflation" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none">
+                      <option value="6">6% per year</option>
+                      <option value="8" selected>8% per year (Standard)</option>
+                      <option value="10">10% per year</option>
+                    </select>
+                  </div>
+                  <button type="button" id="calc-child-edu-btn" class="w-full py-3.5 bg-brand-navy hover:bg-brand-midnight text-brand-purewhite font-bold rounded-xl transition-colors flex items-center justify-center shadow-md">
+                    <i data-lucide="calculator" class="w-4 h-4 mr-2 text-brand-gold"></i> Calculate Future Education Cost
+                  </button>
+                </div>
+                <div class="bg-brand-navy text-brand-purewhite rounded-2xl p-6 sm:p-8 flex flex-col justify-between h-full border border-brand-gold/30 shadow-md">
+                  <div>
+                    <div class="text-xs uppercase tracking-wider text-brand-gold font-bold mb-2">Estimated Future Fund Required</div>
+                    <div id="child-edu-result">
+                      <div id="child-edu-amount" class="text-3xl sm:text-4xl font-heading font-bold text-brand-gold mb-3">₹ 32,38,387</div>
+                      <p class="text-xs text-blue-100 leading-relaxed mb-4">
+                        Due to education inflation, starting a dedicated child endowment plan early helps build this targeted corpus with convenient small contributions.
+                      </p>
+                    </div>
+                  </div>
+                  <a href="/#contact" class="inline-flex items-center justify-center px-4 py-3.5 bg-brand-gold text-brand-midnight rounded-xl font-bold hover:bg-yellow-500 transition-colors text-sm text-center shadow-sm">
+                    Plan Child's Education Fund &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Retirement Calculator -->
+            <div id="calc-panel-retirement" class="calc-panel hidden">
+              <div class="border-b border-brand-border dark:border-slate-800 pb-4 mb-6">
+                <h2 class="text-xl sm:text-2xl font-heading font-bold text-brand-text dark:text-gray-100">
+                  Retirement Corpus &amp; Pension Estimator
+                </h2>
+                <p class="text-sm text-brand-muted dark:text-gray-400 mt-1">
+                  Determine the target retirement corpus needed to receive a comfortable lifelong guaranteed pension.
+                </p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="retire-expense">
+                      Current Monthly Household Expenses (₹)
+                    </label>
+                    <input type="number" id="retire-expense" value="40000" min="5000" step="5000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="retire-years">
+                      Years Until Desired Retirement
+                    </label>
+                    <input type="number" id="retire-years" value="20" min="1" max="40" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="retire-inflation">
+                      Expected Average Inflation Rate (%)
+                    </label>
+                    <select id="retire-inflation" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none">
+                      <option value="5">5% per year</option>
+                      <option value="6" selected>6% per year (Standard)</option>
+                      <option value="7">7% per year</option>
+                    </select>
+                  </div>
+                  <button type="button" id="calc-retire-btn" class="w-full py-3.5 bg-brand-navy hover:bg-brand-midnight text-brand-purewhite font-bold rounded-xl transition-colors flex items-center justify-center shadow-md">
+                    <i data-lucide="calculator" class="w-4 h-4 mr-2 text-brand-gold"></i> Calculate Retirement Corpus
+                  </button>
+                </div>
+                <div class="bg-brand-navy text-brand-purewhite rounded-2xl p-6 sm:p-8 flex flex-col justify-between h-full border border-brand-gold/30 shadow-md">
+                  <div>
+                    <div class="text-xs uppercase tracking-wider text-brand-gold font-bold mb-2">Target Retirement Corpus</div>
+                    <div id="retire-result">
+                      <div id="retire-amount" class="text-3xl sm:text-4xl font-heading font-bold text-brand-gold mb-3">₹ 3,07,88,400</div>
+                      <p class="text-xs text-blue-100 leading-relaxed mb-4">
+                        A dedicated guaranteed pension/annuity plan secures this nest egg for uninterrupted lifetime post-retirement cash flows.
+                      </p>
+                    </div>
+                  </div>
+                  <a href="/#contact" class="inline-flex items-center justify-center px-4 py-3.5 bg-brand-gold text-brand-midnight rounded-xl font-bold hover:bg-yellow-500 transition-colors text-sm text-center shadow-sm">
+                    Plan Guaranteed Pension &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Savings Goal Calculator -->
+            <div id="calc-panel-wealth-goal" class="calc-panel hidden">
+              <div class="border-b border-brand-border dark:border-slate-800 pb-4 mb-6">
+                <h2 class="text-xl sm:text-2xl font-heading font-bold text-brand-text dark:text-gray-100">
+                  Target Savings &amp; Wealth Goal Calculator
+                </h2>
+                <p class="text-sm text-brand-muted dark:text-gray-400 mt-1">
+                  Discover how much you need to set aside periodically to achieve your milestone financial goals.
+                </p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="goal-target">
+                      Target Goal Amount (₹)
+                    </label>
+                    <input type="number" id="goal-target" value="2500000" min="50000" step="50000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="goal-years">
+                      Investment Duration (Years)
+                    </label>
+                    <input type="number" id="goal-years" value="10" min="1" max="30" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <button type="button" id="calc-goal-btn" class="w-full py-3.5 bg-brand-navy hover:bg-brand-midnight text-brand-purewhite font-bold rounded-xl transition-colors flex items-center justify-center shadow-md">
+                    <i data-lucide="calculator" class="w-4 h-4 mr-2 text-brand-gold"></i> Calculate Monthly Contribution
+                  </button>
+                </div>
+                <div class="bg-brand-navy text-brand-purewhite rounded-2xl p-6 sm:p-8 flex flex-col justify-between h-full border border-brand-gold/30 shadow-md">
+                  <div>
+                    <div class="text-xs uppercase tracking-wider text-brand-gold font-bold mb-2">Estimated Monthly Savings Needed</div>
+                    <div id="goal-result">
+                      <div id="goal-amount" class="text-3xl sm:text-4xl font-heading font-bold text-brand-gold mb-3">₹ 14,350</div>
+                      <p class="text-xs text-blue-100 leading-relaxed mb-4">
+                        Consistent disciplined savings combined with life cover security turns your aspirations into guaranteed milestones.
+                      </p>
+                    </div>
+                  </div>
+                  <a href="/#contact" class="inline-flex items-center justify-center px-4 py-3.5 bg-brand-gold text-brand-midnight rounded-xl font-bold hover:bg-yellow-500 transition-colors text-sm text-center shadow-sm">
+                    Discuss Goal Savings Strategy &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-sm text-brand-muted dark:text-gray-400 mb-14">
+            *Illustrative calculation only. These estimates do not constitute official policy documents. Final premium and maturity figures are based on age, policy term, medical underwriting, and official LIC tables.
+          </p>
+
+          <!-- Planning Insights & Guides Section -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+            <div class="bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 card-hover shadow-sm">
+              <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4">
+                <i data-lucide="shield-alert" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-lg font-heading font-bold text-brand-text dark:text-gray-100 mb-2">
+                Why Human Life Value (HLV) Matters
+              </h3>
+              <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed">
+                Most families are underinsured with basic policies of ₹2–5 Lakhs. HLV calculates true economic worth, ensuring your family can maintain their current lifestyle even in your absence.
+              </p>
+            </div>
+
+            <div class="bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 card-hover shadow-sm">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 dark:text-brand-gold flex items-center justify-center mb-4">
+                <i data-lucide="trending-up" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-lg font-heading font-bold text-brand-text dark:text-gray-100 mb-2">
+                The Cost of Delaying Savings
+              </h3>
+              <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed">
+                Starting a child education or retirement plan 5 years earlier can reduce the required monthly contribution by up to 40% due to the compounding effect of LIC guaranteed bonuses.
+              </p>
+            </div>
+
+            <div class="bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 card-hover shadow-sm">
+              <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
+                <i data-lucide="award" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-lg font-heading font-bold text-brand-text dark:text-gray-100 mb-2">
+                Sovereign Guarantee Security
+              </h3>
+              <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed">
+                Under Section 37 of the LIC Act, the Sum Assured and all accrued bonuses are 100% guaranteed by the Government of India, offering unmatched capital safety.
+              </p>
+            </div>
+          </div>
+
+          <!-- Personalized Consultation CTA Box -->
+          <div class="mt-14 bg-gradient-to-r from-brand-navy to-brand-midnight text-white rounded-3xl p-6 sm:p-10 border border-brand-gold/40 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xl text-left">
+            <div class="max-w-2xl">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold text-xs font-bold uppercase tracking-wider mb-3">
+                <i data-lucide="file-check" class="w-3.5 h-3.5"></i>
+                Complimentary Consultation
+              </div>
+              <h3 class="text-xl sm:text-2xl font-heading font-bold text-white mb-2">
+                Need a Personalized Financial Plan or Quotation?
+              </h3>
+              <p class="text-sm text-blue-100 leading-relaxed">
+                Send your calculated goals to Sanchita Adhikary Barman. She will curate the exact LIC policy combinations (Jeevan Labh, Jeevan Umang, SIIP, or Tech Term) tailored to your exact budget.
+              </p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto flex-shrink-0">
+              <a
+                href="/#contact"
+                class="px-6 py-3.5 bg-brand-gold hover:bg-yellow-500 text-brand-midnight rounded-xl font-bold transition-all text-center text-sm shadow-md"
+              >
+                Schedule Consultation &rarr;
+              </a>
+              <a
+                href="/#contact"
+                data-config-href="whatsapp"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-6 py-3.5 bg-brand-whatsapp hover:bg-green-700 text-white rounded-xl font-bold transition-all text-center text-sm shadow-md flex items-center justify-center gap-2"
+              >
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                <span>WhatsApp Advisor</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-midnight text-brand-purewhite pt-16 pb-8 border-t border-brand-navy">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+          <!-- Branding -->
+          <div>
+            <a href="/#home" class="flex flex-col mb-6">
+              <span class="font-heading italic text-brand-gold text-2xl leading-none">Sanchita</span>
+              <span class="font-sans font-bold text-brand-purewhite text-xs tracking-widest leading-tight mt-1">ADHIKARY BARMAN</span>
+            </a>
+            <p class="text-base text-blue-200 uppercase tracking-wider mb-2 font-bold">LIC Insurance Advisor</p>
+            <p class="text-base text-brand-gold uppercase tracking-wider mb-6 font-bold" data-config="credential">DM Club Member</p>
+            <p class="text-base text-brand-muted dark:text-gray-400 leading-relaxed mb-5">
+              Helping you secure your present and protect your future.
+            </p>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h3 class="text-lg font-bold text-brand-gold uppercase tracking-wider mb-6">Quick Links</h3>
+            <ul class="space-y-3">
+              <li><a href="/#home" class="text-base text-brand-purewhite hover:text-brand-gold transition-colors">Home</a></li>
+              <li><a href="/#about" class="text-base text-brand-purewhite hover:text-brand-gold transition-colors">About</a></li>
+              <li><a href="/#services" class="text-base text-brand-purewhite hover:text-brand-gold transition-colors">Services</a></li>
+              <li><a href="/#achievements" class="text-base text-brand-purewhite hover:text-brand-gold transition-colors">Awards &amp; Achievements</a></li>
+              <li><a href="/pages/lic-links.html" class="text-base text-brand-purewhite hover:text-brand-gold transition-colors">Official LIC Links</a></li>
+              <li><a href="/pages/resources.html" class="text-base text-brand-gold font-bold">Planning Resources</a></li>
+              <li><a href="/#contact" class="text-base text-brand-purewhite hover:text-brand-gold transition-colors">Contact</a></li>
+            </ul>
+          </div>
+
+          <!-- Services -->
+          <div>
+            <h3 class="text-lg font-bold text-brand-gold uppercase tracking-wider mb-6">Services</h3>
+            <ul class="space-y-3">
+              <li><a href="/#services" class="text-base text-brand-purewhite hover:text-brand-gold transition-colors">Life Insurance Planning</a></li>
+              <li><a href="/#services" class="text-base text-brand-purewhite hover:text-brand-gold transition-colors">Family Protection</a></li>
+              <li><a href="/#services" class="text-base text-brand-purewhite hover:text-brand-gold transition-colors">Child Future Planning</a></li>
+              <li><a href="/#services" class="text-base text-brand-purewhite hover:text-brand-gold transition-colors">Retirement Planning</a></li>
+              <li><a href="/#services" class="text-base text-brand-purewhite hover:text-brand-gold transition-colors">Policy Services</a></li>
+              <li><a href="/#services" class="text-base text-brand-purewhite hover:text-brand-gold transition-colors">Claim Assistance</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact Info -->
+          <div>
+            <h3 class="text-lg font-bold text-brand-gold uppercase tracking-wider mb-6">Contact</h3>
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <i data-lucide="phone" class="w-4 h-4 text-brand-muted dark:text-gray-400 mr-3 mt-1 flex-shrink-0"></i>
+                <span class="text-base text-brand-purewhite" data-config="phone">[Add Phone Number]</span>
+              </li>
+              <li class="flex items-start">
+                <i data-lucide="message-circle" class="w-4 h-4 text-brand-muted dark:text-gray-400 mr-3 mt-1 flex-shrink-0"></i>
+                <span class="text-base text-brand-purewhite" data-config="whatsapp">[Add WhatsApp Number]</span>
+              </li>
+              <li class="flex items-start">
+                <i data-lucide="mail" class="w-4 h-4 text-brand-muted dark:text-gray-400 mr-3 mt-1 flex-shrink-0"></i>
+                <span class="text-base text-brand-purewhite" data-config="email">[Add Email Address]</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Product Manufacturer Banner -->
+        <div class="mb-10 p-6 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
+          <div class="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
+            <div class="w-20 h-16 rounded-xl bg-slate-950 p-2 flex items-center justify-center flex-shrink-0 border border-brand-gold/30">
+              <img src="/lic-logo-white.svg" alt="LIC Logo" class="max-h-full max-w-full object-contain" />
+            </div>
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider text-brand-gold mb-1 flex items-center justify-center sm:justify-start gap-1.5">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-brand-gold"></i>
+                Official Product Manufacturer &amp; Underwriter
+              </div>
+              <p class="text-sm font-semibold text-white">
+                Life Insurance Corporation of India (भारतीय जीवन बीमा निगम)
+              </p>
+              <p class="text-xs text-gray-400 mt-0.5">
+                Central Office: 'Yogakshema', Jeevan Bima Marg, Nariman Point, Mumbai &bull; Statutory Corporation established under the LIC Act, 1956
+              </p>
+            </div>
+          </div>
+          <div class="flex-shrink-0">
+            <span class="inline-flex items-center gap-1.5 text-xs text-brand-softgold font-semibold px-3 py-1.5 rounded-lg bg-brand-gold/10 border border-brand-gold/30">
+              <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-brand-gold"></i>
+              Govt. Sovereign Guarantee (Sec 37)
+            </span>
+          </div>
+        </div>
+
+        <div class="border-t border-brand-navy pt-8 flex flex-col md:flex-row justify-between items-center text-base text-brand-muted dark:text-gray-400">
+          <p class="mb-4 md:mb-0">
+            <strong>Disclaimer:</strong> This is the personal professional website of Sanchita Adhikary Barman, an LIC Agent.<br />
+            This website is not the official website of Life Insurance Corporation of India (LIC).
+          </p>
+          <div class="text-right">
+            <p class="mb-2">&copy; <span id="current-year"></span> Sanchita Adhikary Barman. All Rights Reserved.</p>
+            <div class="space-x-4">
+              <a href="/pages/privacy-policy.html" class="hover:text-brand-purewhite transition-colors">Privacy Policy</a>
+              <a href="/pages/disclaimer.html" class="hover:text-brand-purewhite transition-colors">Disclaimer</a>
+              <a href="/pages/terms.html" class="hover:text-brand-purewhite transition-colors">Terms of Use</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/main.js"></script>
+    <script>
+      (function() {
+        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+          try {
+            window.lucide.createIcons();
+          } catch (e) {}
+        }
+        var yearEl = document.getElementById("current-year");
+        if (yearEl) {
+          yearEl.textContent = new Date().getFullYear();
+        }
+      })();
+    </script>
+  </body>
+</html>
