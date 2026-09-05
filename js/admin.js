@@ -46,8 +46,53 @@ function initAdmin() {
 
 // ---- Authentication ----
 
+let GH_AUTH_SCHEME = 'token'; // 'token' or 'Bearer'
+
+function getAuthHeader(token) {
+    const clean = (token || '').trim();
+    if (clean.startsWith('token ') || clean.startsWith('Bearer ')) {
+        return clean;
+    }
+    return `${GH_AUTH_SCHEME} ${clean}`;
+}
+
+async function githubRequest(url, options = {}) {
+    let authHeader = getAuthHeader(GH_TOKEN);
+    let res = await fetch(url, {
+        ...options,
+        headers: {
+            'Authorization': authHeader,
+            'Accept': 'application/vnd.github.v3+json',
+            ...(options.headers || {})
+        }
+    });
+
+    // If 401 Unauthorized, automatically try alternate auth scheme (token vs Bearer)
+    if (res.status === 401) {
+        const altScheme = GH_AUTH_SCHEME === 'token' ? 'Bearer' : 'token';
+        const rawToken = GH_TOKEN.trim().replace(/^(token|Bearer)\s+/i, '');
+        const altHeader = `${altScheme} ${rawToken}`;
+        const retryRes = await fetch(url, {
+            ...options,
+            headers: {
+                'Authorization': altHeader,
+                'Accept': 'application/vnd.github.v3+json',
+                ...(options.headers || {})
+            }
+        });
+        if (retryRes.ok) {
+            GH_AUTH_SCHEME = altScheme;
+            sessionStorage.setItem('gh_auth_scheme', altScheme);
+            return retryRes;
+        }
+    }
+
+    return res;
+}
+
 function setupAuth() {
     const authForm = document.getElementById('auth-form');
+    const connectBtn = document.getElementById('connect-btn');
     const logoutBtn = document.getElementById('logout-btn');
     const ownerInput = document.getElementById('gh-owner');
     const repoInput = document.getElementById('gh-repo');
@@ -71,18 +116,16 @@ function setupAuth() {
     if (ownerInput) ownerInput.addEventListener('input', autoParseGithubUrl);
     if (repoInput) repoInput.addEventListener('input', autoParseGithubUrl);
 
-    authForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = authForm.querySelector('button');
+    async function handleConnect() {
         const errEl = document.getElementById('auth-error');
+        const btnText = document.getElementById('connect-btn-text');
+        const btnSpinner = document.getElementById('connect-btn-spinner');
+
         if (errEl) errEl.classList.add('hidden');
 
-        btn.textContent = 'Connecting...';
-        btn.disabled = true;
-
-        let rawOwner = ownerInput.value.trim();
-        let rawRepo = repoInput.value.trim();
-        GH_TOKEN = tokenInput.value.trim();
+        let rawOwner = ownerInput ? ownerInput.value.trim() : '';
+        let rawRepo = repoInput ? repoInput.value.trim() : '';
+        let rawToken = tokenInput ? tokenInput.value.trim() : '';
 
         // Sanitize owner if a URL was entered
         if (rawOwner.includes('github.com/')) {
@@ -91,38 +134,37 @@ function setupAuth() {
             GH_OWNER = parts[0] || '';
             if (parts[1] && !rawRepo) {
                 GH_REPO = parts[1].replace(/\.git$/i, '');
-                repoInput.value = GH_REPO;
+                if (repoInput) repoInput.value = GH_REPO;
             } else {
                 GH_REPO = rawRepo;
             }
-            ownerInput.value = GH_OWNER;
+            if (ownerInput) ownerInput.value = GH_OWNER;
         } else {
             GH_OWNER = rawOwner.replace(/^@/, '').replace(/\/+$/, '');
             GH_REPO = rawRepo.replace(/\.git$/i, '').trim();
         }
 
-        // If repo still contains spaces or URL, clean it up
+        // Clean up repo if full URL was entered
         if (GH_REPO.includes('github.com/')) {
             const cleanRepo = GH_REPO.replace(/^https?:\/\/github\.com\/[^/]+\//i, '').replace(/\/+$/, '');
             GH_REPO = cleanRepo.replace(/\.git$/i, '');
-            repoInput.value = GH_REPO;
+            if (repoInput) repoInput.value = GH_REPO;
         }
+
+        GH_TOKEN = rawToken;
 
         if (!GH_OWNER || !GH_REPO || !GH_TOKEN) {
             showAuthError("Please provide your GitHub Username, Repository Name, and Personal Access Token.");
-            btn.textContent = 'Connect';
-            btn.disabled = false;
             return;
         }
 
-        // Validate token by fetching repo info
+        // Show loading state
+        if (btnText) btnText.textContent = 'Connecting...';
+        if (btnSpinner) btnSpinner.classList.remove('hidden');
+        if (connectBtn) connectBtn.disabled = true;
+
         try {
-            const res = await fetch(`https://api.github.com/repos/${encodeURIComponent(GH_OWNER)}/${encodeURIComponent(GH_REPO)}`, {
-                headers: {
-                    'Authorization': `Bearer ${GH_TOKEN}`,
-                    'Accept': 'application/vnd.github.v3+json'
-                }
-            });
+            const res = await githubRequest(`https://api.github.com/repos/${encodeURIComponent(GH_OWNER)}/${encodeURIComponent(GH_REPO)}`);
 
             if (res.ok) {
                 sessionStorage.setItem('gh_owner', GH_OWNER);
@@ -130,7 +172,7 @@ function setupAuth() {
                 sessionStorage.setItem('gh_token', GH_TOKEN);
                 showDashboard();
             } else if (res.status === 401) {
-                showAuthError("Invalid Token (401): The Personal Access Token was rejected. Check that you copied the full token without extra spaces.");
+                showAuthError("Invalid Token (401): GitHub rejected this Personal Access Token. Make sure you copied the full token without spaces and that it hasn't expired.");
             } else if (res.status === 404) {
                 showAuthError(`Repository not found (404): Could not find "${GH_OWNER}/${GH_REPO}". Check that the repository name matches GitHub exactly (case-sensitive) and that your token has the "repo" scope checked.`);
             } else if (res.status === 403) {
@@ -139,23 +181,55 @@ function setupAuth() {
                 showAuthError(`GitHub API error (${res.status}): Failed to connect to ${GH_OWNER}/${GH_REPO}.`);
             }
         } catch (error) {
-            showAuthError(`Connection error: ${error.message || "Failed to contact GitHub API. Please check your network or browser adblocker."}`);
+            showAuthError(`Connection error: ${error.message || "Failed to contact GitHub API. Please check your network or browser settings."}`);
         } finally {
-            btn.textContent = 'Connect';
-            btn.disabled = false;
+            if (btnText) btnText.textContent = 'Connect to Admin';
+            if (btnSpinner) btnSpinner.classList.add('hidden');
+            if (connectBtn) connectBtn.disabled = false;
+        }
+    }
+
+    if (connectBtn) {
+        connectBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleConnect();
+        });
+    }
+
+    if (authForm) {
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            handleConnect();
+            return false;
+        });
+    }
+
+    // Support pressing Enter in any input field
+    [ownerInput, repoInput, tokenInput].forEach(input => {
+        if (input) {
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleConnect();
+                }
+            });
         }
     });
 
-    logoutBtn.addEventListener('click', () => {
-        sessionStorage.clear();
-        location.reload();
-    });
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            sessionStorage.clear();
+            location.reload();
+        });
+    }
 }
 
 function showAuthError(msg) {
     const errEl = document.getElementById('auth-error');
-    errEl.textContent = msg;
-    errEl.classList.remove('hidden');
+    if (errEl) {
+        errEl.textContent = msg;
+        errEl.classList.remove('hidden');
+    }
 }
 
 function showDashboard() {
@@ -169,11 +243,7 @@ function showDashboard() {
 // ---- GitHub API Helpers ----
 
 async function fetchFileFromGithub(path) {
-    const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
-        headers: {
-            'Authorization': `Bearer ${GH_TOKEN}`,
-            'Accept': 'application/vnd.github.v3+json'
-        },
+    const res = await githubRequest(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
         cache: 'no-store' // Prevent caching old SHAs
     });
     
@@ -199,11 +269,9 @@ async function saveFileToGithub(path, contentStr, message, sha) {
     };
     if (sha) body.sha = sha;
 
-    const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
+    const res = await githubRequest(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
         method: 'PUT',
         headers: {
-            'Authorization': `Bearer ${GH_TOKEN}`,
-            'Accept': 'application/vnd.github.v3+json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)
@@ -452,9 +520,7 @@ function setupImageUpload() {
             // First, get the current SHA of the image so we can overwrite it
             let currentSha = null;
             try {
-                const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${imagePath}`, {
-                    headers: { 'Authorization': `Bearer ${GH_TOKEN}`, 'Accept': 'application/vnd.github.v3+json' }
-                });
+                const res = await githubRequest(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${imagePath}`);
                 if (res.ok) {
                     const data = await res.json();
                     currentSha = data.sha;
@@ -469,11 +535,9 @@ function setupImageUpload() {
             };
             if (currentSha) body.sha = currentSha;
 
-            const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${imagePath}`, {
+            const res = await githubRequest(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${imagePath}`, {
                 method: 'PUT',
                 headers: {
-                    'Authorization': `Bearer ${GH_TOKEN}`,
-                    'Accept': 'application/vnd.github.v3+json',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(body)
@@ -514,7 +578,7 @@ function renderAchievementsList() {
                     <textarea class="w-full text-sm px-2 py-1 border border-gray-300 rounded h-16" onchange="updateAchievement(${index}, 'description', this.value)">${a.description || ''}</textarea>
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-gray-500 mb-1">Upload New Image (Auto-saves to Github and updates link)</label>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Upload New Image <span class="text-slate-400">(Recommended: 1200×675 px landscape, max 2MB)</span></label>
                     <input type="file" accept="image/jpeg, image/png" class="w-full text-sm" onchange="uploadAchievementImage(${index}, this)">
                     <p class="text-xs text-gray-400 mt-1 truncate">Current: ${a.imagePath || 'None'}</p>
                     <div id="ach-upload-status-${index}" class="text-xs mt-1 font-medium hidden"></div>

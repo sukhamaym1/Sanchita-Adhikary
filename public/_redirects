@@ -2,6 +2,8 @@
 /admin                  /pages/admin.html           200
 /admin/                 /pages/admin.html           200
 /admin.html             /pages/admin.html           301
+/pages/admin            /pages/admin.html           200
+/pages/admin/           /pages/admin.html           200
 /privacy-policy         /pages/privacy-policy.html  200
 /privacy-policy/        /pages/privacy-policy.html  200
 /privacy-policy.html    /pages/privacy-policy.html  301

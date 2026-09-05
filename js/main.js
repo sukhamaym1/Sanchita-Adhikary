@@ -852,16 +852,19 @@ function setupSavingsGoalCalculator() {
 
 function renderAchievements() {
   const container = document.getElementById('achievements-slider');
-  const section = document.getElementById('achievements-section');
+  const section = document.getElementById('achievements') || document.getElementById('achievements-section');
   const indicatorsContainer = document.getElementById('slider-indicators');
+  const navLinks = document.querySelectorAll('a[href="#achievements"]');
   if (!container || !section) return;
 
   if (!ACHIEVEMENTS || ACHIEVEMENTS.length === 0) {
     section.classList.add('hidden');
+    navLinks.forEach(link => link.classList.add('hidden'));
     return;
   }
   
   section.classList.remove('hidden');
+  navLinks.forEach(link => link.classList.remove('hidden'));
   container.innerHTML = '';
   if (indicatorsContainer) indicatorsContainer.innerHTML = '';
 
@@ -880,7 +883,8 @@ function renderAchievements() {
 
     if (indicatorsContainer) {
       const dot = document.createElement('button');
-      dot.className = `w-2 h-2 rounded-full transition-all ${index === 0 ? 'bg-brand-gold w-6' : 'bg-white/40'}`;
+      dot.type = 'button';
+      dot.className = `slider-dot ${index === 0 ? 'active' : ''}`;
       dot.setAttribute('aria-label', `Slide ${index + 1}`);
       dot.addEventListener('click', () => goToSlide(index));
       indicatorsContainer.appendChild(dot);
@@ -894,7 +898,11 @@ function renderAchievements() {
     container.style.transform = `translateX(-${currentSlide * 100}%)`;
     if (indicatorsContainer) {
       Array.from(indicatorsContainer.children).forEach((dot, i) => {
-        dot.className = `w-2 h-2 rounded-full transition-all ${i === currentSlide ? 'bg-brand-gold w-6' : 'bg-white/40'}`;
+        if (i === currentSlide) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
       });
     }
   }

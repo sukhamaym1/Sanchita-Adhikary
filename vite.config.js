@@ -56,6 +56,13 @@ function buildHelpersPlugin() {
         // Adjust relative script and stylesheet paths if necessary, but assets are absolute or Vite-hashed
         fs.copyFileSync(adminHtml, resolve(adminDir, 'index.html'));
       }
+
+      // 3. Copy assets/images/ to dist/assets/images/ for runtime custom uploads
+      const srcImagesDir = resolve(__dirname, 'assets', 'images');
+      const distImagesDir = resolve(__dirname, 'dist', 'assets', 'images');
+      if (fs.existsSync(srcImagesDir)) {
+        fs.cpSync(srcImagesDir, distImagesDir, { recursive: true });
+      }
     }
   };
 }

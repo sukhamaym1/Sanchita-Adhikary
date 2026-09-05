@@ -34,8 +34,48 @@ input:active, select:active, textarea:active {
 input,
 select,
 textarea,
-button {
+button:not(.slider-dot) {
   min-height: 44px;
+}
+
+/* Carousel Dot Indicators */
+.slider-dot {
+  min-height: 0 !important;
+  min-width: 0 !important;
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 9999px !important;
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
+  cursor: pointer;
+  background-color: rgba(148, 163, 184, 0.45) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  flex-shrink: 0;
+  display: inline-block;
+  margin: 0 4px;
+}
+
+.slider-dot:hover {
+  background-color: rgba(217, 166, 46, 0.7) !important;
+  transform: scale(1.2);
+}
+
+.slider-dot.active {
+  width: 12px !important;
+  height: 12px !important;
+  background-color: #d9a62e !important;
+  transform: scale(1.35);
+  box-shadow: 0 0 0 3px rgba(217, 166, 46, 0.35);
+}
+
+.dark .slider-dot {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.dark .slider-dot.active {
+  background-color: #d9a62e !important;
+  box-shadow: 0 0 0 3px rgba(217, 166, 46, 0.4);
 }
 
 /* Specific interactive links that need tap area ensuring */
