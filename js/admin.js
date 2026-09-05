@@ -49,20 +49,75 @@ function initAdmin() {
 function setupAuth() {
     const authForm = document.getElementById('auth-form');
     const logoutBtn = document.getElementById('logout-btn');
+    const ownerInput = document.getElementById('gh-owner');
+    const repoInput = document.getElementById('gh-repo');
+    const tokenInput = document.getElementById('gh-token');
+
+    // Auto-parse if user pastes full GitHub URL into owner or repo input
+    function autoParseGithubUrl(e) {
+        const val = e.target.value.trim();
+        if (val.includes('github.com/')) {
+            const cleanUrl = val.replace(/^https?:\/\/github\.com\//i, '').replace(/\/+$/, '');
+            const parts = cleanUrl.split('/');
+            if (parts.length >= 1 && parts[0]) {
+                ownerInput.value = parts[0];
+            }
+            if (parts.length >= 2 && parts[1]) {
+                repoInput.value = parts[1].replace(/\.git$/i, '');
+            }
+        }
+    }
+
+    if (ownerInput) ownerInput.addEventListener('input', autoParseGithubUrl);
+    if (repoInput) repoInput.addEventListener('input', autoParseGithubUrl);
 
     authForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = authForm.querySelector('button');
+        const errEl = document.getElementById('auth-error');
+        if (errEl) errEl.classList.add('hidden');
+
         btn.textContent = 'Connecting...';
         btn.disabled = true;
 
-        GH_OWNER = document.getElementById('gh-owner').value.trim();
-        GH_REPO = document.getElementById('gh-repo').value.trim();
-        GH_TOKEN = document.getElementById('gh-token').value.trim();
+        let rawOwner = ownerInput.value.trim();
+        let rawRepo = repoInput.value.trim();
+        GH_TOKEN = tokenInput.value.trim();
+
+        // Sanitize owner if a URL was entered
+        if (rawOwner.includes('github.com/')) {
+            const clean = rawOwner.replace(/^https?:\/\/github\.com\//i, '').replace(/\/+$/, '');
+            const parts = clean.split('/');
+            GH_OWNER = parts[0] || '';
+            if (parts[1] && !rawRepo) {
+                GH_REPO = parts[1].replace(/\.git$/i, '');
+                repoInput.value = GH_REPO;
+            } else {
+                GH_REPO = rawRepo;
+            }
+            ownerInput.value = GH_OWNER;
+        } else {
+            GH_OWNER = rawOwner.replace(/^@/, '').replace(/\/+$/, '');
+            GH_REPO = rawRepo.replace(/\.git$/i, '').trim();
+        }
+
+        // If repo still contains spaces or URL, clean it up
+        if (GH_REPO.includes('github.com/')) {
+            const cleanRepo = GH_REPO.replace(/^https?:\/\/github\.com\/[^/]+\//i, '').replace(/\/+$/, '');
+            GH_REPO = cleanRepo.replace(/\.git$/i, '');
+            repoInput.value = GH_REPO;
+        }
+
+        if (!GH_OWNER || !GH_REPO || !GH_TOKEN) {
+            showAuthError("Please provide your GitHub Username, Repository Name, and Personal Access Token.");
+            btn.textContent = 'Connect';
+            btn.disabled = false;
+            return;
+        }
 
         // Validate token by fetching repo info
         try {
-            const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}`, {
+            const res = await fetch(`https://api.github.com/repos/${encodeURIComponent(GH_OWNER)}/${encodeURIComponent(GH_REPO)}`, {
                 headers: {
                     'Authorization': `Bearer ${GH_TOKEN}`,
                     'Accept': 'application/vnd.github.v3+json'
@@ -74,11 +129,17 @@ function setupAuth() {
                 sessionStorage.setItem('gh_repo', GH_REPO);
                 sessionStorage.setItem('gh_token', GH_TOKEN);
                 showDashboard();
+            } else if (res.status === 401) {
+                showAuthError("Invalid Token (401): The Personal Access Token was rejected. Check that you copied the full token without extra spaces.");
+            } else if (res.status === 404) {
+                showAuthError(`Repository not found (404): Could not find "${GH_OWNER}/${GH_REPO}". Check that the repository name matches GitHub exactly (case-sensitive) and that your token has the "repo" scope checked.`);
+            } else if (res.status === 403) {
+                showAuthError("Access Forbidden (403): Your token may lack the required 'repo' permission, or your account reached the GitHub API rate limit.");
             } else {
-                showAuthError("Invalid credentials or repository not found. Check your token scope (requires 'repo').");
+                showAuthError(`GitHub API error (${res.status}): Failed to connect to ${GH_OWNER}/${GH_REPO}.`);
             }
         } catch (error) {
-            showAuthError("Network error connecting to GitHub API.");
+            showAuthError(`Connection error: ${error.message || "Failed to contact GitHub API. Please check your network or browser adblocker."}`);
         } finally {
             btn.textContent = 'Connect';
             btn.disabled = false;
