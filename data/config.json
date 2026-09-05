@@ -1,0 +1,21 @@
+{
+  "name": "Sanchita Adhikary Barman",
+  "designation": "LIC Insurance Advisor",
+  "credential": "DM Club Member",
+  "phone": "+919876543210",
+  "whatsapp": "919876543210",
+  "email": "contact@example.com",
+  "serviceArea": "Kolkata, West Bengal",
+  "address": "Office details here",
+  "workingHours": "Mon - Sat: 10:00 AM - 6:00 PM",
+  "googleSpreadsheetId": "1yiQYarJpyUyIjgbE4QYRQq0SGOwozGC4Me8-CD70O0o",
+  "googleSpreadsheetUrl": "https://docs.google.com/spreadsheets/d/1yiQYarJpyUyIjgbE4QYRQq0SGOwozGC4Me8-CD70O0o/edit",
+  "googleSheetTab": "Consultation Inquiries",
+  "googleMapsUrl": "",
+  "googleAppsScriptUrl": "https://script.google.com/macros/s/AKfycbxFCNTfFsNL7_1wEYZNi8z-kP8u7-ajsXR1LrppCp1YQ6lQoK1NonU86qml2RkJ9Nay/exec",
+  "websiteUrl": "https://yourdomain.com",
+  "facebook": "https://facebook.com/",
+  "instagram": "https://instagram.com/",
+  "linkedin": "https://linkedin.com/",
+  "twitter": "https://twitter.com/"
+}

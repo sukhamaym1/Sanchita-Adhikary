@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use | Sanchita Adhikary Barman</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { theme: { extend: { colors: { navy: { 800: '#1E293B', 900: '#0F172A' }, gold: { 400: '#F3E5AB', 500: '#D4AF37', 600: '#C59A26' } }, fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Manrope', 'sans-serif'] } } } }
+    </script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="antialiased text-gray-800 bg-slate-50 flex flex-col min-h-screen">
+
+    <header class="w-full top-0 z-50 glass-effect border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="../index.html" class="flex flex-col">
+                    <span class="font-heading font-bold text-xl text-navy-900 tracking-tight" data-config="name">Sanchita Adhikary Barman</span>
+                    <span class="text-xs font-medium text-gold-600 uppercase tracking-wider" data-config="designation">LIC Insurance Advisor</span>
+                </a>
+                <a href="../index.html" class="text-sm font-medium text-navy-900 hover:text-gold-600 transition-colors">&larr; Back to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow py-12">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 bg-white p-8 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+            <h1 class="text-3xl font-heading font-bold text-navy-900 mb-6">Terms of Use</h1>
+            
+            <div class="prose prose-slate max-w-none text-sm text-gray-600 space-y-6">
+                
+                <section>
+                    <h2 class="text-lg font-bold text-navy-900 mb-2">1. Agreement to Terms</h2>
+                    <p>By accessing this personal professional website, you agree to be bound by these Terms of Use and to use the site in accordance with these Terms, our Privacy Policy, and any additional terms and conditions that may apply to specific sections of the site or to products and services available through the site.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-lg font-bold text-navy-900 mb-2">2. Intellectual Property Rights</h2>
+                    <p>Unless otherwise indicated, the Site is our proprietary property. LIC, the LIC logo, and all related names, logos, product and service names, designs, and slogans are trademarks of the Life Insurance Corporation of India. We are an authorized agent acting in an independent professional capacity.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-lg font-bold text-navy-900 mb-2">3. User Representations</h2>
+                    <p>By using the Site, you represent and warrant that: (1) all registration information you submit will be true, accurate, current, and complete; (2) you will maintain the accuracy of such information; (3) you will not access the Site through automated or non-human means.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-lg font-bold text-navy-900 mb-2">4. Disclaimer of Guarantee</h2>
+                    <p>All calculators and projection tools provided on this website are purely illustrative. We do not guarantee any specific returns, investment performance, or approval of claims, which are strictly subject to the official underwriting policies of the insurance provider.</p>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-navy-900 py-8 border-t border-navy-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-xs">
+                &copy; <span id="current-year"></span> Sanchita Adhikary Barman. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+    
+    <script>
+        (function() {
+            var yearEl = document.getElementById('current-year');
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
+            
+            fetch('../data/config.json')
+                .then(res => res.ok ? res.json() : fetch('/data/config.json').then(r => r.json()))
+                .then(config => {
+                    if (!config) return;
+                    document.querySelectorAll('[data-config]').forEach(el => {
+                        const key = el.getAttribute('data-config');
+                        if (config[key]) el.textContent = config[key];
+                    });
+                })
+                .catch(() => {});
+        })();
+    </script>
+</body>
+</html>

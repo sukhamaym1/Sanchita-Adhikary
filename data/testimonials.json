@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Amit Sharma",
+    "details": "Business Owner, Kolkata",
+    "text": "Sanchita provided exceptional guidance when I was looking for a family protection plan. Her understanding of LIC policies is unmatched.",
+    "rating": 5
+  },
+  {
+    "id": 2,
+    "name": "Priya Das",
+    "details": "IT Professional, Salt Lake",
+    "text": "The retirement planning session was eye-opening. Sanchita didn't just sell a policy; she explained the long-term financial roadmap clearly.",
+    "rating": 5
+  },
+  {
+    "id": 3,
+    "name": "Rajesh & Sunita Verma",
+    "details": "Parents",
+    "text": "We secured our daughter's higher education through Sanchita's recommendations. She is professional, patient, and very helpful with paperwork.",
+    "rating": 5
+  }
+]

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer | Sanchita Adhikary Barman</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { theme: { extend: { colors: { navy: { 800: '#1E293B', 900: '#0F172A' }, gold: { 400: '#F3E5AB', 500: '#D4AF37', 600: '#C59A26' } }, fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Manrope', 'sans-serif'] } } } }
+    </script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="antialiased text-gray-800 bg-slate-50 flex flex-col min-h-screen">
+
+    <header class="w-full top-0 z-50 glass-effect border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="../index.html" class="flex flex-col">
+                    <span class="font-heading font-bold text-xl text-navy-900 tracking-tight" data-config="name">Sanchita Adhikary Barman</span>
+                    <span class="text-xs font-medium text-gold-600 uppercase tracking-wider" data-config="designation">LIC Insurance Advisor</span>
+                </a>
+                <a href="../index.html" class="text-sm font-medium text-navy-900 hover:text-gold-600 transition-colors">&larr; Back to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow py-12">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 bg-white p-8 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+            <h1 class="text-3xl font-heading font-bold text-navy-900 mb-6">Website Disclaimer</h1>
+            
+            <div class="prose prose-slate max-w-none text-sm text-gray-600 space-y-6">
+                
+                <div class="bg-amber-50 border border-amber-200 text-amber-900 p-4 rounded-lg mb-6">
+                    <p class="font-bold mb-2">Important Notice</p>
+                    <p>This is the personal professional website of Sanchita Adhikary Barman, an independent LIC Agent. This website is NOT the official website of Life Insurance Corporation of India (LIC).</p>
+                </div>
+
+                <section>
+                    <h2 class="text-lg font-bold text-navy-900 mb-2">1. General Information</h2>
+                    <p>The information provided by Sanchita Adhikary Barman on this website is for general informational and educational purposes only. All information on the site is provided in good faith, however, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the site.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-lg font-bold text-navy-900 mb-2">2. Subject Matter of Solicitation</h2>
+                    <p>Insurance is a subject matter of solicitation. The product descriptions, illustrations, and calculators provided on this website are indicative and meant for understanding concepts. They do not constitute official policy documents or guaranteed benefits.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-lg font-bold text-navy-900 mb-2">3. Not Financial Advice</h2>
+                    <p>The contents of this website should not be construed as personalized financial, investment, or legal advice. Visitors are encouraged to read the official LIC sales brochures, terms, and conditions carefully before concluding a sale or making any financial decision.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-lg font-bold text-navy-900 mb-2">4. External Links</h2>
+                    <p>This website may contain links to official LIC websites and other third-party portals. Such external links are not investigated, monitored, or checked for accuracy by us. We do not warrant, endorse, guarantee, or assume responsibility for the accuracy or reliability of any information offered by third-party websites linked through the site.</p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-navy-900 py-8 border-t border-navy-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-xs">
+                &copy; <span id="current-year"></span> Sanchita Adhikary Barman. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+    
+    <script>
+        (function() {
+            var yearEl = document.getElementById('current-year');
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
+            
+            fetch('../data/config.json')
+                .then(res => res.ok ? res.json() : fetch('/data/config.json').then(r => r.json()))
+                .then(config => {
+                    if (!config) return;
+                    document.querySelectorAll('[data-config]').forEach(el => {
+                        const key = el.getAttribute('data-config');
+                        if (config[key]) el.textContent = config[key];
+                    });
+                })
+                .catch(() => {});
+        })();
+    </script>
+</body>
+</html>

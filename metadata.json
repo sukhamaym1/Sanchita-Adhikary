@@ -1,0 +1,8 @@
+{
+  "name": "Sanchita Adhikary Barman - LIC Insurance Advisor",
+  "description": "A premium, mobile-first website for LIC advisor Sanchita Barman, providing professional branding, service overviews, and direct client consultation forms.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

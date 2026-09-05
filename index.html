@@ -1,0 +1,2386 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sanchita Adhikary Barman | LIC Insurance Advisor</title>
+    <meta
+      name="description"
+      content="Connect with Sanchita Adhikary Barman, LIC Insurance Advisor and DM Club Member."
+    />
+
+    <!-- Open Graph Metadata -->
+    <meta
+      property="og:title"
+      content="Sanchita Adhikary Barman | LIC Insurance Advisor"
+    />
+    <meta
+      property="og:description"
+      content="Connect with Sanchita Adhikary Barman, LIC Insurance Advisor and DM Club Member."
+    />
+    <meta property="og:type" content="website" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                navy: "#062A5A",
+                midnight: "#031B3A",
+                gold: "#D9A62E",
+                softgold: "#F3D98B",
+                warmwhite: "#FAFBFD",
+                purewhite: "#FFFFFF",
+                text: "#172033",
+                muted: "#64748B",
+                border: "#E5EAF0",
+                whatsapp: "#16A34A",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              heading: ['"Playfair Display"', "serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css" />
+
+    <style>
+      body {
+        background-color: #fafbfd;
+        color: #64748b;
+        font-family: "Inter", sans-serif;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        color: #172033;
+        font-family: "Playfair Display", serif;
+      }
+      /* Ensure dark sections have crisp high-contrast white headings */
+      .bg-brand-midnight h1,
+      .bg-brand-midnight h2,
+      .bg-brand-midnight h3,
+      .bg-brand-midnight h4,
+      .bg-brand-navy h1,
+      .bg-brand-navy h2,
+      .bg-brand-navy h3,
+      #contact h1,
+      #contact h2,
+      #contact h3,
+      #contact h4 {
+        color: #ffffff;
+      }
+
+      /* Section Ornaments */
+      .section-ornament {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+      .section-ornament.justify-start {
+        justify-content: flex-start;
+      }
+      .section-ornament::before,
+      .section-ornament::after {
+        content: "";
+        height: 1px;
+        width: 40px;
+        background-color: #d9a62e;
+      }
+      .section-ornament.justify-start::before {
+        display: none;
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px -10px rgba(6, 42, 90, 0.1);
+      }
+      .stage-card-hover {
+        transition: border-color 0.3s ease;
+      }
+      .stage-card-hover:hover {
+        border-color: #d9a62e;
+      }
+
+      /* Floating WhatsApp */
+      /* Scroll Reveal Animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .floating-whatsapp {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 50;
+        background-color: #16a34a;
+        color: white;
+        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4);
+        transition: transform 0.3s ease;
+      }
+      .floating-whatsapp:hover {
+        transform: scale(1.1);
+      }
+
+      /* Mobile CTA */
+      /* Back to Top */
+      .back-to-top {
+        position: fixed;
+        bottom: 24px;
+        left: 24px;
+        z-index: 50;
+        background-color: #0B1120;
+        color: #d9a62e;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(10px);
+      }
+      .back-to-top.show {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+      .back-to-top:hover {
+        background-color: #d9a62e;
+        color: #0B1120;
+        transform: translateY(0) scale(1.1);
+      }
+
+      .mobile-cta-bar {
+        display: none;
+      }
+      @media (max-width: 768px) {
+        .mobile-cta-bar {
+          display: flex;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          background: #062a5a;
+          z-index: 40;
+          padding: 12px 16px;
+          padding-bottom: calc(12px + env(safe-area-inset-bottom));
+          gap: 8px;
+          justify-content: space-between;
+        }
+        .floating-whatsapp, .back-to-top {
+          bottom: calc(80px + env(safe-area-inset-bottom));
+        }
+      }
+    </style>
+    <script>
+      // Safe theme check for iframe and storage sandbox environments
+      (function() {
+        try {
+          const storedTheme = localStorage.getItem('theme');
+          if (storedTheme === 'dark' || (!storedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {
+          try {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+              document.documentElement.classList.add('dark');
+            }
+          } catch (err) {}
+        }
+      })();
+    </script>
+  </head>
+  <body class="flex flex-col min-h-screen relative">
+    <!-- Header -->
+    <header class="bg-brand-navy sticky top-0 z-50 shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <div class="flex-shrink-0 flex items-center">
+            <a href="#home" class="flex flex-col">
+              <span
+                class="font-heading italic text-brand-gold text-2xl leading-none"
+                >Sanchita</span
+              >
+              <span
+                class="font-sans font-bold text-brand-purewhite text-xs tracking-widest leading-tight mt-1"
+                >ADHIKARY BARMAN</span
+              >
+              <span
+                class="font-sans text-[10px] text-blue-200 tracking-wider uppercase mt-1"
+                >LIC INSURANCE ADVISOR</span
+              >
+            </a>
+          </div>
+
+          <nav class="hidden lg:flex space-x-8 items-center">
+            <a
+              href="#home"
+              class="text-brand-gold text-base font-medium hover:text-brand-softgold transition-colors"
+              >Home</a
+            >
+            <a
+              href="#about"
+              class="text-brand-purewhite text-base font-medium hover:text-brand-gold transition-colors"
+              >About</a
+            >
+            <a
+              href="#services"
+              class="text-brand-purewhite text-base font-medium hover:text-brand-gold transition-colors"
+              >Services</a
+            >
+            <a
+              href="#tools"
+              class="text-brand-purewhite text-base font-medium hover:text-brand-gold transition-colors"
+              >Resources</a
+            >
+            <a
+              href="#lic-links"
+              class="text-brand-purewhite text-base font-medium hover:text-brand-gold transition-colors"
+              >LIC Links</a
+            >
+            <a
+              href="#testimonials"
+              class="text-brand-purewhite text-base font-medium hover:text-brand-gold transition-colors"
+              >Testimonials</a
+            >
+            <a
+              href="#contact"
+              class="bg-brand-gold text-brand-midnight px-6 py-2.5 rounded-lg text-lg font-bold hover:bg-yellow-500 transition-colors shadow-sm"
+              >Book Consultation</a
+            >
+            <button id="theme-toggle-desktop" class="text-brand-purewhite hover:text-brand-gold focus:outline-none ml-2" aria-label="Toggle Dark Mode">
+              <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+              <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+            </button>
+          </nav>
+
+          <!-- Mobile menu button & Theme toggle -->
+          <div class="lg:hidden flex items-center space-x-4">
+            <button id="theme-toggle-mobile" class="text-brand-purewhite hover:text-brand-gold focus:outline-none" aria-label="Toggle Dark Mode">
+              <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+              <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+            </button>
+            <button
+              id="mobile-menu-btn"
+              class="text-brand-purewhite hover:text-brand-gold focus:outline-none"
+            >
+              <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+              <i data-lucide="x" id="close-icon" class="w-6 h-6 hidden"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile Menu Panel -->
+      <div
+        id="mobile-menu"
+        class="hidden lg:hidden bg-brand-midnight border-t border-brand-navy"
+      >
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <a href="#home" class="block px-3 py-2 text-brand-gold font-medium mobile-menu-link"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="block px-3 py-2 text-brand-purewhite hover:text-brand-gold font-medium mobile-menu-link"
+            >About</a
+          >
+          <a
+            href="#services"
+            class="block px-3 py-2 text-brand-purewhite hover:text-brand-gold font-medium mobile-menu-link"
+            >Services</a
+          >
+          <a
+            href="#tools"
+            class="block px-3 py-2 text-brand-purewhite hover:text-brand-gold font-medium mobile-menu-link"
+            >Resources</a
+          >
+          <a
+            href="#lic-links"
+            class="block px-3 py-2 text-brand-purewhite hover:text-brand-gold font-medium mobile-menu-link"
+            >LIC Links</a
+          >
+          <a
+            href="#testimonials"
+            class="block px-3 py-2 text-brand-purewhite hover:text-brand-gold font-medium mobile-menu-link"
+            >Testimonials</a
+          >
+          <a href="#contact" class="block px-3 py-2 text-brand-gold font-bold mobile-menu-link"
+            >Book Consultation</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow">
+      <!-- Hero Section -->
+      <section id="home" class="relative bg-brand-navy overflow-hidden">
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-brand-navy to-brand-midnight z-0"
+        ></div>
+        <!-- Subtle pattern -->
+        <div
+          class="absolute inset-0 opacity-10 z-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMCIvPgo8cGF0aCBkPSJNMCAwbDhfOFpNOCAwTDAgOFoiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIwLjUiIGZpbGw9Im5vbmUiIG9wYWNpdHk9IjEiLz4KPC9zdmc+')]"
+        ></div>
+
+        <div
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16 lg:py-24 flex flex-col lg:flex-row items-center"
+        >
+          <div class="lg:w-3/5 text-center lg:text-left mb-12 lg:mb-0 pt-8">
+            <h2
+              class="text-brand-gold font-heading italic text-2xl md:text-3xl mb-2"
+            >
+              Namaste! I am
+            </h2>
+            <h1
+              class="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-brand-purewhite mb-4 leading-tight"
+            >
+              <span data-config="name">Sanchita Adhikary Barman</span>
+            </h1>
+            <div
+              class="flex items-center justify-center lg:justify-start gap-3 mb-6"
+            >
+              <span
+                class="text-brand-purewhite font-semibold text-lg"
+                data-config="designation"
+                >LIC Insurance Advisor</span
+              >
+              <span class="text-brand-gold">|</span>
+              <span
+                class="text-brand-gold font-semibold text-lg"
+                data-config="credential"
+                >DM Club Member</span
+              >
+            </div>
+            <p
+              class="text-blue-100 text-lg max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed font-sans"
+            >
+              Helping individuals and families make informed decisions about
+              life insurance, financial protection and long-term planning.
+            </p>
+
+            <div
+              class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
+            >
+              <a
+                href="#contact"
+                class="w-full sm:w-auto flex items-center justify-center px-8 py-3.5 bg-brand-gold text-brand-midnight font-bold rounded-xl hover:bg-yellow-500 transition-colors shadow-lg"
+              >
+                <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book a
+                Consultation
+              </a>
+              <a
+                href="#contact"
+                data-config-href="whatsapp"
+                class="w-full sm:w-auto flex items-center justify-center px-8 py-3.5 bg-brand-whatsapp text-white font-bold rounded-xl hover:bg-green-700 transition-colors shadow-lg"
+              >
+                <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i>
+                WhatsApp Me
+              </a>
+              <a
+                href="#contact"
+                data-config-href="phone"
+                class="w-full sm:w-auto flex items-center justify-center px-8 py-3.5 bg-transparent border border-brand-purewhite text-brand-purewhite font-bold rounded-xl hover:bg-white/10 transition-colors"
+              >
+                <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Call Now
+              </a>
+            </div>
+          </div>
+          <div class="lg:w-2/5 flex justify-center lg:justify-end relative">
+            <div
+              class="relative w-72 h-72 md:w-96 md:h-96 rounded-full border-4 border-brand-softgold p-2 shadow-2xl"
+            >
+              <img
+                src="/assets/images/sanchita-adhikary-barman.jpg"
+                alt="Sanchita Adhikary Barman"
+                class="w-full h-full object-cover rounded-full"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800&h=1000'
+                "
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trust Strip -->
+      <div
+        class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-10 mb-16"
+      >
+        <div
+          class="bg-brand-purewhite dark:bg-slate-900 rounded-xl shadow-lg border border-brand-border dark:border-slate-800 py-6 px-4 sm:px-8"
+        >
+          <div
+            class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-brand-border"
+          >
+            <div
+              class="flex flex-col sm:flex-row items-center justify-center gap-3 p-2"
+            >
+              <i data-lucide="award" class="w-8 h-8 text-brand-gold"></i>
+              <div class="text-left hidden sm:block">
+                <div class="font-bold text-brand-text dark:text-gray-100 text-lg">
+                  Professional
+                </div>
+                <div class="text-brand-muted dark:text-gray-400 text-base">LIC Agent</div>
+              </div>
+              <div class="sm:hidden font-bold text-brand-text dark:text-gray-100 text-lg mt-2">
+                Professional LIC Agent
+              </div>
+            </div>
+            <div
+              class="flex flex-col sm:flex-row items-center justify-center gap-3 p-2"
+            >
+              <i data-lucide="star" class="w-8 h-8 text-brand-gold"></i>
+              <div class="text-left hidden sm:block">
+                <div
+                  class="font-bold text-brand-text dark:text-gray-100 text-lg"
+                  data-config="credential"
+                >
+                  DM Club
+                </div>
+                <div class="text-brand-muted dark:text-gray-400 text-base">Member</div>
+              </div>
+              <div
+                class="sm:hidden font-bold text-brand-text dark:text-gray-100 text-lg mt-2"
+                data-config="credential"
+              >
+                DM Club Member
+              </div>
+            </div>
+            <div
+              class="flex flex-col sm:flex-row items-center justify-center gap-3 p-2"
+            >
+              <i data-lucide="user" class="w-8 h-8 text-brand-gold"></i>
+              <div class="text-left hidden sm:block">
+                <div class="font-bold text-brand-text dark:text-gray-100 text-lg">
+                  Personalized
+                </div>
+                <div class="text-brand-muted dark:text-gray-400 text-base">Guidance</div>
+              </div>
+              <div class="sm:hidden font-bold text-brand-text dark:text-gray-100 text-lg mt-2">
+                Personalized Guidance
+              </div>
+            </div>
+            <div
+              class="flex flex-col sm:flex-row items-center justify-center gap-3 p-2"
+            >
+              <i
+                data-lucide="heart-handshake"
+                class="w-8 h-8 text-brand-gold"
+              ></i>
+              <div class="text-left hidden sm:block">
+                <div class="font-bold text-brand-text dark:text-gray-100 text-lg">Long-Term</div>
+                <div class="text-brand-muted dark:text-gray-400 text-base">Customer Support</div>
+              </div>
+              <div class="sm:hidden font-bold text-brand-text dark:text-gray-100 text-lg mt-2">
+                Long-Term Support
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Section -->
+      <section id="about" class="py-12 bg-brand-warmwhite dark:bg-slate-950 reveal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col lg:flex-row items-center gap-16">
+            <div class="lg:w-2/5">
+              <div
+                class="relative rounded-[24px] overflow-hidden shadow-xl border border-brand-border dark:border-slate-800 bg-brand-purewhite dark:bg-slate-900 p-3"
+              >
+                <img
+                  class="w-full h-auto object-cover rounded-[16px]"
+                  src="/assets/images/sanchita-adhikary-barman.jpg"
+                  alt="About Sanchita Adhikary Barman"
+                  onerror="
+                    this.src =
+                      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800&h=1000'
+                  "
+                />
+              </div>
+            </div>
+            <div class="lg:w-3/5">
+              <h2
+                class="text-3xl md:text-4xl font-heading font-bold text-brand-text dark:text-gray-100 mb-6"
+              >
+                About Sanchita Adhikary Barman
+              </h2>
+              <p class="text-brand-muted dark:text-gray-400 text-lg mb-6 leading-relaxed">
+                I am a dedicated LIC Insurance Advisor committed to helping
+                individuals and families secure their future with the right
+                financial protection and long-term planning.
+              </p>
+              <ul class="space-y-4 mb-8">
+                <li class="flex items-start">
+                  <i
+                    data-lucide="check"
+                    class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0"
+                  ></i>
+                  <span class="text-brand-text dark:text-gray-100 font-medium"
+                    >Customer-first approach with honest guidance</span
+                  >
+                </li>
+                <li class="flex items-start">
+                  <i
+                    data-lucide="check"
+                    class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0"
+                  ></i>
+                  <span class="text-brand-text dark:text-gray-100 font-medium"
+                    >Personalized solutions based on your needs</span
+                  >
+                </li>
+                <li class="flex items-start">
+                  <i
+                    data-lucide="check"
+                    class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0"
+                  ></i>
+                  <span class="text-brand-text dark:text-gray-100 font-medium"
+                    >Assistance in policy servicing and claim process</span
+                  >
+                </li>
+                <li class="flex items-start">
+                  <i
+                    data-lucide="check"
+                    class="w-5 h-5 text-brand-gold mr-3 mt-1 flex-shrink-0"
+                  ></i>
+                  <span class="text-brand-text dark:text-gray-100 font-medium"
+                    >Building long-term relationships with trust</span
+                  >
+                </li>
+              </ul>
+              <a
+                href="#contact"
+                class="inline-flex items-center px-8 py-3 bg-brand-navy text-brand-purewhite font-bold rounded-lg hover:bg-brand-midnight transition-colors shadow-sm"
+              >
+                Know More About Me
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section
+        id="services"
+        class="py-20 bg-brand-purewhite dark:bg-slate-900 border-t border-brand-border dark:border-slate-800 reveal"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="section-ornament text-brand-gold">
+            <i data-lucide="diamond"></i>
+          </div>
+          <h2
+            class="text-3xl md:text-4xl font-heading font-bold text-center text-brand-text dark:text-gray-100 mb-12"
+          >
+            My Services
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Service 1 -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 rounded-2xl p-6 border border-brand-border dark:border-slate-800 shadow-sm card-hover flex gap-4"
+            >
+              <div class="flex-shrink-0">
+                <i data-lucide="shield" class="w-8 h-8 text-brand-navy"></i>
+              </div>
+              <div class="flex flex-col">
+                <h3 class="text-lg font-bold text-brand-text dark:text-gray-100 mb-2">
+                  Life Insurance Planning
+                </h3>
+                <p class="text-base text-brand-muted dark:text-gray-400 mb-4 flex-grow">
+                  Financial protection for your loved ones.
+                </p>
+                <a
+                  href="#contact"
+                  class="text-lg font-bold text-brand-navy flex items-center mt-auto hover:text-brand-gold transition-colors"
+                >
+                  Discuss Now
+                  <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
+                </a>
+              </div>
+            </div>
+            <!-- Service 2 -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 rounded-2xl p-6 border border-brand-border dark:border-slate-800 shadow-sm card-hover flex gap-4"
+            >
+              <div class="flex-shrink-0">
+                <i data-lucide="users" class="w-8 h-8 text-brand-navy"></i>
+              </div>
+              <div class="flex flex-col">
+                <h3 class="text-lg font-bold text-brand-text dark:text-gray-100 mb-2">
+                  Family Protection Planning
+                </h3>
+                <p class="text-base text-brand-muted dark:text-gray-400 mb-4 flex-grow">
+                  Secure your family's future in your absence.
+                </p>
+                <a
+                  href="#contact"
+                  class="text-lg font-bold text-brand-navy flex items-center mt-auto hover:text-brand-gold transition-colors"
+                >
+                  Discuss Now
+                  <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
+                </a>
+              </div>
+            </div>
+            <!-- Service 3 -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 rounded-2xl p-6 border border-brand-border dark:border-slate-800 shadow-sm card-hover flex gap-4"
+            >
+              <div class="flex-shrink-0">
+                <i
+                  data-lucide="graduation-cap"
+                  class="w-8 h-8 text-brand-navy"
+                ></i>
+              </div>
+              <div class="flex flex-col">
+                <h3 class="text-lg font-bold text-brand-text dark:text-gray-100 mb-2">
+                  Child Future Planning
+                </h3>
+                <p class="text-base text-brand-muted dark:text-gray-400 mb-4 flex-grow">
+                  Plan today for your child's bright tomorrow.
+                </p>
+                <a
+                  href="#contact"
+                  class="text-lg font-bold text-brand-navy flex items-center mt-auto hover:text-brand-gold transition-colors"
+                >
+                  Discuss Now
+                  <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
+                </a>
+              </div>
+            </div>
+            <!-- Service 4 -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 rounded-2xl p-6 border border-brand-border dark:border-slate-800 shadow-sm card-hover flex gap-4"
+            >
+              <div class="flex-shrink-0">
+                <i data-lucide="sunset" class="w-8 h-8 text-brand-navy"></i>
+              </div>
+              <div class="flex flex-col">
+                <h3 class="text-lg font-bold text-brand-text dark:text-gray-100 mb-2">
+                  Retirement Planning
+                </h3>
+                <p class="text-base text-brand-muted dark:text-gray-400 mb-4 flex-grow">
+                  Enjoy a stress-free and secure retirement.
+                </p>
+                <a
+                  href="#contact"
+                  class="text-lg font-bold text-brand-navy flex items-center mt-auto hover:text-brand-gold transition-colors"
+                >
+                  Discuss Now
+                  <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Service 5 -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 rounded-2xl p-6 border border-brand-border dark:border-slate-800 shadow-sm card-hover flex gap-4"
+            >
+              <div class="flex-shrink-0">
+                <i data-lucide="piggy-bank" class="w-8 h-8 text-brand-navy"></i>
+              </div>
+              <div class="flex flex-col">
+                <h3 class="text-lg font-bold text-brand-text dark:text-gray-100 mb-2">
+                  Savings & Long Term Planning
+                </h3>
+                <p class="text-base text-brand-muted dark:text-gray-400 mb-4 flex-grow">
+                  Build wealth and achieve your long-term goals.
+                </p>
+                <a
+                  href="#contact"
+                  class="text-lg font-bold text-brand-navy flex items-center mt-auto hover:text-brand-gold transition-colors"
+                >
+                  Discuss Now
+                  <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
+                </a>
+              </div>
+            </div>
+            <!-- Service 6 -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 rounded-2xl p-6 border border-brand-border dark:border-slate-800 shadow-sm card-hover flex gap-4"
+            >
+              <div class="flex-shrink-0">
+                <i data-lucide="file-text" class="w-8 h-8 text-brand-navy"></i>
+              </div>
+              <div class="flex flex-col">
+                <h3 class="text-lg font-bold text-brand-text dark:text-gray-100 mb-2">
+                  Existing Policy Guidance
+                </h3>
+                <p class="text-base text-brand-muted dark:text-gray-400 mb-4 flex-grow">
+                  Get assistance for your existing LIC policies.
+                </p>
+                <a
+                  href="#contact"
+                  class="text-lg font-bold text-brand-navy flex items-center mt-auto hover:text-brand-gold transition-colors"
+                >
+                  Discuss Now
+                  <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
+                </a>
+              </div>
+            </div>
+            <!-- Service 7 -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 rounded-2xl p-6 border border-brand-border dark:border-slate-800 shadow-sm card-hover flex gap-4"
+            >
+              <div class="flex-shrink-0">
+                <i
+                  data-lucide="clipboard-list"
+                  class="w-8 h-8 text-brand-navy"
+                ></i>
+              </div>
+              <div class="flex flex-col">
+                <h3 class="text-lg font-bold text-brand-text dark:text-gray-100 mb-2">
+                  Premium & Policy Service
+                </h3>
+                <p class="text-base text-brand-muted dark:text-gray-400 mb-4 flex-grow">
+                  Help with premium payment, policy updates & more.
+                </p>
+                <a
+                  href="#contact"
+                  class="text-lg font-bold text-brand-navy flex items-center mt-auto hover:text-brand-gold transition-colors"
+                >
+                  Discuss Now
+                  <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
+                </a>
+              </div>
+            </div>
+            <!-- Service 8 -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 rounded-2xl p-6 border border-brand-border dark:border-slate-800 shadow-sm card-hover flex gap-4"
+            >
+              <div class="flex-shrink-0">
+                <i
+                  data-lucide="file-check-2"
+                  class="w-8 h-8 text-brand-navy"
+                ></i>
+              </div>
+              <div class="flex flex-col">
+                <h3 class="text-lg font-bold text-brand-text dark:text-gray-100 mb-2">
+                  Claim Process Guidance
+                </h3>
+                <p class="text-base text-brand-muted dark:text-gray-400 mb-4 flex-grow">
+                  Support and guidance during claim process.
+                </p>
+                <a
+                  href="#contact"
+                  class="text-lg font-bold text-brand-navy flex items-center mt-auto hover:text-brand-gold transition-colors"
+                >
+                  Discuss Now
+                  <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Life Stages -->
+      <section
+        id="stages"
+        class="py-20 bg-brand-purewhite dark:bg-slate-900 border-t border-brand-border dark:border-slate-800 reveal"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div class="section-ornament text-brand-gold">
+            <i data-lucide="diamond"></i>
+          </div>
+          <h2
+            class="text-3xl md:text-4xl font-heading font-bold text-brand-text dark:text-gray-100 mb-12"
+          >
+            Planning for Every Stage of Life
+          </h2>
+
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <!-- Stage 1 -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-[16px] p-6 flex flex-col items-center text-center shadow-sm stage-card-hover cursor-pointer"
+            >
+              <div
+                class="w-16 h-16 rounded-full bg-brand-navy flex items-center justify-center mb-4 text-brand-gold"
+              >
+                <i data-lucide="user" class="w-8 h-8"></i>
+              </div>
+              <h4 class="font-bold text-brand-text dark:text-gray-100 mb-2 text-lg">
+                Young Professionals
+              </h4>
+              <p class="text-base text-brand-muted dark:text-gray-400 leading-relaxed">
+                Start early, secure your future.
+              </p>
+            </div>
+            <!-- Stage 2 -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-[16px] p-6 flex flex-col items-center text-center shadow-sm stage-card-hover cursor-pointer"
+            >
+              <div
+                class="w-16 h-16 rounded-full bg-brand-navy flex items-center justify-center mb-4 text-brand-gold"
+              >
+                <i data-lucide="users" class="w-8 h-8"></i>
+              </div>
+              <h4 class="font-bold text-brand-text dark:text-gray-100 mb-2 text-lg">Families</h4>
+              <p class="text-base text-brand-muted dark:text-gray-400 leading-relaxed">
+                Protect your loved ones and their dreams.
+              </p>
+            </div>
+            <!-- Stage 3 -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-[16px] p-6 flex flex-col items-center text-center shadow-sm stage-card-hover cursor-pointer"
+            >
+              <div
+                class="w-16 h-16 rounded-full bg-brand-navy flex items-center justify-center mb-4 text-brand-gold"
+              >
+                <i data-lucide="baby" class="w-8 h-8"></i>
+              </div>
+              <h4 class="font-bold text-brand-text dark:text-gray-100 mb-2 text-lg">Parents</h4>
+              <p class="text-base text-brand-muted dark:text-gray-400 leading-relaxed">
+                Plan for your child's education and marriage.
+              </p>
+            </div>
+            <!-- Stage 4 -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-[16px] p-6 flex flex-col items-center text-center shadow-sm stage-card-hover cursor-pointer"
+            >
+              <div
+                class="w-16 h-16 rounded-full bg-brand-navy flex items-center justify-center mb-4 text-brand-gold"
+              >
+                <i data-lucide="briefcase" class="w-8 h-8"></i>
+              </div>
+              <h4 class="font-bold text-brand-text dark:text-gray-100 mb-2 text-lg">
+                Business Owners
+              </h4>
+              <p class="text-base text-brand-muted dark:text-gray-400 leading-relaxed">
+                Secure your business and family.
+              </p>
+            </div>
+            <!-- Stage 5 -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-[16px] p-6 flex flex-col items-center text-center shadow-sm stage-card-hover cursor-pointer"
+            >
+              <div
+                class="w-16 h-16 rounded-full bg-brand-navy flex items-center justify-center mb-4 text-brand-gold"
+              >
+                <i data-lucide="umbrella" class="w-8 h-8"></i>
+              </div>
+              <h4 class="font-bold text-brand-text dark:text-gray-100 mb-2 text-lg">
+                Pre-Retirement
+              </h4>
+              <p class="text-base text-brand-muted dark:text-gray-400 leading-relaxed">
+                Prepare today for a peaceful tomorrow.
+              </p>
+            </div>
+            <!-- Stage 6 -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-[16px] p-6 flex flex-col items-center text-center shadow-sm stage-card-hover cursor-pointer"
+            >
+              <div
+                class="w-16 h-16 rounded-full bg-brand-navy flex items-center justify-center mb-4 text-brand-gold"
+              >
+                <i data-lucide="coffee" class="w-8 h-8"></i>
+              </div>
+              <h4 class="font-bold text-brand-text dark:text-gray-100 mb-2 text-lg">Retirees</h4>
+              <p class="text-base text-brand-muted dark:text-gray-400 leading-relaxed">
+                Enjoy financial freedom and stability.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tools Section -->
+      <section
+        id="tools"
+        class="py-16 bg-brand-warmwhite dark:bg-slate-950 border-t border-brand-border dark:border-slate-800 reveal"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div class="section-ornament text-brand-gold">
+            <i data-lucide="diamond"></i>
+          </div>
+          <h2
+            class="text-3xl md:text-4xl font-heading font-bold text-brand-text dark:text-gray-100 mb-10"
+          >
+            Planning Tools
+          </h2>
+
+          <div class="flex flex-wrap justify-center items-center gap-4 mb-8">
+            <button
+              type="button"
+              data-calc-tab="life-cover"
+              class="calc-tab-btn active bg-brand-navy text-brand-gold border-2 border-brand-gold rounded-[16px] p-5 flex flex-col items-center w-36 sm:w-44 h-36 justify-center card-hover cursor-pointer text-center"
+            >
+              <i data-lucide="shield" class="w-8 h-8 mb-2"></i>
+              <span class="font-bold text-sm sm:text-base leading-tight">
+                Life Cover Estimator
+              </span>
+            </button>
+            <button
+              type="button"
+              data-calc-tab="child-edu"
+              class="calc-tab-btn bg-brand-purewhite dark:bg-slate-900 text-brand-navy dark:text-gray-200 border border-brand-border dark:border-slate-800 rounded-[16px] p-5 flex flex-col items-center w-36 sm:w-44 h-36 justify-center card-hover cursor-pointer text-center"
+            >
+              <i data-lucide="graduation-cap" class="w-8 h-8 mb-2 text-brand-navy dark:text-brand-gold"></i>
+              <span class="font-bold text-sm sm:text-base leading-tight">
+                Child Education
+              </span>
+            </button>
+            <button
+              type="button"
+              data-calc-tab="retirement"
+              class="calc-tab-btn bg-brand-purewhite dark:bg-slate-900 text-brand-navy dark:text-gray-200 border border-brand-border dark:border-slate-800 rounded-[16px] p-5 flex flex-col items-center w-36 sm:w-44 h-36 justify-center card-hover cursor-pointer text-center"
+            >
+              <i data-lucide="sunset" class="w-8 h-8 mb-2 text-brand-navy dark:text-brand-gold"></i>
+              <span class="font-bold text-sm sm:text-base leading-tight">
+                Retirement Corpus
+              </span>
+            </button>
+            <button
+              type="button"
+              data-calc-tab="wealth-goal"
+              class="calc-tab-btn bg-brand-purewhite dark:bg-slate-900 text-brand-navy dark:text-gray-200 border border-brand-border dark:border-slate-800 rounded-[16px] p-5 flex flex-col items-center w-36 sm:w-44 h-36 justify-center card-hover cursor-pointer text-center"
+            >
+              <i data-lucide="piggy-bank" class="w-8 h-8 mb-2 text-brand-navy dark:text-brand-gold"></i>
+              <span class="font-bold text-sm sm:text-base leading-tight">
+                Savings Goal
+              </span>
+            </button>
+          </div>
+
+          <!-- Interactive Calculator Panel -->
+          <div class="max-w-4xl mx-auto bg-brand-purewhite dark:bg-slate-900 rounded-2xl p-6 sm:p-10 border border-brand-border dark:border-slate-800 shadow-lg text-left mb-8">
+            <!-- 1. Life Cover Calculator -->
+            <div id="calc-panel-life-cover" class="calc-panel">
+              <div class="border-b border-brand-border dark:border-slate-800 pb-4 mb-6">
+                <h3 class="text-xl sm:text-2xl font-heading font-bold text-brand-text dark:text-gray-100">
+                  Life Cover (Human Life Value) Estimator
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 mt-1">
+                  Estimate the financial protection shield your family needs to sustain their standard of living.
+                </p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="monthly-expense">
+                      Monthly Family Living Expense (₹)
+                    </label>
+                    <input type="number" id="monthly-expense" value="50000" min="5000" step="5000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="liabilities">
+                      Outstanding Loans / Liabilities (₹)
+                    </label>
+                    <input type="number" id="liabilities" value="1500000" min="0" step="50000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="current-assets">
+                      Existing Savings & Investments (₹)
+                    </label>
+                    <input type="number" id="current-assets" value="500000" min="0" step="50000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="support-years">
+                      Income Replacement Period (Years)
+                    </label>
+                    <select id="support-years" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none">
+                      <option value="10">10 Years</option>
+                      <option value="15" selected>15 Years (Recommended)</option>
+                      <option value="20">20 Years</option>
+                      <option value="25">25 Years</option>
+                    </select>
+                  </div>
+                  <button type="button" id="calc-life-cover-btn" class="w-full py-3.5 bg-brand-navy hover:bg-brand-midnight text-brand-purewhite font-bold rounded-lg transition-colors flex items-center justify-center shadow-md">
+                    <i data-lucide="calculator" class="w-4 h-4 mr-2 text-brand-gold"></i> Calculate Ideal Cover
+                  </button>
+                </div>
+                <div class="bg-brand-navy text-brand-purewhite rounded-xl p-6 flex flex-col justify-between h-full border border-brand-gold/30">
+                  <div>
+                    <div class="text-xs uppercase tracking-wider text-brand-gold font-bold mb-2">Recommended Sum Assured</div>
+                    <div id="life-cover-result">
+                      <div id="life-cover-amount" class="text-3xl sm:text-4xl font-heading font-bold text-brand-gold mb-3">₹ 1,00,00,000</div>
+                      <p class="text-xs text-blue-100 leading-relaxed mb-4">
+                        This life cover ensures your family can clear existing liabilities and sustain essential monthly living costs without financial stress.
+                      </p>
+                    </div>
+                  </div>
+                  <a href="#contact" class="inline-flex items-center justify-center px-4 py-3 bg-brand-gold text-brand-midnight rounded-lg font-bold hover:bg-yellow-500 transition-colors text-sm text-center">
+                    Get Custom Quote for this Cover &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Child Education Calculator -->
+            <div id="calc-panel-child-edu" class="calc-panel hidden">
+              <div class="border-b border-brand-border dark:border-slate-800 pb-4 mb-6">
+                <h3 class="text-xl sm:text-2xl font-heading font-bold text-brand-text dark:text-gray-100">
+                  Child Higher Education Fund Calculator
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 mt-1">
+                  Forecast the future cost of higher education accounting for educational inflation.
+                </p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="edu-current-cost">
+                      Current Cost of Desired Course (₹)
+                    </label>
+                    <input type="number" id="edu-current-cost" value="1500000" min="100000" step="50000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="edu-years">
+                      Years Until Child Enters College
+                    </label>
+                    <input type="number" id="edu-years" value="10" min="1" max="25" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="edu-inflation">
+                      Expected Education Inflation Rate (%)
+                    </label>
+                    <select id="edu-inflation" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none">
+                      <option value="6">6% per year</option>
+                      <option value="8" selected>8% per year (Standard)</option>
+                      <option value="10">10% per year</option>
+                    </select>
+                  </div>
+                  <button type="button" id="calc-child-edu-btn" class="w-full py-3.5 bg-brand-navy hover:bg-brand-midnight text-brand-purewhite font-bold rounded-lg transition-colors flex items-center justify-center shadow-md">
+                    <i data-lucide="calculator" class="w-4 h-4 mr-2 text-brand-gold"></i> Calculate Future Education Cost
+                  </button>
+                </div>
+                <div class="bg-brand-navy text-brand-purewhite rounded-xl p-6 flex flex-col justify-between h-full border border-brand-gold/30">
+                  <div>
+                    <div class="text-xs uppercase tracking-wider text-brand-gold font-bold mb-2">Estimated Future Fund Required</div>
+                    <div id="child-edu-result">
+                      <div id="child-edu-amount" class="text-3xl sm:text-4xl font-heading font-bold text-brand-gold mb-3">₹ 32,38,387</div>
+                      <p class="text-xs text-blue-100 leading-relaxed mb-4">
+                        Due to education inflation, starting a dedicated child endowment plan early helps build this targeted corpus with convenient small contributions.
+                      </p>
+                    </div>
+                  </div>
+                  <a href="#contact" class="inline-flex items-center justify-center px-4 py-3 bg-brand-gold text-brand-midnight rounded-lg font-bold hover:bg-yellow-500 transition-colors text-sm text-center">
+                    Plan Child's Education Fund &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Retirement Calculator -->
+            <div id="calc-panel-retirement" class="calc-panel hidden">
+              <div class="border-b border-brand-border dark:border-slate-800 pb-4 mb-6">
+                <h3 class="text-xl sm:text-2xl font-heading font-bold text-brand-text dark:text-gray-100">
+                  Retirement Corpus & Pension Estimator
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 mt-1">
+                  Determine the target retirement corpus needed to receive a comfortable lifelong guaranteed pension.
+                </p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="retire-expense">
+                      Current Monthly Household Expenses (₹)
+                    </label>
+                    <input type="number" id="retire-expense" value="40000" min="5000" step="5000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="retire-years">
+                      Years Until Desired Retirement
+                    </label>
+                    <input type="number" id="retire-years" value="20" min="1" max="40" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="retire-inflation">
+                      Expected Average Inflation Rate (%)
+                    </label>
+                    <select id="retire-inflation" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none">
+                      <option value="5">5% per year</option>
+                      <option value="6" selected>6% per year (Standard)</option>
+                      <option value="7">7% per year</option>
+                    </select>
+                  </div>
+                  <button type="button" id="calc-retire-btn" class="w-full py-3.5 bg-brand-navy hover:bg-brand-midnight text-brand-purewhite font-bold rounded-lg transition-colors flex items-center justify-center shadow-md">
+                    <i data-lucide="calculator" class="w-4 h-4 mr-2 text-brand-gold"></i> Calculate Retirement Corpus
+                  </button>
+                </div>
+                <div class="bg-brand-navy text-brand-purewhite rounded-xl p-6 flex flex-col justify-between h-full border border-brand-gold/30">
+                  <div>
+                    <div class="text-xs uppercase tracking-wider text-brand-gold font-bold mb-2">Target Retirement Corpus</div>
+                    <div id="retire-result">
+                      <div id="retire-amount" class="text-3xl sm:text-4xl font-heading font-bold text-brand-gold mb-3">₹ 3,07,88,400</div>
+                      <p class="text-xs text-blue-100 leading-relaxed mb-4">
+                        A dedicated guaranteed pension/annuity plan secures this nest egg for uninterrupted lifetime post-retirement cash flows.
+                      </p>
+                    </div>
+                  </div>
+                  <a href="#contact" class="inline-flex items-center justify-center px-4 py-3 bg-brand-gold text-brand-midnight rounded-lg font-bold hover:bg-yellow-500 transition-colors text-sm text-center">
+                    Plan Guaranteed Pension &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Savings Goal Calculator -->
+            <div id="calc-panel-wealth-goal" class="calc-panel hidden">
+              <div class="border-b border-brand-border dark:border-slate-800 pb-4 mb-6">
+                <h3 class="text-xl sm:text-2xl font-heading font-bold text-brand-text dark:text-gray-100">
+                  Target Savings & Wealth Goal Calculator
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 mt-1">
+                  Discover how much you need to set aside periodically to achieve your milestone financial goals.
+                </p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="goal-target">
+                      Target Goal Amount (₹)
+                    </label>
+                    <input type="number" id="goal-target" value="2500000" min="50000" step="50000" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-semibold text-brand-text dark:text-gray-200 mb-1" for="goal-years">
+                      Investment Duration (Years)
+                    </label>
+                    <input type="number" id="goal-years" value="10" min="1" max="30" class="w-full px-4 py-3 rounded-lg border border-brand-border dark:border-slate-700 bg-brand-warmwhite dark:bg-slate-800 text-brand-text dark:text-gray-100 focus:ring-2 focus:ring-brand-gold focus:outline-none" />
+                  </div>
+                  <button type="button" id="calc-goal-btn" class="w-full py-3.5 bg-brand-navy hover:bg-brand-midnight text-brand-purewhite font-bold rounded-lg transition-colors flex items-center justify-center shadow-md">
+                    <i data-lucide="calculator" class="w-4 h-4 mr-2 text-brand-gold"></i> Calculate Monthly Contribution
+                  </button>
+                </div>
+                <div class="bg-brand-navy text-brand-purewhite rounded-xl p-6 flex flex-col justify-between h-full border border-brand-gold/30">
+                  <div>
+                    <div class="text-xs uppercase tracking-wider text-brand-gold font-bold mb-2">Estimated Monthly Savings Needed</div>
+                    <div id="goal-result">
+                      <div id="goal-amount" class="text-3xl sm:text-4xl font-heading font-bold text-brand-gold mb-3">₹ 14,350</div>
+                      <p class="text-xs text-blue-100 leading-relaxed mb-4">
+                        Consistent disciplined savings combined with life cover security turns your aspirations into guaranteed milestones.
+                      </p>
+                    </div>
+                  </div>
+                  <a href="#contact" class="inline-flex items-center justify-center px-4 py-3 bg-brand-gold text-brand-midnight rounded-lg font-bold hover:bg-yellow-500 transition-colors text-sm text-center">
+                    Discuss Goal Savings Strategy &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="text-base text-brand-muted dark:text-gray-400">
+            *Illustrative calculation only. This tool does not constitute
+            financial advice or a recommendation of any insurance product.
+          </p>
+        </div>
+      </section>
+
+      <!-- LIC Important Links Section -->
+      <section
+        id="lic-links"
+        class="py-20 bg-brand-warmwhite dark:bg-slate-950 border-t border-brand-border dark:border-slate-800 reveal"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto mb-12">
+            <div class="section-ornament text-brand-gold">
+              <i data-lucide="link"></i>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-heading font-bold text-brand-text dark:text-gray-100 mb-4">
+              Official LIC Important Links
+            </h2>
+            <p class="text-base sm:text-lg text-brand-muted dark:text-gray-400">
+              Direct access to verified official Life Insurance Corporation of India (LIC) customer portals for policy loan repayments, premium payments, claim status, and instant online services.
+            </p>
+          </div>
+
+          <!-- Featured Highlight: Policy Loan Repayment & Loan Interest Online -->
+          <div class="bg-gradient-to-r from-brand-navy to-brand-midnight text-brand-purewhite rounded-2xl p-6 sm:p-8 md:p-10 mb-12 shadow-xl border-2 border-brand-gold/40 relative overflow-hidden">
+            <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-brand-gold/10 rounded-full blur-2xl pointer-events-none"></div>
+            
+            <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+              <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold text-xs font-bold uppercase tracking-wider mb-4 border border-brand-gold/30">
+                  <i data-lucide="zap" class="w-3.5 h-3.5"></i> Featured Policy Service
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-heading font-bold text-brand-purewhite mb-3">
+                  LIC Policy Loan Interest & Principal Repayment
+                </h3>
+                <p class="text-blue-100 text-sm sm:text-base leading-relaxed mb-4">
+                  Pay your policy loan interest dues or repay the loan principal amount directly online without visiting the branch. Instant digital receipts are generated upon successful payment.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-blue-200">
+                  <div class="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-lg border border-white/10">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-gold flex-shrink-0"></i>
+                    <span>No Login Required</span>
+                  </div>
+                  <div class="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-lg border border-white/10">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-gold flex-shrink-0"></i>
+                    <span>UPI / NetBanking / Cards</span>
+                  </div>
+                  <div class="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-lg border border-white/10">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-gold flex-shrink-0"></i>
+                    <span>Instant Payment Receipt</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col sm:flex-row lg:flex-col gap-3 w-full sm:w-auto flex-shrink-0">
+                <a
+                  href="https://ebiz.licindia.in/D2CPM/?_ga=2.98994712.76644806.1788621337-1076616713.1787461177#DirectPay"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-6 py-3.5 bg-brand-gold hover:bg-yellow-500 text-brand-midnight rounded-xl font-bold transition-all shadow-md flex items-center justify-center text-sm sm:text-base group"
+                >
+                  <i data-lucide="credit-card" class="w-5 h-5 mr-2"></i>
+                  <span>Pay Loan Online Now</span>
+                  <i data-lucide="external-link" class="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                </a>
+                <a
+                  href="https://licindia.in/web/guest/policy-loan-terms-conditions"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-brand-purewhite border border-white/20 rounded-xl font-medium transition-all flex items-center justify-center text-sm"
+                >
+                  <i data-lucide="info" class="w-4 h-4 mr-2 text-brand-gold"></i>
+                  <span>Loan Eligibility & Rates</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5 ml-1.5 opacity-70"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category Filter Tabs -->
+          <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10">
+            <button
+              type="button"
+              data-link-filter="all"
+              class="lic-filter-btn active px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-brand-navy text-brand-gold border border-brand-gold shadow-sm"
+            >
+              All Links (12)
+            </button>
+            <button
+              type="button"
+              data-link-filter="loan"
+              class="lic-filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-brand-purewhite dark:bg-slate-900 text-brand-text dark:text-gray-200 border border-brand-border dark:border-slate-800 hover:border-brand-gold"
+            >
+              Policy Loans & Repayments
+            </button>
+            <button
+              type="button"
+              data-link-filter="payment"
+              class="lic-filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-brand-purewhite dark:bg-slate-900 text-brand-text dark:text-gray-200 border border-brand-border dark:border-slate-800 hover:border-brand-gold"
+            >
+              Premium Payments & Portal
+            </button>
+            <button
+              type="button"
+              data-link-filter="claims"
+              class="lic-filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-brand-purewhite dark:bg-slate-900 text-brand-text dark:text-gray-200 border border-brand-border dark:border-slate-800 hover:border-brand-gold"
+            >
+              Claims & Servicing
+            </button>
+            <button
+              type="button"
+              data-link-filter="helpline"
+              class="lic-filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-brand-purewhite dark:bg-slate-900 text-brand-text dark:text-gray-200 border border-brand-border dark:border-slate-800 hover:border-brand-gold"
+            >
+              Helplines & Status
+            </button>
+          </div>
+
+          <!-- Links Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="lic-links-grid">
+            <!-- 1. Loan Payment -->
+            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="loan">
+              <div>
+                <div class="flex items-start justify-between mb-4">
+                  <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 dark:text-brand-gold flex items-center justify-center">
+                    <i data-lucide="coins" class="w-6 h-6"></i>
+                  </div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-brand-gold/15 text-amber-700 dark:text-brand-gold border border-brand-gold/30">
+                    Direct Pay • No Login
+                  </span>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
+                  Policy Loan Repayment & Interest
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
+                  Online payment facility to clear accrued loan interest or repay policy loan principal with instant official receipt generation.
+                </p>
+              </div>
+              <a
+                href="https://ebiz.licindia.in/D2CPM/?_ga=2.98994712.76644806.1788621337-1076616713.1787461177#DirectPay"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
+              >
+                <span>Pay Loan / Interest Online</span>
+                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+              </a>
+            </div>
+
+            <!-- 2. Loan Eligibility & Conditions -->
+            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="loan">
+              <div>
+                <div class="flex items-start justify-between mb-4">
+                  <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                    <i data-lucide="file-text" class="w-6 h-6"></i>
+                  </div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-300">
+                    Policy Loan Guide
+                  </span>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
+                  Policy Loan Rules & Interest Rates
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
+                  Official eligibility conditions, maximum surrender-value loan limits, applicable interest rates, and loan application procedures.
+                </p>
+              </div>
+              <a
+                href="https://licindia.in/web/guest/policy-loan-terms-conditions"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
+              >
+                <span>View Loan Guidelines</span>
+                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+              </a>
+            </div>
+
+            <!-- 3. Pay Premium Online (Direct) -->
+            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="payment">
+              <div>
+                <div class="flex items-start justify-between mb-4">
+                  <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                    <i data-lucide="wallet" class="w-6 h-6"></i>
+                  </div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
+                    Quick Pay • No Login
+                  </span>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
+                  Pay Premium Online (Pay Direct)
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
+                  Pay renewal premium, advance premium, or revival quotation instantly through UPI, cards, or Net Banking without logging in.
+                </p>
+              </div>
+              <a
+                href="https://ebiz.licindia.in/D2CPM/#DirectPay"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
+              >
+                <span>Pay Premium Online</span>
+                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+              </a>
+            </div>
+
+            <!-- 4. Customer Portal Login -->
+            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="payment">
+              <div>
+                <div class="flex items-start justify-between mb-4">
+                  <div class="w-12 h-12 rounded-xl bg-brand-navy/10 dark:bg-blue-500/20 text-brand-navy dark:text-blue-300 flex items-center justify-center">
+                    <i data-lucide="user-check" class="w-6 h-6"></i>
+                  </div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-brand-navy/10 text-brand-navy dark:text-gray-300">
+                    e-Services Portal
+                  </span>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
+                  Customer Portal Login
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
+                  Comprehensive dashboard to monitor policy status, accrued bonuses, download 80C premium paid certificates, and update contact info.
+                </p>
+              </div>
+              <a
+                href="https://ebiz.licindia.in/D2CPM/#Login"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
+              >
+                <span>Login to Customer Portal</span>
+                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+              </a>
+            </div>
+
+            <!-- 5. New User Registration -->
+            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="payment">
+              <div>
+                <div class="flex items-start justify-between mb-4">
+                  <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+                    <i data-lucide="user-plus" class="w-6 h-6"></i>
+                  </div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-700 dark:text-purple-300">
+                    First-Time Users
+                  </span>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
+                  Portal Registration (Sign Up)
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
+                  Create your official LIC customer profile using your policy number, installment premium amount, and date of birth.
+                </p>
+              </div>
+              <a
+                href="https://ebiz.licindia.in/D2CPM/#Register"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
+              >
+                <span>Register as New User</span>
+                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+              </a>
+            </div>
+
+            <!-- 6. Claim Status Tracking -->
+            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="claims">
+              <div>
+                <div class="flex items-start justify-between mb-4">
+                  <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                    <i data-lucide="shield-check" class="w-6 h-6"></i>
+                  </div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-700 dark:text-indigo-300">
+                    Claims Settlement
+                  </span>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
+                  Claim Status & Settlement Process
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
+                  Official guide and portal to check maturity claim settlement, survival benefits, death claim documentation, and claim procedures.
+                </p>
+              </div>
+              <a
+                href="https://licindia.in/web/guest/claims-settlement-process"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
+              >
+                <span>Check Claim Details</span>
+                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+              </a>
+            </div>
+
+            <!-- 7. PAN & Aadhaar Linking -->
+            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="claims">
+              <div>
+                <div class="flex items-start justify-between mb-4">
+                  <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center">
+                    <i data-lucide="link-2" class="w-6 h-6"></i>
+                  </div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-teal-500/10 text-teal-700 dark:text-teal-300">
+                    Mandatory Seeding
+                  </span>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
+                  Online PAN & Aadhaar Linking
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
+                  Link your PAN with all in-force LIC policies to avoid TDS deductions and ensure uninterrupted electronic claim credits into your bank account.
+                </p>
+              </div>
+              <a
+                href="https://licindia.in/web/guest/online-pan-registration"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
+              >
+                <span>Link PAN Online</span>
+                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+              </a>
+            </div>
+
+            <!-- 8. Download Forms -->
+            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="claims">
+              <div>
+                <div class="flex items-start justify-between mb-4">
+                  <div class="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center">
+                    <i data-lucide="download" class="w-6 h-6"></i>
+                  </div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-sky-500/10 text-sky-700 dark:text-sky-300">
+                    PDF Downloads
+                  </span>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
+                  Download Official Policy Forms
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
+                  Download printable NEFT Mandate, Change of Nomination, Address Correction, Policy Loan Application, and Assignment forms.
+                </p>
+              </div>
+              <a
+                href="https://licindia.in/web/guest/download-forms"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
+              >
+                <span>Download Service Forms</span>
+                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+              </a>
+            </div>
+
+            <!-- 9. WhatsApp Self-Service -->
+            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="helpline">
+              <div>
+                <div class="flex items-start justify-between mb-4">
+                  <div class="w-12 h-12 rounded-xl bg-green-500/10 text-green-600 dark:text-green-400 flex items-center justify-center">
+                    <i data-lucide="message-circle" class="w-6 h-6"></i>
+                  </div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-green-500/10 text-green-700 dark:text-green-300">
+                    24x7 Automated Chat
+                  </span>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
+                  LIC Official WhatsApp (+91 8976862090)
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
+                  Instant chatbot assistance on WhatsApp for premium due dates, bonus accrued, loan eligibility quotation, and ULIP unit statements.
+                </p>
+              </div>
+              <a
+                href="https://api.whatsapp.com/send?phone=918976862090&text=Hi"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-green-600 hover:text-white text-green-700 dark:text-green-400 font-semibold text-sm transition-colors group"
+              >
+                <span>Open LIC WhatsApp Chat</span>
+                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+              </a>
+            </div>
+
+            <!-- 10. Search Unclaimed Policy Dues -->
+            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="helpline">
+              <div>
+                <div class="flex items-start justify-between mb-4">
+                  <div class="w-12 h-12 rounded-xl bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center">
+                    <i data-lucide="search" class="w-6 h-6"></i>
+                  </div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-orange-500/10 text-orange-700 dark:text-orange-300">
+                    Unclaimed Search
+                  </span>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
+                  Search Unclaimed Policy Dues
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
+                  Online lookup facility to check whether any maturity, survival benefit, or claim proceeds are lying unclaimed under your policy.
+                </p>
+              </div>
+              <a
+                href="https://licindia.in/web/guest/unclaimed-policy-dues"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
+              >
+                <span>Search Unclaimed Dues</span>
+                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+              </a>
+            </div>
+
+            <!-- 11. Branch Locator -->
+            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="helpline">
+              <div>
+                <div class="flex items-start justify-between mb-4">
+                  <div class="w-12 h-12 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center">
+                    <i data-lucide="map-pin" class="w-6 h-6"></i>
+                  </div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-700 dark:text-rose-300">
+                    Office Locator
+                  </span>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
+                  LIC Branch & Satellite Locator
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
+                  Find the exact address, branch code, and servicing contact details of your home branch or nearest LIC servicing center.
+                </p>
+              </div>
+              <a
+                href="https://licindia.in/web/guest/branch-locator"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
+              >
+                <span>Find Nearest Branch</span>
+                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+              </a>
+            </div>
+
+            <!-- 12. Spurious Calls Alert -->
+            <div class="lic-link-card bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between card-hover" data-category="helpline">
+              <div>
+                <div class="flex items-start justify-between mb-4">
+                  <div class="w-12 h-12 rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center">
+                    <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                  </div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-red-500/10 text-red-700 dark:text-red-300">
+                    Consumer Alert
+                  </span>
+                </div>
+                <h3 class="font-heading font-bold text-lg text-brand-text dark:text-gray-100 mb-2">
+                  Spurious Call & Fraud Alert
+                </h3>
+                <p class="text-sm text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
+                  Official public notice regarding fake callers offering fraudulent bonuses or urging surrender of policies. Protect your hard-earned investments.
+                </p>
+              </div>
+              <a
+                href="https://licindia.in/web/guest/spurious-calls"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-lg bg-brand-warmwhite dark:bg-slate-800 hover:bg-brand-navy hover:text-brand-purewhite text-brand-navy dark:text-gray-200 font-semibold text-sm transition-colors group"
+              >
+                <span>Read Fraud Advisory</span>
+                <i data-lucide="external-link" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Need Personal Assistance Box -->
+          <div class="mt-12 bg-brand-purewhite dark:bg-slate-900 rounded-2xl p-6 sm:p-8 border border-brand-border dark:border-slate-800 text-center flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
+            <div class="text-left">
+              <h4 class="text-lg sm:text-xl font-heading font-bold text-brand-text dark:text-gray-100">
+                Need Help with Policy Servicing, Loan Clearance, or Revival?
+              </h4>
+              <p class="text-sm text-brand-muted dark:text-gray-400 mt-1 max-w-2xl">
+                As your authorized LIC Insurance Advisor, Sanchita Adhikary Barman provides personal, step-by-step guidance for premium payments, policy revival, address change, and claim filings at zero additional charge.
+              </p>
+            </div>
+            <a
+              href="#contact"
+              class="flex-shrink-0 px-6 py-3.5 bg-brand-navy hover:bg-brand-midnight text-brand-gold border border-brand-gold/50 rounded-xl font-bold transition-colors text-sm shadow-md"
+            >
+              Request Advisor Assistance &rarr;
+            </a>
+          </div>
+
+          <div class="text-center mt-6">
+            <p class="text-xs text-brand-muted dark:text-gray-400">
+              *Notice: The external links above connect directly to official Life Insurance Corporation of India (licindia.in / ebiz.licindia.in) and IRDAI online portals.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Form Section -->
+      <section
+        id="contact"
+        class="py-24 bg-brand-midnight text-brand-purewhite reveal"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <!-- Form Side -->
+            <div>
+              <!-- Section Eyebrow Badge -->
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-gold/15 text-brand-gold border border-brand-gold/30 mb-3 tracking-wide uppercase">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-gold"></i>
+                <span>Direct Inquiry &amp; Consultation</span>
+              </div>
+
+              <!-- Main Section Heading -->
+              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold !text-white tracking-tight leading-tight mb-3">
+                Send a Message &amp; <span class="text-brand-gold">Book Consultation</span>
+              </h2>
+
+              <!-- Subheading description -->
+              <p class="text-sm sm:text-base text-blue-100/90 leading-relaxed mb-7 max-w-xl">
+                Please enter your name, mobile number, email ID, and requirement below. Sanchita will review your request and reach out promptly with personalized insurance planning.
+              </p>
+
+              <!-- Direct Consultation Form -->
+              <form id="contact-form" class="space-y-4" novalidate>
+                <!-- Direct Form Header -->
+                <div class="bg-white/5 border border-white/10 rounded-xl p-3.5 mb-2 flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-brand-gold/20 text-brand-gold flex items-center justify-center flex-shrink-0">
+                      <i data-lucide="user-check" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-sm sm:text-base font-heading font-bold !text-white leading-tight">
+                        Enter Your Contact Details
+                      </h3>
+                      <p class="text-xs text-blue-200">
+                        We respect your privacy. No spam guaranteed.
+                      </p>
+                    </div>
+                  </div>
+                  <span class="text-[11px] font-semibold text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-1 rounded-full whitespace-nowrap hidden xs:inline-block">
+                    100% Free Advice
+                  </span>
+                </div>
+
+                <div
+                  id="form-status"
+                  class="hidden mb-4 p-4 rounded-xl text-base transition-all duration-300"
+                  role="status"
+                  aria-live="polite"
+                ></div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <!-- Name Field -->
+                  <div class="relative form-field-group">
+                    <label for="name" class="block text-xs font-semibold text-brand-gold uppercase tracking-wider mb-1.5">
+                      Full Name <span class="text-red-400">*</span>
+                    </label>
+                    <div class="relative">
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="e.g. Rajesh Sharma"
+                        required
+                        autocomplete="name"
+                        class="form-input w-full px-5 py-3.5 pr-11 bg-brand-purewhite dark:bg-slate-900 rounded-lg text-brand-text dark:text-gray-100 border border-transparent focus:outline-none focus:ring-2 focus:ring-brand-gold transition-all"
+                      />
+                      <span class="field-feedback-icon absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none hidden transition-all" aria-hidden="true"></span>
+                    </div>
+                    <p id="name-error" class="field-error-msg text-red-300 text-xs mt-1.5 ml-1 hidden flex items-center gap-1.5">
+                      <i data-lucide="alert-circle" class="w-3.5 h-3.5 inline-block"></i>
+                      <span>Please enter your full name (minimum 2 letters).</span>
+                    </p>
+                  </div>
+
+                  <!-- Mobile Field -->
+                  <div class="relative form-field-group">
+                    <label for="mobile" class="block text-xs font-semibold text-brand-gold uppercase tracking-wider mb-1.5">
+                      Mobile Number <span class="text-red-400">*</span>
+                    </label>
+                    <div class="relative">
+                      <input
+                        type="tel"
+                        id="mobile"
+                        name="mobile"
+                        placeholder="10-digit number (e.g. 9876543210)"
+                        required
+                        maxlength="10"
+                        autocomplete="tel"
+                        class="form-input w-full px-5 py-3.5 pr-11 bg-brand-purewhite dark:bg-slate-900 rounded-lg text-brand-text dark:text-gray-100 border border-transparent focus:outline-none focus:ring-2 focus:ring-brand-gold transition-all"
+                      />
+                      <span class="field-feedback-icon absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none hidden transition-all" aria-hidden="true"></span>
+                    </div>
+                    <p id="mobile-error" class="field-error-msg text-red-300 text-xs mt-1.5 ml-1 hidden flex items-center gap-1.5">
+                      <i data-lucide="alert-circle" class="w-3.5 h-3.5 inline-block"></i>
+                      <span>Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9.</span>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <!-- Email ID Field -->
+                  <div class="relative form-field-group">
+                    <label for="email" class="block text-xs font-semibold text-brand-gold uppercase tracking-wider mb-1.5">
+                      Email ID <span class="text-red-400">*</span>
+                    </label>
+                    <div class="relative">
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="e.g. rajesh@example.com"
+                        required
+                        autocomplete="email"
+                        class="form-input w-full px-5 py-3.5 pr-11 bg-brand-purewhite dark:bg-slate-900 rounded-lg text-brand-text dark:text-gray-100 border border-transparent focus:outline-none focus:ring-2 focus:ring-brand-gold transition-all"
+                      />
+                      <span class="field-feedback-icon absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none hidden transition-all" aria-hidden="true"></span>
+                    </div>
+                    <p id="email-error" class="field-error-msg text-red-300 text-xs mt-1.5 ml-1 hidden flex items-center gap-1.5">
+                      <i data-lucide="alert-circle" class="w-3.5 h-3.5 inline-block"></i>
+                      <span>Please enter a valid email address (e.g. name@domain.com).</span>
+                    </p>
+                  </div>
+
+                  <!-- Requirement Select -->
+                  <div class="relative form-field-group">
+                    <label for="requirement" class="block text-xs font-semibold text-brand-gold uppercase tracking-wider mb-1.5">
+                      Service Requirement <span class="text-red-400">*</span>
+                    </label>
+                    <div class="relative">
+                      <select
+                        id="requirement"
+                        name="requirement"
+                        required
+                        class="form-input w-full px-5 py-3.5 pr-11 bg-brand-purewhite dark:bg-slate-900 rounded-lg text-brand-text dark:text-gray-100 border border-transparent focus:outline-none focus:ring-2 focus:ring-brand-gold transition-all cursor-pointer"
+                      >
+                        <option value="" disabled selected>Select Requirement</option>
+                        <option value="Life Insurance">Life Insurance & Family Protection</option>
+                        <option value="Policy Loan Assistance">Policy Loan & Repayment Assistance</option>
+                        <option value="Child Future Planning">Child Education / Future Planning</option>
+                        <option value="Retirement Planning">Guaranteed Retirement & Pension</option>
+                        <option value="Policy Revival / Servicing">Lapsed Policy Revival & Servicing</option>
+                        <option value="Other">Other Query / Consultation</option>
+                      </select>
+                      <span class="field-feedback-icon absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none hidden transition-all" aria-hidden="true"></span>
+                    </div>
+                    <p id="requirement-error" class="field-error-msg text-red-300 text-xs mt-1.5 ml-1 hidden flex items-center gap-1.5">
+                      <i data-lucide="alert-circle" class="w-3.5 h-3.5 inline-block"></i>
+                      <span>Please select your requirement.</span>
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Message Field (Optional) -->
+                <div class="relative form-field-group">
+                  <label for="message" class="block text-xs font-semibold text-blue-200 uppercase tracking-wider mb-1.5">
+                    Your Message / Query <span class="text-blue-300/70 text-[10px] normal-case">(Optional)</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Tell us about existing policies, preferred sum assured, or convenient time to call..."
+                    rows="3"
+                    class="form-input w-full px-5 py-3.5 bg-brand-purewhite dark:bg-slate-900 rounded-lg text-brand-text dark:text-gray-100 border border-transparent focus:outline-none focus:ring-2 focus:ring-brand-gold resize-none transition-all"
+                  ></textarea>
+                </div>
+
+                <div class="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  <button
+                    type="submit"
+                    id="submit-btn"
+                    class="w-full sm:w-auto min-w-[200px] px-8 py-4 bg-brand-gold text-brand-midnight font-bold rounded-lg hover:bg-yellow-500 active:scale-95 transition-all shadow-md flex items-center justify-center gap-2 group"
+                  >
+                    <span id="submit-spinner" class="hidden animate-spin w-4 h-4 border-2 border-brand-midnight border-t-transparent rounded-full"></span>
+                    <span id="submit-btn-text">Submit Enquiry</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform" id="submit-arrow-icon"></i>
+                  </button>
+                  <p class="text-xs text-blue-200/80 flex items-center gap-1.5">
+                    <i data-lucide="lock" class="w-3.5 h-3.5 text-brand-gold flex-shrink-0"></i>
+                    <span>Your personal information is kept 100% confidential.</span>
+                  </p>
+                </div>
+              </form>
+            </div>
+
+            <!-- Talk to Me Side -->
+            <div class="flex flex-col lg:pl-10">
+              <h2 class="text-3xl font-heading font-bold text-brand-gold mb-4">
+                Talk to Me
+              </h2>
+              <p class="text-blue-100 mb-8 max-w-sm text-lg leading-relaxed">
+                I'm here to help you and your family plan for a better tomorrow.
+              </p>
+              <div class="space-y-4">
+                <a
+                  href="#contact"
+                  data-config-href="whatsapp"
+                  class="inline-flex items-center justify-center w-full sm:w-64 px-6 py-4 bg-brand-whatsapp text-white font-bold rounded-lg hover:bg-green-700 transition-colors shadow-lg"
+                >
+                  <i data-lucide="message-circle" class="w-5 h-5 mr-3"></i>
+                  WhatsApp Me
+                </a>
+                <a
+                  href="#contact"
+                  data-config-href="phone"
+                  class="inline-flex items-center justify-center w-full sm:w-64 px-6 py-4 bg-transparent border-2 border-brand-purewhite text-brand-purewhite font-bold rounded-lg hover:bg-white/10 transition-colors"
+                >
+                  <i data-lucide="phone" class="w-5 h-5 mr-3"></i> Call Now
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+ 
+      <!-- Testimonials -->
+      <!-- Achievements Section -->
+      <section id="achievements-section" class="py-20 bg-brand-purewhite dark:bg-slate-900 overflow-hidden hidden reveal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div class="section-ornament text-brand-gold">
+            <i data-lucide="award"></i>
+          </div>
+          <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-text dark:text-gray-100 mb-12">
+            Awards & Achievements
+          </h2>
+          
+          <div class="relative max-w-4xl mx-auto">
+            <!-- Carousel container -->
+            <div class="overflow-hidden rounded-2xl premium-shadow aspect-[16/9] md:aspect-[2/1] bg-brand-navy">
+              <div id="achievements-slider" class="flex transition-transform duration-500 ease-in-out h-full">
+                <!-- Slides injected by JS -->
+              </div>
+            </div>
+            
+            <!-- Controls -->
+            <button id="prev-slide" class="absolute top-1/2 -left-4 md:-left-6 transform -translate-y-1/2 bg-brand-purewhite dark:bg-slate-900 text-brand-navy p-3 rounded-full shadow-lg hover:bg-brand-gold hover:text-brand-purewhite transition-colors z-10 flex items-center justify-center">
+              <i data-lucide="chevron-left" class="w-6 h-6"></i>
+            </button>
+            <button id="next-slide" class="absolute top-1/2 -right-4 md:-right-6 transform -translate-y-1/2 bg-brand-purewhite dark:bg-slate-900 text-brand-navy p-3 rounded-full shadow-lg hover:bg-brand-gold hover:text-brand-purewhite transition-colors z-10 flex items-center justify-center">
+              <i data-lucide="chevron-right" class="w-6 h-6"></i>
+            </button>
+            
+            <!-- Indicators -->
+            <div id="slider-indicators" class="flex justify-center items-center space-x-2 mt-8 h-6">
+              <!-- Dots injected by JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials" class="py-20 bg-brand-warmwhite dark:bg-slate-950 reveal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div class="section-ornament text-brand-gold">
+            <i data-lucide="diamond"></i>
+          </div>
+          <h2
+            class="text-3xl md:text-4xl font-heading font-bold text-brand-text dark:text-gray-100 mb-12"
+          >
+            What My Clients Say
+          </h2>
+
+          <div
+            id="testimonials-container"
+            class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10"
+          >
+            <!-- Loading placeholder, handled by JS normally. Hardcoding 3 beautiful placeholders that match the mockup until JS loads -->
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-[20px] p-8 text-left shadow-sm"
+            >
+              <i
+                data-lucide="quote"
+                class="w-8 h-8 text-brand-gold mb-4 opacity-70"
+              ></i>
+              <p class="text-brand-text dark:text-gray-100 font-medium mb-6">
+                "Very helpful and genuine guidance. Explained everything
+                clearly."
+              </p>
+              <div class="flex items-center">
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-200 mr-3 overflow-hidden border border-brand-border dark:border-slate-800"
+                >
+                  <img
+                    src="https://ui-avatars.com/api/?name=Rina+D&background=031B3A&color=D9A62E"
+                    class="w-full h-full"
+                  />
+                </div>
+                <span class="font-bold text-brand-navy text-base">- Rina D.</span>
+              </div>
+            </div>
+
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-[20px] p-8 text-left shadow-sm"
+            >
+              <i
+                data-lucide="quote"
+                class="w-8 h-8 text-brand-gold mb-4 opacity-70"
+              ></i>
+              <p class="text-brand-text dark:text-gray-100 font-medium mb-6">
+                "Excellent support in choosing the right policy for my family."
+              </p>
+              <div class="flex items-center">
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-200 mr-3 overflow-hidden border border-brand-border dark:border-slate-800"
+                >
+                  <img
+                    src="https://ui-avatars.com/api/?name=Subhajit+M&background=031B3A&color=D9A62E"
+                    class="w-full h-full"
+                  />
+                </div>
+                <span class="font-bold text-brand-navy text-base"
+                  >- Subhajit M.</span
+                >
+              </div>
+            </div>
+
+            <div
+              class="bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-[20px] p-8 text-left shadow-sm"
+            >
+              <i
+                data-lucide="quote"
+                class="w-8 h-8 text-brand-gold mb-4 opacity-70"
+              ></i>
+              <p class="text-brand-text dark:text-gray-100 font-medium mb-6">
+                "Always available and supportive whenever I needed assistance."
+              </p>
+              <div class="flex items-center">
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-200 mr-3 overflow-hidden border border-brand-border dark:border-slate-800"
+                >
+                  <img
+                    src="https://ui-avatars.com/api/?name=Aparna+S&background=031B3A&color=D9A62E"
+                    class="w-full h-full"
+                  />
+                </div>
+                <span class="font-bold text-brand-navy text-base"
+                  >- Aparna S.</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <a
+            href="#contact"
+            class="inline-block px-8 py-3 bg-brand-navy text-brand-purewhite rounded-lg font-bold hover:bg-brand-midnight transition-colors text-base shadow-sm"
+          >
+            Share Your Experience
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="bg-brand-midnight text-brand-purewhite pt-16 pb-8 border-t border-brand-navy"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12"
+        >
+          <!-- Branding -->
+          <div>
+            <a href="#home" class="flex flex-col mb-6">
+              <span
+                class="font-heading italic text-brand-gold text-2xl leading-none"
+                >Sanchita</span
+              >
+              <span
+                class="font-sans font-bold text-brand-purewhite text-xs tracking-widest leading-tight mt-1"
+                >ADHIKARY BARMAN</span
+              >
+            </a>
+            <p
+              class="text-base text-blue-200 uppercase tracking-wider mb-2 font-bold"
+            >
+              LIC Insurance Advisor
+            </p>
+            <p
+              class="text-base text-brand-gold uppercase tracking-wider mb-6 font-bold"
+              data-config="credential"
+            >
+              DM Club Member
+            </p>
+            <p class="text-base text-brand-muted dark:text-gray-400 leading-relaxed mb-6">
+              Helping you secure your present and protect your future.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#contact"
+                data-config-href="facebook"
+                class="text-brand-muted dark:text-gray-400 hover:text-brand-gold transition-colors"
+                ><i data-lucide="facebook" class="w-5 h-5"></i
+              ></a>
+              <a
+                href="#contact"
+                data-config-href="instagram"
+                class="text-brand-muted dark:text-gray-400 hover:text-brand-gold transition-colors"
+                ><i data-lucide="instagram" class="w-5 h-5"></i
+              ></a>
+              <a
+                href="#contact"
+                data-config-href="linkedin"
+                class="text-brand-muted dark:text-gray-400 hover:text-brand-gold transition-colors"
+                ><i data-lucide="linkedin" class="w-5 h-5"></i
+              ></a>
+              <a
+                href="#contact"
+                data-config-href="twitter"
+                class="text-brand-muted dark:text-gray-400 hover:text-brand-gold transition-colors"
+                ><i data-lucide="twitter" class="w-5 h-5"></i
+              ></a>
+              <a
+                href="#contact"
+                data-config-href="whatsapp"
+                class="text-brand-muted dark:text-gray-400 hover:text-brand-gold transition-colors"
+                ><i data-lucide="message-circle" class="w-5 h-5"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h3
+              class="text-lg font-bold text-brand-gold uppercase tracking-wider mb-6"
+            >
+              Quick Links
+            </h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#home"
+                  class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
+                  >Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#tools"
+                  class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
+                  >Resources</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#lic-links"
+                  class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
+                  >LIC Important Links</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#testimonials"
+                  class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
+                  >Testimonials</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Services -->
+          <div>
+            <h3
+              class="text-lg font-bold text-brand-gold uppercase tracking-wider mb-6"
+            >
+              Services
+            </h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#services"
+                  class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
+                  >Life Insurance Planning</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
+                  >Family Protection</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
+                  >Child Future Planning</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
+                  >Retirement Planning</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
+                  >Policy Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  class="text-base text-brand-purewhite hover:text-brand-gold transition-colors"
+                  >Claim Assistance</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact Info -->
+          <div>
+            <h3
+              class="text-lg font-bold text-brand-gold uppercase tracking-wider mb-6"
+            >
+              Contact
+            </h3>
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <i
+                  data-lucide="phone"
+                  class="w-4 h-4 text-brand-muted dark:text-gray-400 mr-3 mt-1 flex-shrink-0"
+                ></i>
+                <span class="text-base text-brand-purewhite" data-config="phone"
+                  >[Add Phone Number]</span
+                >
+              </li>
+              <li class="flex items-start">
+                <i
+                  data-lucide="message-circle"
+                  class="w-4 h-4 text-brand-muted dark:text-gray-400 mr-3 mt-1 flex-shrink-0"
+                ></i>
+                <span
+                  class="text-base text-brand-purewhite"
+                  data-config="whatsapp"
+                  >[Add WhatsApp Number]</span
+                >
+              </li>
+              <li class="flex items-start">
+                <i
+                  data-lucide="mail"
+                  class="w-4 h-4 text-brand-muted dark:text-gray-400 mr-3 mt-1 flex-shrink-0"
+                ></i>
+                <span class="text-base text-brand-purewhite" data-config="email"
+                  >[Add Email Address]</span
+                >
+              </li>
+              <li class="flex items-start">
+                <i
+                  data-lucide="map-pin"
+                  class="w-4 h-4 text-brand-muted dark:text-gray-400 mr-3 mt-1 flex-shrink-0"
+                ></i>
+                <span
+                  class="text-base text-brand-purewhite"
+                  data-config="serviceArea"
+                  >[Add Service Area]</span
+                >
+              </li>
+              <li class="flex items-start">
+                <i
+                  data-lucide="clock"
+                  class="w-4 h-4 text-brand-muted dark:text-gray-400 mr-3 mt-1 flex-shrink-0"
+                ></i>
+                <span
+                  class="text-base text-brand-purewhite"
+                  data-config="workingHours"
+                  >[Working Hours]</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-brand-navy pt-8 flex flex-col md:flex-row justify-between items-center text-base text-brand-muted dark:text-gray-400"
+        >
+          <p class="mb-4 md:mb-0">
+            <strong>Disclaimer:</strong> This is the personal professional
+            website of Sanchita Adhikary Barman, an LIC Agent.<br />
+            This website is not the official website of Life Insurance
+            Corporation of India (LIC).
+          </p>
+          <div class="text-right">
+            <p class="mb-2">
+              &copy; <span id="current-year"></span> Sanchita Adhikary Barman.
+              All Rights Reserved.
+            </p>
+            <div class="space-x-4">
+              <a href="pages/privacy-policy.html" class="hover:text-brand-purewhite transition-colors"
+                >Privacy Policy</a
+              >
+              <a href="pages/disclaimer.html" class="hover:text-brand-purewhite transition-colors"
+                >Disclaimer</a
+              >
+              <a href="pages/terms.html" class="hover:text-brand-purewhite transition-colors"
+                >Terms of Use</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <!-- Back to Top -->
+    <button
+      id="back-to-top"
+      class="back-to-top"
+      aria-label="Back to Top"
+    >
+      <i data-lucide="arrow-up" class="w-6 h-6"></i>
+    </button>
+    <a
+      href="#contact"
+      data-config-href="whatsapp"
+      class="floating-whatsapp"
+      aria-label="Chat on WhatsApp"
+    >
+      <i data-lucide="message-circle" class="w-7 h-7"></i>
+    </a>
+
+    <!-- Mobile CTA Bar -->
+    <div class="mobile-cta-bar">
+      <a
+        href="#contact"
+        data-config-href="phone"
+        class="flex-1 flex justify-center items-center py-2 bg-transparent border border-brand-purewhite text-brand-purewhite rounded-lg text-lg font-bold"
+      >
+        <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Call
+      </a>
+      <a
+        href="#contact"
+        data-config-href="whatsapp"
+        class="flex-1 flex justify-center items-center py-2 bg-brand-whatsapp text-white rounded-lg text-lg font-bold"
+      >
+        <i data-lucide="message-circle" class="w-4 h-4 mr-2"></i> Chat
+      </a>
+      <a
+        href="#contact"
+        class="flex-1 flex justify-center items-center py-2 bg-brand-gold text-brand-midnight rounded-lg text-lg font-bold"
+      >
+        Book
+      </a>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+    <script>
+      (function() {
+        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+          try {
+            window.lucide.createIcons();
+          } catch (e) {}
+        }
+        var yearEl = document.getElementById("current-year");
+        if (yearEl) {
+          yearEl.textContent = new Date().getFullYear();
+        }
+      })();
+    </script>
+
+  </body>
+</html>
