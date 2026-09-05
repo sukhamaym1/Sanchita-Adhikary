@@ -98,17 +98,23 @@ function populateConfigData() {
     const key = el.getAttribute('data-config-href');
     if (key === 'whatsapp' && SITE_CONFIG.whatsapp && !SITE_CONFIG.whatsapp.includes('[ADD')) {
       const message = el.getAttribute('data-wa-msg') || "Hello Sanchita, I would like to know more about insurance planning.";
-      el.href = `https://wa.me/${SITE_CONFIG.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+      const rawWa = String(SITE_CONFIG.whatsapp).replace(/\D/g, '');
+      const waNumber = rawWa.length === 10 ? `91${rawWa}` : rawWa;
+      el.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+      el.target = '_blank';
+      el.rel = 'noopener noreferrer';
     } else if (key === 'phone' && SITE_CONFIG.phone && !SITE_CONFIG.phone.includes('[ADD')) {
       el.href = `tel:${SITE_CONFIG.phone}`;
     } else if (key === 'email' && SITE_CONFIG.email && !SITE_CONFIG.email.includes('[ADD')) {
       el.href = `mailto:${SITE_CONFIG.email}`;
     } else if (['facebook', 'instagram', 'linkedin', 'twitter'].includes(key)) {
-      if (SITE_CONFIG[key] && SITE_CONFIG[key].trim() !== '') {
-        el.href = SITE_CONFIG[key];
+      const val = SITE_CONFIG[key];
+      const isPlaceholder = !val || val.trim() === '' || val === 'https://instagram.com/' || val === 'https://linkedin.com/' || val === 'https://twitter.com/';
+      if (!isPlaceholder) {
+        el.href = val;
         el.target = '_blank';
         el.rel = 'noopener noreferrer';
-        el.style.display = '';
+        el.style.display = 'inline-flex';
       } else {
         el.style.display = 'none';
       }

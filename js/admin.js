@@ -364,6 +364,7 @@ function renderConfigForm() {
         { key: 'facebook', label: 'Facebook Page URL' },
         { key: 'instagram', label: 'Instagram Profile URL' },
         { key: 'linkedin', label: 'LinkedIn Profile URL' },
+        { key: 'twitter', label: 'Twitter / X Profile URL' },
         { key: 'googleMapsUrl', label: 'Google Maps Embed URL' }
     ];
 
