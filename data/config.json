@@ -20,7 +20,7 @@
   "twitter": "https://twitter.com/",
   "licAppUrl": "https://play.google.com/store/apps/details?id=com.lic.customer.superapp",
   "faviconUrl": "/favicon.png?v=1788709694157",
-  "licLogoUrl": "/assets/images/lic-logo-white.svg",
-  "licBadgeIconUrl": "/assets/images/favicon.svg",
+  "licLogoUrl": "/lic-brand-logo.png?v=1788713956043",
+  "licBadgeIconUrl": "/lic-brand-logo.png?v=1788713956043",
   "footerLicLogoUrl": "/assets/images/lic-logo-white.svg"
 }
