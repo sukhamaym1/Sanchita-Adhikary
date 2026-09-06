@@ -49,10 +49,19 @@ function initFaviconSync() {
 // Global real-time LIC brand logo & Hero Badge sync
 function applyLicLogo(url) {
   if (!url) return;
-  const targets = document.querySelectorAll('img[data-lic-brand-logo], #nav-lic-logo, #showcase-lic-logo, #mobile-lic-logo, #footer-lic-logo, img[alt*="LIC of India"], img[alt*="LIC Logo"]');
+  const targets = document.querySelectorAll('img[data-lic-brand-logo], #nav-lic-logo, #showcase-lic-logo, #mobile-lic-logo, img[alt*="LIC of India"], img[alt*="LIC Logo"]');
   targets.forEach(img => {
     img.src = url;
   });
+  // Also update footer logo if no separate footer override exists
+  try {
+    const hasCustomFooter = localStorage.getItem('site_custom_lic_footer');
+    if (!hasCustomFooter) {
+      applyLicFooterLogo(url);
+    }
+  } catch (e) {
+    applyLicFooterLogo(url);
+  }
 }
 
 function applyLicBadgeIcon(url) {
@@ -62,6 +71,14 @@ function applyLicBadgeIcon(url) {
     heroBadgeImg.src = url;
   }
   document.querySelectorAll('img[data-lic-badge-icon]').forEach(img => {
+    img.src = url;
+  });
+}
+
+function applyLicFooterLogo(url) {
+  if (!url) return;
+  const footerImgs = document.querySelectorAll('#footer-lic-logo, img[data-lic-footer-logo]');
+  footerImgs.forEach(img => {
     img.src = url;
   });
 }
@@ -78,6 +95,12 @@ function initLicBrandSync() {
     } else if (localLogo) {
       applyLicBadgeIcon(localLogo);
     }
+    const localFooter = localStorage.getItem('site_custom_lic_footer');
+    if (localFooter) {
+      applyLicFooterLogo(localFooter);
+    } else if (localLogo) {
+      applyLicFooterLogo(localLogo);
+    }
   } catch (e) {}
 
   window.addEventListener('storage', (e) => {
@@ -87,10 +110,17 @@ function initLicBrandSync() {
       if (!localStorage.getItem('site_custom_lic_badge')) {
         applyLicBadgeIcon(newLogo);
       }
+      if (!localStorage.getItem('site_custom_lic_footer')) {
+        applyLicFooterLogo(newLogo);
+      }
     }
     if (e.key === 'site_custom_lic_badge') {
       const newBadge = e.newValue || (SITE_CONFIG.licBadgeIconUrl || SITE_CONFIG.licLogoUrl || '/assets/images/favicon.svg');
       applyLicBadgeIcon(newBadge);
+    }
+    if (e.key === 'site_custom_lic_footer') {
+      const newFooter = e.newValue || (SITE_CONFIG.footerLicLogoUrl || SITE_CONFIG.licLogoUrl || '/assets/images/lic-logo-white.svg');
+      applyLicFooterLogo(newFooter);
     }
   });
 
@@ -100,6 +130,9 @@ function initLicBrandSync() {
       if (e.detail.applyToBadge) {
         applyLicBadgeIcon(e.detail.url);
       }
+      if (e.detail.applyToFooter || !localStorage.getItem('site_custom_lic_footer')) {
+        applyLicFooterLogo(e.detail.url);
+      }
     }
   });
 
@@ -108,6 +141,262 @@ function initLicBrandSync() {
       applyLicBadgeIcon(e.detail.url);
     }
   });
+
+  window.addEventListener('site-lic-footer-updated', (e) => {
+    if (e.detail && e.detail.url) {
+      applyLicFooterLogo(e.detail.url);
+    }
+  });
+}
+
+// In-place Quick Change Picture Modal for Official Product Manufacturer & Underwriter Banner
+function setupQuickChangeFooterLogoModal() {
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.quick-change-lic-footer-btn, #footer-lic-logo-box');
+    if (!trigger) return;
+    e.preventDefault();
+    e.stopPropagation();
+    openQuickChangeFooterLogoModal();
+  });
+}
+
+function openQuickChangeFooterLogoModal() {
+  let modal = document.getElementById('quick-lic-footer-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'quick-lic-footer-modal';
+    modal.className = 'fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm';
+    modal.innerHTML = `
+      <div class="relative w-full max-w-md bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl p-5 sm:p-6 text-white overflow-hidden animate-fade-in">
+        <!-- Close button -->
+        <button type="button" id="quick-lic-modal-close" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors" aria-label="Close">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+
+        <!-- Header -->
+        <div class="flex items-center gap-2.5 mb-3">
+          <div class="w-8 h-8 rounded-lg bg-brand-gold/20 border border-brand-gold/40 flex items-center justify-center text-brand-gold flex-shrink-0">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white leading-tight">Change Picture in this Card</h3>
+            <p class="text-xs text-brand-softgold">Official Product Manufacturer &amp; Underwriter Banner</p>
+          </div>
+        </div>
+
+        <!-- Live Card Preview Mockup -->
+        <div class="my-3 p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center gap-3.5">
+          <div class="w-20 h-16 rounded-xl bg-slate-900 p-1.5 flex items-center justify-center flex-shrink-0 border border-brand-gold/40 shadow-inner">
+            <img id="quick-lic-preview-img" src="/assets/images/lic-logo-white.svg" alt="Preview Picture" class="max-h-full max-w-full object-contain">
+          </div>
+          <div class="min-w-0 text-left">
+            <div class="text-[10px] font-bold uppercase tracking-wider text-brand-gold flex items-center gap-1 mb-0.5">
+              <span>● Live Preview in Card</span>
+            </div>
+            <p class="text-xs font-semibold text-white truncate">Life Insurance Corporation of India</p>
+            <p class="text-[11px] text-gray-400 truncate">Central Office: 'Yogakshema', Mumbai</p>
+          </div>
+        </div>
+
+        <!-- Dropzone / File Select -->
+        <div id="quick-lic-dropzone" class="border-2 border-dashed border-slate-700 hover:border-brand-gold/60 rounded-xl p-4 text-center cursor-pointer transition-colors bg-slate-950/40">
+          <svg class="w-7 h-7 mx-auto text-brand-gold mb-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+          </svg>
+          <div class="text-xs font-semibold text-white">Tap to Choose Photo from Device</div>
+          <div class="text-[11px] text-gray-400 mt-0.5">Supports PNG, JPG, SVG, or WEBP (Max 3MB)</div>
+          <div id="quick-lic-file-name" class="hidden text-xs text-emerald-400 font-mono mt-1 font-medium"></div>
+          <input type="file" id="quick-lic-file-input" accept="image/png, image/svg+xml, image/jpeg, image/webp" class="hidden">
+        </div>
+
+        <!-- Scope Choice -->
+        <div class="mt-3 p-2.5 rounded-lg bg-slate-950/60 border border-slate-800 space-y-2 text-xs">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="radio" name="quick-lic-scope" value="card" checked class="text-brand-gold focus:ring-brand-gold">
+            <span class="text-gray-200">Change picture in <strong>this card only</strong></span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="radio" name="quick-lic-scope" value="all" class="text-brand-gold focus:ring-brand-gold">
+            <span class="text-gray-200">Apply picture <strong>everywhere across website</strong></span>
+          </label>
+        </div>
+
+        <!-- Status Message -->
+        <div id="quick-lic-status" class="hidden mt-2.5 text-xs p-2 rounded-lg text-center font-medium"></div>
+
+        <!-- Buttons -->
+        <div class="mt-4 flex flex-col-reverse sm:flex-row items-center justify-between gap-2.5">
+          <button type="button" id="quick-lic-reset-btn" class="text-xs text-gray-400 hover:text-rose-400 transition-colors underline py-1">
+            Reset to Official Default Logo
+          </button>
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button type="button" id="quick-lic-cancel-btn" class="flex-1 sm:flex-initial px-3 py-2 text-xs text-gray-300 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors">
+              Cancel
+            </button>
+            <button type="button" id="quick-lic-save-btn" disabled class="flex-1 sm:flex-initial px-4 py-2 text-xs font-bold text-slate-950 bg-brand-gold hover:bg-yellow-400 disabled:opacity-40 disabled:cursor-not-allowed rounded-lg shadow-md transition-all">
+              Apply Picture
+            </button>
+          </div>
+        </div>
+
+        <!-- Admin Link -->
+        <div class="mt-3 pt-2 border-t border-slate-800 text-center">
+          <a href="/pages/admin.html" class="text-[11px] text-brand-softgold hover:underline">
+            Looking for full Admin panel? Go to Admin &rarr;
+          </a>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+
+  // Populate initial active picture
+  const previewImg = document.getElementById('quick-lic-preview-img');
+  const fileInput = document.getElementById('quick-lic-file-input');
+  const dropzone = document.getElementById('quick-lic-dropzone');
+  const fileNameDisplay = document.getElementById('quick-lic-file-name');
+  const saveBtn = document.getElementById('quick-lic-save-btn');
+  const cancelBtn = document.getElementById('quick-lic-cancel-btn');
+  const closeBtn = document.getElementById('quick-lic-modal-close');
+  const resetBtn = document.getElementById('quick-lic-reset-btn');
+  const statusBox = document.getElementById('quick-lic-status');
+
+  let activeUrl = '/assets/images/lic-logo-white.svg';
+  try {
+    const customFooter = localStorage.getItem('site_custom_lic_footer');
+    const customLogo = localStorage.getItem('site_custom_lic_logo');
+    if (customFooter) activeUrl = customFooter;
+    else if (customLogo) activeUrl = customLogo;
+    else if (SITE_CONFIG.footerLicLogoUrl) activeUrl = SITE_CONFIG.footerLicLogoUrl;
+    else if (SITE_CONFIG.licLogoUrl) activeUrl = SITE_CONFIG.licLogoUrl;
+  } catch (e) {}
+
+  if (previewImg) previewImg.src = activeUrl;
+  if (fileNameDisplay) {
+    fileNameDisplay.textContent = '';
+    fileNameDisplay.classList.add('hidden');
+  }
+  if (statusBox) {
+    statusBox.textContent = '';
+    statusBox.className = 'hidden mt-2.5 text-xs p-2 rounded-lg text-center font-medium';
+  }
+  if (saveBtn) saveBtn.disabled = true;
+
+  let selectedDataUrl = null;
+  let selectedFile = null;
+
+  function closeModal() {
+    modal.classList.add('hidden');
+  }
+
+  modal.classList.remove('hidden');
+
+  closeBtn.onclick = closeModal;
+  cancelBtn.onclick = closeModal;
+
+  dropzone.onclick = () => fileInput.click();
+
+  fileInput.onchange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      handleFile(e.target.files[0]);
+    }
+  };
+
+  function handleFile(file) {
+    if (!file.type.match('image.*') && !file.name.endsWith('.svg')) {
+      showStatus('Please select a valid image file (PNG, JPG, SVG, or WEBP).', true);
+      return;
+    }
+    if (file.size > 3 * 1024 * 1024) {
+      showStatus('File size exceeds 3MB. Please select a smaller photo.', true);
+      return;
+    }
+
+    selectedFile = file;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      selectedDataUrl = evt.target.result;
+      if (previewImg) previewImg.src = selectedDataUrl;
+      if (fileNameDisplay) {
+        fileNameDisplay.textContent = `✓ Selected: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+        fileNameDisplay.classList.remove('hidden');
+      }
+      if (statusBox) statusBox.classList.add('hidden');
+      if (saveBtn) saveBtn.disabled = false;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function showStatus(msg, isError = false) {
+    if (!statusBox) return;
+    statusBox.textContent = msg;
+    statusBox.className = `mt-2.5 text-xs p-2 rounded-lg text-center font-medium ${
+      isError ? 'bg-red-500/20 text-red-300 border border-red-500/40' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+    }`;
+    statusBox.classList.remove('hidden');
+  }
+
+  resetBtn.onclick = async () => {
+    if (!confirm('Reset this card to the official default LIC logo?')) return;
+    try {
+      localStorage.removeItem('site_custom_lic_footer');
+      applyLicFooterLogo('/assets/images/lic-logo-white.svg');
+      if (previewImg) previewImg.src = '/assets/images/lic-logo-white.svg';
+      showStatus('Reset to official default logo.');
+      setTimeout(closeModal, 1000);
+    } catch (e) {
+      showStatus('Error resetting: ' + e.message, true);
+    }
+  };
+
+  saveBtn.onclick = async () => {
+    if (!selectedDataUrl) return;
+
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Saving...';
+
+    const applyEverywhere = document.querySelector('input[name="quick-lic-scope"][value="all"]')?.checked;
+
+    try {
+      // 1. Dev server upload API
+      try {
+        await fetch('/api/upload-lic-brand', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            dataUrl: selectedDataUrl,
+            targetType: applyEverywhere ? 'all' : 'footer',
+            applyToBoth: applyEverywhere,
+            filename: selectedFile ? selectedFile.name : 'lic-footer-logo.png'
+          })
+        });
+      } catch (apiErr) {
+        console.warn('API upload notice:', apiErr);
+      }
+
+      // 2. Update localStorage
+      if (applyEverywhere) {
+        localStorage.setItem('site_custom_lic_logo', selectedDataUrl);
+        localStorage.setItem('site_custom_lic_footer', selectedDataUrl);
+        localStorage.removeItem('site_custom_lic_badge');
+        applyLicLogo(selectedDataUrl);
+        applyLicBadgeIcon(selectedDataUrl);
+        applyLicFooterLogo(selectedDataUrl);
+        window.dispatchEvent(new CustomEvent('site-lic-logo-updated', { detail: { url: selectedDataUrl, applyToBadge: true, applyToFooter: true } }));
+      } else {
+        localStorage.setItem('site_custom_lic_footer', selectedDataUrl);
+        applyLicFooterLogo(selectedDataUrl);
+        window.dispatchEvent(new CustomEvent('site-lic-footer-updated', { detail: { url: selectedDataUrl } }));
+      }
+
+      showStatus('✓ Picture updated successfully!');
+      setTimeout(closeModal, 1100);
+    } catch (err) {
+      showStatus('Upload failed: ' + err.message, true);
+      saveBtn.disabled = false;
+      saveBtn.textContent = 'Apply Picture';
+    }
+  };
 }
 
 // Immediate execution for instant rendering
@@ -135,6 +424,7 @@ async function initApp() {
     setupLicLinksFilter();
     setupGoogleSheetsSync();
     setupContactForm();
+    setupQuickChangeFooterLogoModal();
     initScrollAnimations();
     updateCurrentYear();
     refreshIcons();
@@ -287,6 +577,18 @@ function populateConfigData() {
       }
     } catch (e) {
       applyLicBadgeIcon(SITE_CONFIG.licBadgeIconUrl);
+    }
+  }
+
+  // Update LIC Footer Banner Logo if set in config and no local override exists
+  if (SITE_CONFIG.footerLicLogoUrl) {
+    try {
+      const local = localStorage.getItem('site_custom_lic_footer');
+      if (!local) {
+        applyLicFooterLogo(SITE_CONFIG.footerLicLogoUrl);
+      }
+    } catch (e) {
+      applyLicFooterLogo(SITE_CONFIG.footerLicLogoUrl);
     }
   }
 }

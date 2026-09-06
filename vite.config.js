@@ -147,16 +147,18 @@ function buildHelpersPlugin() {
 
               let logoUrl = config.licLogoUrl || '/assets/images/lic-logo-white.svg';
               let badgeUrl = config.licBadgeIconUrl || '/assets/images/favicon.svg';
+              let footerUrl = config.footerLicLogoUrl || config.licLogoUrl || '/assets/images/lic-logo-white.svg';
 
-              if (targetType === 'logo' || targetType === 'both' || applyToBoth) {
+              if (targetType === 'logo' || targetType === 'both' || applyToBoth || targetType === 'all') {
                 const logoFilename = `lic-brand-logo.${ext}`;
                 fs.writeFileSync(resolve(publicDir, logoFilename), buffer);
                 fs.writeFileSync(resolve(assetsDir, logoFilename), buffer);
                 logoUrl = `/${logoFilename}?v=${timestamp}`;
                 config.licLogoUrl = logoUrl;
+                config.footerLicLogoUrl = logoUrl;
               }
 
-              if (targetType === 'badge' || (applyToBoth && targetType !== 'badge') || targetType === 'both') {
+              if (targetType === 'badge' || (applyToBoth && targetType !== 'badge') || targetType === 'both' || targetType === 'all') {
                 const badgeFilename = (applyToBoth && targetType !== 'badge') ? `lic-brand-logo.${ext}` : `lic-badge-icon.${ext}`;
                 if (badgeFilename !== `lic-brand-logo.${ext}`) {
                   fs.writeFileSync(resolve(publicDir, badgeFilename), buffer);
@@ -164,6 +166,14 @@ function buildHelpersPlugin() {
                 }
                 badgeUrl = `/${badgeFilename}?v=${timestamp}`;
                 config.licBadgeIconUrl = badgeUrl;
+              }
+
+              if (targetType === 'footer') {
+                const footerFilename = `lic-footer-logo.${ext}`;
+                fs.writeFileSync(resolve(publicDir, footerFilename), buffer);
+                fs.writeFileSync(resolve(assetsDir, footerFilename), buffer);
+                footerUrl = `/${footerFilename}?v=${timestamp}`;
+                config.footerLicLogoUrl = footerUrl;
               }
 
               if (fs.existsSync(configPath)) {
@@ -179,7 +189,8 @@ function buildHelpersPlugin() {
               res.end(JSON.stringify({ 
                 success: true, 
                 licLogoUrl: config.licLogoUrl, 
-                licBadgeIconUrl: config.licBadgeIconUrl 
+                licBadgeIconUrl: config.licBadgeIconUrl,
+                footerLicLogoUrl: config.footerLicLogoUrl 
               }));
             } catch (err) {
               console.error('Error handling LIC brand upload:', err);

@@ -338,10 +338,17 @@
         </div>
 
         <!-- Product Manufacturer Banner -->
-        <div class="mb-10 p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-5 shadow-md">
+        <div class="mb-10 p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-5 shadow-md relative group/banner">
           <div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-            <div class="w-16 h-14 rounded-xl bg-slate-950 p-2 flex items-center justify-center flex-shrink-0 border border-brand-gold/30">
-              <img src="/assets/images/lic-logo-white.svg" alt="LIC Logo" class="max-h-full max-w-full object-contain" onerror="this.onerror=null; this.src='/lic-logo-white.svg';" />
+            <div class="relative group/pic flex-shrink-0">
+              <div class="w-16 h-14 rounded-xl bg-slate-950 p-2 flex items-center justify-center border border-brand-gold/30 overflow-hidden shadow-inner cursor-pointer" id="footer-lic-logo-box" title="Click to change picture in this place">
+                <img id="footer-lic-logo" data-lic-footer-logo data-lic-brand-logo src="/assets/images/lic-logo-white.svg" alt="LIC Logo" class="max-h-full max-w-full object-contain transition-transform group-hover/pic:scale-105" onerror="this.onerror=null; this.src='/lic-logo-white.svg';" />
+              </div>
+              <button type="button" class="quick-change-lic-footer-btn absolute -top-2 -right-2 w-6 h-6 bg-slate-900 hover:bg-slate-800 text-brand-gold hover:text-white rounded-full border border-brand-gold/60 shadow-lg flex items-center justify-center transition-transform hover:scale-110 cursor-pointer" title="Change picture in this place" aria-label="Change picture in this place">
+                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                </svg>
+              </button>
             </div>
             <div>
               <div class="text-xs font-bold uppercase tracking-wider text-brand-gold mb-0.5 flex items-center justify-center sm:justify-start gap-1.5">

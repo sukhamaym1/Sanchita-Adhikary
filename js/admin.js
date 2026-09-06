@@ -979,6 +979,7 @@ function setupLicBrandUpload() {
     const adminHeaderLogo = document.getElementById('admin-current-header-logo');
     const adminHeroBadge = document.getElementById('admin-current-hero-badge');
     const adminShowcaseLogo = document.getElementById('admin-current-showcase-logo');
+    const adminFooterLogo = document.getElementById('admin-current-footer-logo');
 
     let selectedLogoDataUrl = null;
     let selectedLogoFile = null;
@@ -989,6 +990,7 @@ function setupLicBrandUpload() {
     function refreshCurrentLicDisplay() {
         let activeLogo = '/assets/images/lic-logo-white.svg';
         let activeBadge = '/assets/images/favicon.svg';
+        let activeFooter = '/assets/images/lic-logo-white.svg';
 
         try {
             const storedLogo = localStorage.getItem('site_custom_lic_logo');
@@ -1006,11 +1008,23 @@ function setupLicBrandUpload() {
             } else if (configData && configData.licBadgeIconUrl) {
                 activeBadge = configData.licBadgeIconUrl;
             }
+
+            const storedFooter = localStorage.getItem('site_custom_lic_footer');
+            if (storedFooter) {
+                activeFooter = storedFooter;
+            } else if (storedLogo) {
+                activeFooter = storedLogo;
+            } else if (configData && configData.footerLicLogoUrl) {
+                activeFooter = configData.footerLicLogoUrl;
+            } else {
+                activeFooter = activeLogo;
+            }
         } catch (e) {}
 
         if (adminHeaderLogo) adminHeaderLogo.src = activeLogo;
         if (adminShowcaseLogo) adminShowcaseLogo.src = activeLogo;
         if (adminHeroBadge) adminHeroBadge.src = activeBadge;
+        if (adminFooterLogo) adminFooterLogo.src = activeFooter;
     }
 
     // Expose for external refreshes
@@ -1090,6 +1104,7 @@ function setupLicBrandUpload() {
             // Real-time update live mockups
             if (adminHeaderLogo) adminHeaderLogo.src = selectedLogoDataUrl;
             if (adminShowcaseLogo) adminShowcaseLogo.src = selectedLogoDataUrl;
+            if (adminFooterLogo) adminFooterLogo.src = selectedLogoDataUrl;
             if ((!selectedBadgeDataUrl && (!syncBothCheckbox || syncBothCheckbox.checked)) && adminHeroBadge) {
                 adminHeroBadge.src = selectedLogoDataUrl;
             }
@@ -1195,13 +1210,16 @@ function setupLicBrandUpload() {
             try {
                 localStorage.removeItem('site_custom_lic_logo');
                 localStorage.removeItem('site_custom_lic_badge');
+                localStorage.removeItem('site_custom_lic_footer');
                 if (configData) {
                     configData.licLogoUrl = '/assets/images/lic-logo-white.svg';
                     configData.licBadgeIconUrl = '/assets/images/favicon.svg';
+                    configData.footerLicLogoUrl = '/assets/images/lic-logo-white.svg';
                 }
                 refreshCurrentLicDisplay();
-                window.dispatchEvent(new CustomEvent('site-lic-logo-updated', { detail: { url: '/assets/images/lic-logo-white.svg', applyToBadge: true } }));
+                window.dispatchEvent(new CustomEvent('site-lic-logo-updated', { detail: { url: '/assets/images/lic-logo-white.svg', applyToBadge: true, applyToFooter: true } }));
                 window.dispatchEvent(new CustomEvent('site-lic-badge-updated', { detail: { url: '/assets/images/favicon.svg' } }));
+                window.dispatchEvent(new CustomEvent('site-lic-footer-updated', { detail: { url: '/assets/images/lic-logo-white.svg' } }));
                 showStatus('lic-brand-status', 'Branding reset to official default emblems.');
             } catch (err) {
                 showStatus('lic-brand-status', 'Error resetting branding: ' + err.message, true);
@@ -1347,6 +1365,9 @@ function setupLicBrandUpload() {
                 try {
                     if (selectedLogoDataUrl) {
                         localStorage.setItem('site_custom_lic_logo', selectedLogoDataUrl);
+                        if (syncBoth) {
+                            localStorage.setItem('site_custom_lic_footer', selectedLogoDataUrl);
+                        }
                     }
                     if (selectedBadgeDataUrl) {
                         localStorage.setItem('site_custom_lic_badge', selectedBadgeDataUrl);
@@ -1361,7 +1382,7 @@ function setupLicBrandUpload() {
                 // 5. Broadcast to all open pages and tabs
                 if (selectedLogoDataUrl) {
                     window.dispatchEvent(new CustomEvent('site-lic-logo-updated', {
-                        detail: { url: selectedLogoDataUrl, applyToBadge: syncBoth }
+                        detail: { url: selectedLogoDataUrl, applyToBadge: syncBoth, applyToFooter: syncBoth }
                     }));
                 }
                 if (selectedBadgeDataUrl) {
