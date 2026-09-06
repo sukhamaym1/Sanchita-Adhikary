@@ -112,6 +112,85 @@ function buildHelpersPlugin() {
           return;
         }
 
+        // Handle direct LIC brand / logo upload in dev server
+        if (req.url === '/api/upload-lic-brand' && req.method === 'POST') {
+          let bodyStr = '';
+          req.on('data', chunk => { bodyStr += chunk; });
+          req.on('end', async () => {
+            try {
+              const { dataUrl, targetType, applyToBoth, filename } = JSON.parse(bodyStr || '{}');
+              if (!dataUrl) {
+                res.statusCode = 400;
+                return res.end(JSON.stringify({ error: 'No image data provided' }));
+              }
+              const matches = dataUrl.match(/^data:([A-Za-z0-9\-+/]+);base64,(.+)$/);
+              if (!matches) {
+                res.statusCode = 400;
+                return res.end(JSON.stringify({ error: 'Invalid data URL format' }));
+              }
+              const mimeType = matches[1];
+              const buffer = Buffer.from(matches[2], 'base64');
+              const isSvg = mimeType.includes('svg');
+              const ext = isSvg ? 'svg' : 'png';
+
+              const publicDir = resolve(__dirname, 'public');
+              const assetsDir = resolve(__dirname, 'assets', 'images');
+              if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir, { recursive: true });
+              if (!fs.existsSync(assetsDir)) fs.mkdirSync(assetsDir, { recursive: true });
+
+              const timestamp = Date.now();
+              const configPath = resolve(__dirname, 'data', 'config.json');
+              let config = {};
+              if (fs.existsSync(configPath)) {
+                config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+              }
+
+              let logoUrl = config.licLogoUrl || '/assets/images/lic-logo-white.svg';
+              let badgeUrl = config.licBadgeIconUrl || '/assets/images/favicon.svg';
+
+              if (targetType === 'logo' || targetType === 'both' || applyToBoth) {
+                const logoFilename = `lic-brand-logo.${ext}`;
+                fs.writeFileSync(resolve(publicDir, logoFilename), buffer);
+                fs.writeFileSync(resolve(assetsDir, logoFilename), buffer);
+                logoUrl = `/${logoFilename}?v=${timestamp}`;
+                config.licLogoUrl = logoUrl;
+              }
+
+              if (targetType === 'badge' || (applyToBoth && targetType !== 'badge') || targetType === 'both') {
+                const badgeFilename = (applyToBoth && targetType !== 'badge') ? `lic-brand-logo.${ext}` : `lic-badge-icon.${ext}`;
+                if (badgeFilename !== `lic-brand-logo.${ext}`) {
+                  fs.writeFileSync(resolve(publicDir, badgeFilename), buffer);
+                  fs.writeFileSync(resolve(assetsDir, badgeFilename), buffer);
+                }
+                badgeUrl = `/${badgeFilename}?v=${timestamp}`;
+                config.licBadgeIconUrl = badgeUrl;
+              }
+
+              if (fs.existsSync(configPath)) {
+                fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf8');
+                const distConfigPath = resolve(__dirname, 'dist', 'data', 'config.json');
+                if (fs.existsSync(distConfigPath)) {
+                  fs.writeFileSync(distConfigPath, JSON.stringify(config, null, 2), 'utf8');
+                }
+              }
+
+              res.statusCode = 200;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ 
+                success: true, 
+                licLogoUrl: config.licLogoUrl, 
+                licBadgeIconUrl: config.licBadgeIconUrl 
+              }));
+            } catch (err) {
+              console.error('Error handling LIC brand upload:', err);
+              res.statusCode = 500;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ error: err.message }));
+            }
+          });
+          return;
+        }
+
         next();
       });
     },

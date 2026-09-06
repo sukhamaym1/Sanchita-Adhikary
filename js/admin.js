@@ -82,6 +82,7 @@ function initAdmin() {
     }
 
     setupAuth();
+    setupLicBrandUpload();
     setupFaviconUpload();
     setupImageUpload();
 }
@@ -533,6 +534,9 @@ async function fetchSiteData() {
         configData = config.content;
         configSha = config.sha;
         renderConfigForm();
+        if (typeof window.refreshLicBrandDisplay === 'function') {
+            window.refreshLicBrandDisplay();
+        }
     } catch (e) {
         console.error("Config missing or error:", e);
     }
@@ -940,6 +944,450 @@ function setupFaviconUpload() {
                 showStatus('favicon-status', 'Upload failed: ' + error.message, true);
             } finally {
                 if (saveBtnText) saveBtnText.textContent = 'Upload & Apply Favicon';
+                if (saveBtnSpinner) saveBtnSpinner.classList.add('hidden');
+                saveBtn.disabled = false;
+            }
+        });
+    }
+}
+
+// ---- Product Manufacturer & Insurer Branding (LIC Logo & Hero Badge) Upload ----
+
+function setupLicBrandUpload() {
+    const dropZone = document.getElementById('lic-logo-drop-zone');
+    const fileInput = document.getElementById('lic-logo-upload');
+    const syncBothCheckbox = document.getElementById('lic-sync-both-places');
+    const toggleSeparateBtn = document.getElementById('toggle-separate-badge-btn');
+    const separateContainer = document.getElementById('separate-badge-container');
+    const closeSeparateBtn = document.getElementById('close-separate-badge-btn');
+    const badgeDropZone = document.getElementById('lic-badge-drop-zone');
+    const badgeFileInput = document.getElementById('lic-badge-upload');
+    const badgePreviewBox = document.getElementById('lic-badge-preview-box');
+    const badgePreviewImg = document.getElementById('lic-badge-preview-img');
+    const badgeFileName = document.getElementById('lic-badge-file-name');
+
+    const previewContainer = document.getElementById('lic-logo-preview-container');
+    const previewImg = document.getElementById('lic-logo-preview-img');
+    const fileInfo = document.getElementById('lic-logo-file-info');
+    const targetScope = document.getElementById('lic-logo-target-scope');
+    const saveBtn = document.getElementById('save-lic-brand-btn');
+    const saveBtnText = document.getElementById('save-lic-brand-btn-text');
+    const saveBtnSpinner = document.getElementById('save-lic-brand-spinner');
+    const cancelBtn = document.getElementById('cancel-lic-brand-btn');
+    const resetBtn = document.getElementById('reset-lic-brand-btn');
+
+    const adminHeaderLogo = document.getElementById('admin-current-header-logo');
+    const adminHeroBadge = document.getElementById('admin-current-hero-badge');
+    const adminShowcaseLogo = document.getElementById('admin-current-showcase-logo');
+
+    let selectedLogoDataUrl = null;
+    let selectedLogoFile = null;
+    let selectedBadgeDataUrl = null;
+    let selectedBadgeFile = null;
+
+    // Load active brand images into live preview mockups
+    function refreshCurrentLicDisplay() {
+        let activeLogo = '/assets/images/lic-logo-white.svg';
+        let activeBadge = '/assets/images/favicon.svg';
+
+        try {
+            const storedLogo = localStorage.getItem('site_custom_lic_logo');
+            if (storedLogo) {
+                activeLogo = storedLogo;
+            } else if (configData && configData.licLogoUrl) {
+                activeLogo = configData.licLogoUrl;
+            }
+
+            const storedBadge = localStorage.getItem('site_custom_lic_badge');
+            if (storedBadge) {
+                activeBadge = storedBadge;
+            } else if (storedLogo && (!configData || !configData.licBadgeIconUrl)) {
+                activeBadge = storedLogo;
+            } else if (configData && configData.licBadgeIconUrl) {
+                activeBadge = configData.licBadgeIconUrl;
+            }
+        } catch (e) {}
+
+        if (adminHeaderLogo) adminHeaderLogo.src = activeLogo;
+        if (adminShowcaseLogo) adminShowcaseLogo.src = activeLogo;
+        if (adminHeroBadge) adminHeroBadge.src = activeBadge;
+    }
+
+    // Expose for external refreshes
+    window.refreshLicBrandDisplay = refreshCurrentLicDisplay;
+    refreshCurrentLicDisplay();
+
+    // Toggle separate badge upload
+    if (toggleSeparateBtn && separateContainer) {
+        toggleSeparateBtn.addEventListener('click', () => {
+            separateContainer.classList.remove('hidden');
+            if (syncBothCheckbox) syncBothCheckbox.checked = false;
+            updateScopeText();
+        });
+    }
+
+    if (closeSeparateBtn && separateContainer) {
+        closeSeparateBtn.addEventListener('click', () => {
+            separateContainer.classList.add('hidden');
+            selectedBadgeDataUrl = null;
+            selectedBadgeFile = null;
+            if (badgeFileInput) badgeFileInput.value = '';
+            if (badgePreviewBox) badgePreviewBox.classList.add('hidden');
+            if (syncBothCheckbox) syncBothCheckbox.checked = true;
+            refreshCurrentLicDisplay();
+            updateScopeText();
+        });
+    }
+
+    function updateScopeText() {
+        if (!targetScope) return;
+        const syncBoth = syncBothCheckbox ? syncBothCheckbox.checked : true;
+        if (selectedBadgeDataUrl) {
+            targetScope.textContent = 'Main logo will update Header & Showcase. Separate badge will update Hero Pill.';
+        } else if (syncBoth) {
+            targetScope.textContent = 'Will be applied to Header, Hero Badge & Showcase automatically.';
+        } else {
+            targetScope.textContent = 'Will be applied to Header Navigation & Showcase Card.';
+        }
+    }
+
+    if (syncBothCheckbox) {
+        syncBothCheckbox.addEventListener('change', () => {
+            updateScopeText();
+            if (selectedLogoDataUrl && syncBothCheckbox.checked && adminHeroBadge && !selectedBadgeDataUrl) {
+                adminHeroBadge.src = selectedLogoDataUrl;
+            } else if (!syncBothCheckbox.checked && adminHeroBadge && !selectedBadgeDataUrl) {
+                refreshCurrentLicDisplay();
+            }
+        });
+    }
+
+    // Main Logo File Handling
+    function handleLogoSelect(file) {
+        if (!file) return;
+
+        if (!file.type.match('image.*') && !file.name.endsWith('.svg')) {
+            showStatus('lic-brand-status', 'Please select a valid image file (PNG, SVG, JPG, or WEBP).', true);
+            return;
+        }
+
+        if (file.size > 3 * 1024 * 1024) {
+            showStatus('lic-brand-status', 'File size exceeds 3MB. Please choose a smaller image.', true);
+            return;
+        }
+
+        selectedLogoFile = file;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            selectedLogoDataUrl = event.target.result;
+            if (previewImg) previewImg.src = selectedLogoDataUrl;
+            if (fileInfo) {
+                const kb = (file.size / 1024).toFixed(1);
+                fileInfo.textContent = `${file.name} (${kb} KB)`;
+            }
+            updateScopeText();
+
+            // Real-time update live mockups
+            if (adminHeaderLogo) adminHeaderLogo.src = selectedLogoDataUrl;
+            if (adminShowcaseLogo) adminShowcaseLogo.src = selectedLogoDataUrl;
+            if ((!selectedBadgeDataUrl && (!syncBothCheckbox || syncBothCheckbox.checked)) && adminHeroBadge) {
+                adminHeroBadge.src = selectedLogoDataUrl;
+            }
+
+            if (previewContainer) previewContainer.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Dedicated Badge File Handling
+    function handleBadgeSelect(file) {
+        if (!file) return;
+
+        if (!file.type.match('image.*') && !file.name.endsWith('.svg')) {
+            showStatus('lic-brand-status', 'Please select a valid image file for the badge.', true);
+            return;
+        }
+
+        if (file.size > 2 * 1024 * 1024) {
+            showStatus('lic-brand-status', 'Badge file size exceeds 2MB.', true);
+            return;
+        }
+
+        selectedBadgeFile = file;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            selectedBadgeDataUrl = event.target.result;
+            if (badgePreviewImg) badgePreviewImg.src = selectedBadgeDataUrl;
+            if (badgeFileName) badgeFileName.textContent = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+            if (badgePreviewBox) badgePreviewBox.classList.remove('hidden');
+            if (adminHeroBadge) adminHeroBadge.src = selectedBadgeDataUrl;
+            updateScopeText();
+            if (previewContainer) previewContainer.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Main Logo Drop Zone Events
+    if (dropZone && fileInput) {
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.classList.add('border-slate-900', 'bg-slate-100');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.classList.remove('border-slate-900', 'bg-slate-100');
+            }, false);
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            if (files && files[0]) {
+                handleLogoSelect(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                handleLogoSelect(e.target.files[0]);
+            }
+        });
+    }
+
+    // Separate Badge Drop Zone Events
+    if (badgeDropZone && badgeFileInput) {
+        badgeDropZone.addEventListener('click', () => badgeFileInput.click());
+
+        badgeFileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                handleBadgeSelect(e.target.files[0]);
+            }
+        });
+    }
+
+    // Cancel Button
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+            selectedLogoDataUrl = null;
+            selectedLogoFile = null;
+            selectedBadgeDataUrl = null;
+            selectedBadgeFile = null;
+            if (fileInput) fileInput.value = '';
+            if (badgeFileInput) badgeFileInput.value = '';
+            if (badgePreviewBox) badgePreviewBox.classList.add('hidden');
+            if (previewContainer) previewContainer.classList.add('hidden');
+            refreshCurrentLicDisplay();
+        });
+    }
+
+    // Reset Button
+    if (resetBtn) {
+        resetBtn.addEventListener('click', async () => {
+            if (!confirm('Reset manufacturer logo and badge back to the official default LIC emblem?')) return;
+            try {
+                localStorage.removeItem('site_custom_lic_logo');
+                localStorage.removeItem('site_custom_lic_badge');
+                if (configData) {
+                    configData.licLogoUrl = '/assets/images/lic-logo-white.svg';
+                    configData.licBadgeIconUrl = '/assets/images/favicon.svg';
+                }
+                refreshCurrentLicDisplay();
+                window.dispatchEvent(new CustomEvent('site-lic-logo-updated', { detail: { url: '/assets/images/lic-logo-white.svg', applyToBadge: true } }));
+                window.dispatchEvent(new CustomEvent('site-lic-badge-updated', { detail: { url: '/assets/images/favicon.svg' } }));
+                showStatus('lic-brand-status', 'Branding reset to official default emblems.');
+            } catch (err) {
+                showStatus('lic-brand-status', 'Error resetting branding: ' + err.message, true);
+            }
+        });
+    }
+
+    // Save & Apply Button
+    if (saveBtn) {
+        saveBtn.addEventListener('click', async () => {
+            if (!selectedLogoDataUrl && !selectedBadgeDataUrl) {
+                showStatus('lic-brand-status', 'Please select an image first.', true);
+                return;
+            }
+
+            if (saveBtnText) saveBtnText.textContent = 'Saving Everywhere...';
+            if (saveBtnSpinner) saveBtnSpinner.classList.remove('hidden');
+            saveBtn.disabled = true;
+
+            try {
+                const syncBoth = (!selectedBadgeDataUrl && (!syncBothCheckbox || syncBothCheckbox.checked));
+
+                // 1. Dev Server API Upload
+                try {
+                    if (selectedLogoDataUrl) {
+                        await fetch('/api/upload-lic-brand', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                dataUrl: selectedLogoDataUrl,
+                                targetType: syncBoth ? 'both' : 'logo',
+                                applyToBoth: syncBoth,
+                                filename: selectedLogoFile ? selectedLogoFile.name : 'lic-brand-logo.png'
+                            })
+                        });
+                    }
+
+                    if (selectedBadgeDataUrl) {
+                        await fetch('/api/upload-lic-brand', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                dataUrl: selectedBadgeDataUrl,
+                                targetType: 'badge',
+                                applyToBoth: false,
+                                filename: selectedBadgeFile ? selectedBadgeFile.name : 'lic-badge-icon.png'
+                            })
+                        });
+                    }
+                } catch (devApiErr) {
+                    console.warn('Dev server upload notice:', devApiErr);
+                }
+
+                // 2. Commit directly to GitHub repository if connected
+                if (GH_OWNER && GH_REPO && GH_TOKEN) {
+                    try {
+                        let configModified = false;
+                        const timestamp = Date.now();
+
+                        // Commit Main Logo
+                        if (selectedLogoDataUrl && selectedLogoDataUrl.includes(',')) {
+                            const logoBase64 = selectedLogoDataUrl.split(',')[1];
+                            const isSvg = selectedLogoFile && selectedLogoFile.type && selectedLogoFile.type.includes('svg');
+                            const logoExt = isSvg ? 'svg' : 'png';
+                            const targetLogoPath = `public/lic-brand-logo.${logoExt}`;
+
+                            let targetSha = null;
+                            try {
+                                const shaRes = await githubRequest(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${targetLogoPath}`);
+                                if (shaRes.ok) {
+                                    const shaData = await shaRes.json();
+                                    targetSha = shaData.sha;
+                                }
+                            } catch (e) {}
+
+                            const putBody = {
+                                message: `Admin: Update LIC brand logo (${targetLogoPath})`,
+                                content: logoBase64,
+                                branch: GH_BRANCH || 'main'
+                            };
+                            if (targetSha) putBody.sha = targetSha;
+
+                            await githubRequest(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${targetLogoPath}`, {
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(putBody)
+                            });
+
+                            if (configData) {
+                                configData.licLogoUrl = `/lic-brand-logo.${logoExt}?v=${timestamp}`;
+                                if (syncBoth) {
+                                    configData.licBadgeIconUrl = `/lic-brand-logo.${logoExt}?v=${timestamp}`;
+                                }
+                                configModified = true;
+                            }
+                        }
+
+                        // Commit Separate Badge if provided
+                        if (selectedBadgeDataUrl && selectedBadgeDataUrl.includes(',')) {
+                            const badgeBase64 = selectedBadgeDataUrl.split(',')[1];
+                            const isSvg = selectedBadgeFile && selectedBadgeFile.type && selectedBadgeFile.type.includes('svg');
+                            const badgeExt = isSvg ? 'svg' : 'png';
+                            const targetBadgePath = `public/lic-badge-icon.${badgeExt}`;
+
+                            let targetSha = null;
+                            try {
+                                const shaRes = await githubRequest(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${targetBadgePath}`);
+                                if (shaRes.ok) {
+                                    const shaData = await shaRes.json();
+                                    targetSha = shaData.sha;
+                                }
+                            } catch (e) {}
+
+                            const putBody = {
+                                message: `Admin: Update LIC badge icon (${targetBadgePath})`,
+                                content: badgeBase64,
+                                branch: GH_BRANCH || 'main'
+                            };
+                            if (targetSha) putBody.sha = targetSha;
+
+                            await githubRequest(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${targetBadgePath}`, {
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(putBody)
+                            });
+
+                            if (configData) {
+                                configData.licBadgeIconUrl = `/lic-badge-icon.${badgeExt}?v=${timestamp}`;
+                                configModified = true;
+                            }
+                        }
+
+                        // Save updated config.json to GitHub
+                        if (configModified && configData) {
+                            configSha = await saveFileToGithub(configFilePath, JSON.stringify(configData, null, 2), 'Admin: Update licLogoUrl and licBadgeIconUrl in config.json', configSha);
+                        }
+                    } catch (ghErr) {
+                        console.warn('GitHub brand logo sync notice:', ghErr);
+                    }
+                }
+
+                // 3. Save to localStorage for immediate real-time rendering
+                try {
+                    if (selectedLogoDataUrl) {
+                        localStorage.setItem('site_custom_lic_logo', selectedLogoDataUrl);
+                    }
+                    if (selectedBadgeDataUrl) {
+                        localStorage.setItem('site_custom_lic_badge', selectedBadgeDataUrl);
+                    } else if (syncBoth && selectedLogoDataUrl) {
+                        localStorage.removeItem('site_custom_lic_badge');
+                    }
+                } catch (e) {}
+
+                // 4. Update live mockup previews
+                refreshCurrentLicDisplay();
+
+                // 5. Broadcast to all open pages and tabs
+                if (selectedLogoDataUrl) {
+                    window.dispatchEvent(new CustomEvent('site-lic-logo-updated', {
+                        detail: { url: selectedLogoDataUrl, applyToBadge: syncBoth }
+                    }));
+                }
+                if (selectedBadgeDataUrl) {
+                    window.dispatchEvent(new CustomEvent('site-lic-badge-updated', {
+                        detail: { url: selectedBadgeDataUrl }
+                    }));
+                } else if (syncBoth && selectedLogoDataUrl) {
+                    window.dispatchEvent(new CustomEvent('site-lic-badge-updated', {
+                        detail: { url: selectedLogoDataUrl }
+                    }));
+                }
+
+                // 6. Reset UI
+                if (previewContainer) previewContainer.classList.add('hidden');
+                if (fileInput) fileInput.value = '';
+                if (badgeFileInput) badgeFileInput.value = '';
+                selectedLogoDataUrl = null;
+                selectedLogoFile = null;
+                selectedBadgeDataUrl = null;
+                selectedBadgeFile = null;
+
+                showStatus('lic-brand-status', 'Images uploaded successfully! Your image is now live everywhere on the website across all marked locations.');
+            } catch (error) {
+                showStatus('lic-brand-status', 'Upload failed: ' + error.message, true);
+            } finally {
+                if (saveBtnText) saveBtnText.textContent = 'Upload & Apply Everywhere';
                 if (saveBtnSpinner) saveBtnSpinner.classList.add('hidden');
                 saveBtn.disabled = false;
             }

@@ -46,8 +46,73 @@ function initFaviconSync() {
   });
 }
 
-// Immediate execution for instant tab icon rendering
+// Global real-time LIC brand logo & Hero Badge sync
+function applyLicLogo(url) {
+  if (!url) return;
+  const targets = document.querySelectorAll('img[data-lic-brand-logo], #nav-lic-logo, #showcase-lic-logo, #mobile-lic-logo, #footer-lic-logo, img[alt*="LIC of India"], img[alt*="LIC Logo"]');
+  targets.forEach(img => {
+    img.src = url;
+  });
+}
+
+function applyLicBadgeIcon(url) {
+  if (!url) return;
+  const heroBadgeImg = document.getElementById('hero-lic-badge-img');
+  if (heroBadgeImg) {
+    heroBadgeImg.src = url;
+  }
+  document.querySelectorAll('img[data-lic-badge-icon]').forEach(img => {
+    img.src = url;
+  });
+}
+
+function initLicBrandSync() {
+  try {
+    const localLogo = localStorage.getItem('site_custom_lic_logo');
+    if (localLogo) {
+      applyLicLogo(localLogo);
+    }
+    const localBadge = localStorage.getItem('site_custom_lic_badge');
+    if (localBadge) {
+      applyLicBadgeIcon(localBadge);
+    } else if (localLogo) {
+      applyLicBadgeIcon(localLogo);
+    }
+  } catch (e) {}
+
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'site_custom_lic_logo') {
+      const newLogo = e.newValue || (SITE_CONFIG.licLogoUrl || '/assets/images/lic-logo-white.svg');
+      applyLicLogo(newLogo);
+      if (!localStorage.getItem('site_custom_lic_badge')) {
+        applyLicBadgeIcon(newLogo);
+      }
+    }
+    if (e.key === 'site_custom_lic_badge') {
+      const newBadge = e.newValue || (SITE_CONFIG.licBadgeIconUrl || SITE_CONFIG.licLogoUrl || '/assets/images/favicon.svg');
+      applyLicBadgeIcon(newBadge);
+    }
+  });
+
+  window.addEventListener('site-lic-logo-updated', (e) => {
+    if (e.detail && e.detail.url) {
+      applyLicLogo(e.detail.url);
+      if (e.detail.applyToBadge) {
+        applyLicBadgeIcon(e.detail.url);
+      }
+    }
+  });
+
+  window.addEventListener('site-lic-badge-updated', (e) => {
+    if (e.detail && e.detail.url) {
+      applyLicBadgeIcon(e.detail.url);
+    }
+  });
+}
+
+// Immediate execution for instant rendering
 initFaviconSync();
+initLicBrandSync();
 
 // Safe DOM ready execution
 if (document.readyState === 'loading') {
@@ -198,6 +263,30 @@ function populateConfigData() {
       }
     } catch (e) {
       applyFavicon(SITE_CONFIG.faviconUrl);
+    }
+  }
+
+  // Update LIC Brand Logo if set in config and no local override exists
+  if (SITE_CONFIG.licLogoUrl) {
+    try {
+      const local = localStorage.getItem('site_custom_lic_logo');
+      if (!local) {
+        applyLicLogo(SITE_CONFIG.licLogoUrl);
+      }
+    } catch (e) {
+      applyLicLogo(SITE_CONFIG.licLogoUrl);
+    }
+  }
+
+  // Update LIC Hero Badge Icon if set in config and no local override exists
+  if (SITE_CONFIG.licBadgeIconUrl) {
+    try {
+      const local = localStorage.getItem('site_custom_lic_badge');
+      if (!local) {
+        applyLicBadgeIcon(SITE_CONFIG.licBadgeIconUrl);
+      }
+    } catch (e) {
+      applyLicBadgeIcon(SITE_CONFIG.licBadgeIconUrl);
     }
   }
 }

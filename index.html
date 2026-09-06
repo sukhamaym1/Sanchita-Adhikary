@@ -217,7 +217,7 @@
             <div class="h-10 w-px bg-white/20 hidden sm:block"></div>
             <!-- LIC Insurer & Product Manufacturer Badge -->
             <div class="hidden sm:flex items-center gap-2 pl-0.5" title="Life Insurance Corporation of India - Product Manufacturer & Underwriter">
-              <img src="/assets/images/lic-logo-white.svg" alt="LIC of India - Product Manufacturer" class="h-9 w-auto max-w-[200px] xl:max-w-[220px] object-contain" onerror="this.onerror=null; this.src='/lic-logo-white.svg';" />
+              <img id="nav-lic-logo" data-lic-brand-logo src="/assets/images/lic-logo-white.svg" alt="LIC of India - Product Manufacturer" class="h-9 w-auto max-w-[200px] xl:max-w-[220px] object-contain" onerror="this.onerror=null; this.src='/lic-logo-white.svg';" />
             </div>
           </div>
 
@@ -308,7 +308,7 @@
           >
           <!-- Mobile Menu LIC Manufacturer Card -->
           <div class="pt-3 mt-2 border-t border-brand-navy/80 px-3 pb-2 flex items-center gap-3">
-            <img src="/assets/images/lic-logo-white.svg" alt="LIC of India" class="h-8 w-auto object-contain flex-shrink-0" onerror="this.onerror=null; this.src='/lic-logo-white.svg';" />
+            <img id="mobile-lic-logo" data-lic-brand-logo src="/assets/images/lic-logo-white.svg" alt="LIC of India" class="h-8 w-auto object-contain flex-shrink-0" onerror="this.onerror=null; this.src='/lic-logo-white.svg';" />
             <div>
               <div class="text-[10px] font-bold uppercase tracking-wider text-brand-gold">Product Manufacturer</div>
               <div class="text-xs text-blue-100 font-medium">Life Insurance Corporation of India</div>
@@ -334,19 +334,9 @@
         >
           <div class="lg:w-3/5 text-center lg:text-left mb-12 lg:mb-0 pt-8">
             <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-brand-gold/40 mb-4 shadow-sm">
-              <svg class="w-5 h-5 flex-shrink-0 rounded" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="LIC Insignia">
-                <rect x="1" y="1" width="62" height="62" rx="10" fill="#003893" stroke="#FFBA00" stroke-width="2" />
-                <rect x="16" y="5" width="32" height="36" rx="16" fill="none" stroke="#FFFFFF" stroke-width="2.2" />
-                <path d="M32 14 C33.8 17.5 35.5 20 35.5 22.5 C35.5 24.8 33.8 26.2 32 26.2 C30.2 26.2 28.5 24.8 28.5 22.5 C28.5 20 30.2 17.5 32 14 Z" fill="#FFFFFF" />
-                <path d="M27.5 26.2 C27.5 28.5 29.5 29.5 32 29.5 C34.5 29.5 36.5 28.5 36.5 26.2 Z" fill="#FFFFFF" />
-                <path d="M30.5 29.5 L33.5 29.5 L32.5 31 L31.5 31 Z" fill="#FFFFFF" />
-                <path d="M21.5 20.5 C22 18.5 23 17 24.5 16.5 C25.2 16.3 25.6 16.8 25.4 17.6 C25 19.2 24.6 20.8 25.2 22.8 C25.8 24.5 27.5 26.5 29.5 27.5 C30.2 27.8 30.5 28.6 29.9 29.2 C27.8 30.5 25 30 23.2 28.2 C21.5 26.5 20.8 24 21.5 20.5 Z" fill="#FFFFFF" />
-                <g transform="translate(64, 0) scale(-1, 1)">
-                  <path d="M21.5 20.5 C22 18.5 23 17 24.5 16.5 C25.2 16.3 25.6 16.8 25.4 17.6 C25 19.2 24.6 20.8 25.2 22.8 C25.8 24.5 27.5 26.5 29.5 27.5 C30.2 27.8 30.5 28.6 29.9 29.2 C27.8 30.5 25 30 23.2 28.2 C21.5 26.5 20.8 24 21.5 20.5 Z" fill="#FFFFFF" />
-                </g>
-                <path d="M2 43 L62 43 L62 55 C62 59.4 58.4 63 54 63 L10 63 C5.6 63 2 59.4 2 55 Z" fill="#FFBA00" />
-                <text x="32" y="58" font-family="'Inter', 'Arial Black', sans-serif" font-size="14" font-weight="900" fill="#003893" text-anchor="middle" letter-spacing="2.5">LIC</text>
-              </svg>
+              <div id="hero-badge-icon-box" class="w-5 h-5 flex-shrink-0 flex items-center justify-center">
+                <img id="hero-lic-badge-img" data-lic-badge-icon src="/assets/images/favicon.svg" alt="LIC Insignia" class="w-full h-full object-contain rounded" onerror="this.onerror=null; this.src='/assets/images/lic-logo-white.svg';" />
+              </div>
               <span class="text-xs sm:text-sm font-semibold text-blue-100">
                 <span class="text-brand-gold font-bold">Product Manufacturer:</span> Life Insurance Corporation of India (LIC)
               </span>
@@ -516,7 +506,7 @@
             <!-- Left: LIC Logo & Manufacturer Information -->
             <div class="lg:w-7/12 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6">
               <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-slate-950/80 p-3 flex items-center justify-center flex-shrink-0 border border-brand-gold/40 shadow-inner">
-                <img src="/assets/images/lic-logo-white.svg" alt="Official LIC of India Logo - Product Manufacturer" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='/lic-logo-white.svg';" />
+                <img id="showcase-lic-logo" data-lic-brand-logo src="/assets/images/lic-logo-white.svg" alt="Official LIC of India Logo - Product Manufacturer" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='/lic-logo-white.svg';" />
               </div>
               <div>
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold text-xs font-extrabold uppercase tracking-wider mb-2.5 border border-brand-gold/30">
@@ -1652,7 +1642,7 @@
         <div class="mb-10 p-6 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
           <div class="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
             <div class="w-20 h-16 rounded-xl bg-slate-950 p-2 flex items-center justify-center flex-shrink-0 border border-brand-gold/30">
-              <img src="/assets/images/lic-logo-white.svg" alt="LIC Logo" class="max-h-full max-w-full object-contain" onerror="this.onerror=null; this.src='/lic-logo-white.svg';" />
+              <img id="footer-lic-logo" data-lic-brand-logo src="/assets/images/lic-logo-white.svg" alt="LIC Logo" class="max-h-full max-w-full object-contain" onerror="this.onerror=null; this.src='/lic-logo-white.svg';" />
             </div>
             <div>
               <div class="text-xs font-bold uppercase tracking-wider text-brand-gold mb-1 flex items-center justify-center sm:justify-start gap-1.5">
