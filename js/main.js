@@ -720,8 +720,7 @@ function updateCurrentYear() {
 
 // Theme Toggle with storage exception safety
 function setupThemeToggle() {
-  const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
-  const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+  const toggles = document.querySelectorAll('#theme-toggle-desktop, #theme-toggle-mobile, #theme-toggle, .theme-toggle-btn');
 
   function toggleTheme() {
     const isDark = document.documentElement.classList.contains('dark');
@@ -734,12 +733,9 @@ function setupThemeToggle() {
     }
   }
 
-  if (themeToggleDesktop) {
-    themeToggleDesktop.addEventListener('click', toggleTheme);
-  }
-  if (themeToggleMobile) {
-    themeToggleMobile.addEventListener('click', toggleTheme);
-  }
+  toggles.forEach(btn => {
+    btn.addEventListener('click', toggleTheme);
+  });
 }
 
 // Format Currency

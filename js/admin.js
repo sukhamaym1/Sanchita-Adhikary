@@ -7,6 +7,7 @@ if (document.readyState === 'loading') {
 let GH_OWNER = '';
 let GH_REPO = '';
 let GH_TOKEN = '';
+let GH_BRANCH = 'main';
 
 let configData = {};
 let configSha = '';
@@ -20,18 +21,37 @@ let achieveData = [];
 let achieveSha = '';
 let achieveFilePath = 'data/achievements.json';
 
+// Helper for safe SessionStorage access in sandboxed iframes
+function safeSessionGet(key) {
+    try {
+        return sessionStorage.getItem(key);
+    } catch (e) {
+        return null;
+    }
+}
+
+function safeSessionSet(key, value) {
+    try {
+        sessionStorage.setItem(key, value);
+    } catch (e) {}
+}
+
+function safeSessionClear() {
+    try {
+        sessionStorage.clear();
+    } catch (e) {}
+}
+
 // Check if already logged in via Session Storage
 function initAdmin() {
-    let storedOwner = null;
-    let storedRepo = null;
-    let storedToken = null;
-    try {
-        storedOwner = sessionStorage.getItem('gh_owner');
-        storedRepo = sessionStorage.getItem('gh_repo');
-        storedToken = sessionStorage.getItem('gh_token');
-    } catch (e) {
-        console.warn('SessionStorage access not available in sandbox:', e);
-    }
+    const storedOwner = safeSessionGet('gh_owner');
+    const storedRepo = safeSessionGet('gh_repo');
+    const storedToken = safeSessionGet('gh_token');
+    const storedBranch = safeSessionGet('gh_branch');
+    const storedScheme = safeSessionGet('gh_auth_scheme');
+
+    if (storedScheme) GH_AUTH_SCHEME = storedScheme;
+    if (storedBranch) GH_BRANCH = storedBranch;
 
     if (storedOwner && storedRepo && storedToken) {
         GH_OWNER = storedOwner;
@@ -53,6 +73,10 @@ function getAuthHeader(token) {
     const clean = (token || '').trim();
     if (clean.startsWith('token ') || clean.startsWith('Bearer ')) {
         return clean;
+    }
+    // Fine-grained personal access tokens on GitHub strictly require Bearer
+    if (clean.startsWith('github_pat_')) {
+        return `Bearer ${clean}`;
     }
     return `${GH_AUTH_SCHEME} ${clean}`;
 }
@@ -83,7 +107,7 @@ async function githubRequest(url, options = {}) {
         });
         if (retryRes.ok) {
             GH_AUTH_SCHEME = altScheme;
-            sessionStorage.setItem('gh_auth_scheme', altScheme);
+            safeSessionSet('gh_auth_scheme', altScheme);
             return retryRes;
         }
     }
@@ -98,6 +122,21 @@ function setupAuth() {
     const ownerInput = document.getElementById('gh-owner');
     const repoInput = document.getElementById('gh-repo');
     const tokenInput = document.getElementById('gh-token');
+    const toggleTokenBtn = document.getElementById('toggle-token-visibility');
+
+    // Password visibility toggle
+    if (toggleTokenBtn && tokenInput) {
+        toggleTokenBtn.addEventListener('click', () => {
+            const isPassword = tokenInput.type === 'password';
+            tokenInput.type = isPassword ? 'text' : 'password';
+            const eyeIcon = document.getElementById('eye-icon');
+            const eyeOffIcon = document.getElementById('eye-off-icon');
+            if (eyeIcon && eyeOffIcon) {
+                eyeIcon.classList.toggle('hidden', isPassword);
+                eyeOffIcon.classList.toggle('hidden', !isPassword);
+            }
+        });
+    }
 
     // Auto-parse if user pastes full GitHub URL into owner or repo input
     function autoParseGithubUrl(e) {
@@ -117,7 +156,11 @@ function setupAuth() {
     if (ownerInput) ownerInput.addEventListener('input', autoParseGithubUrl);
     if (repoInput) repoInput.addEventListener('input', autoParseGithubUrl);
 
+    let isConnecting = false;
+
     async function handleConnect() {
+        if (isConnecting) return;
+
         const errEl = document.getElementById('auth-error');
         const btnText = document.getElementById('connect-btn-text');
         const btnSpinner = document.getElementById('connect-btn-spinner');
@@ -126,7 +169,7 @@ function setupAuth() {
 
         let rawOwner = ownerInput ? ownerInput.value.trim() : '';
         let rawRepo = repoInput ? repoInput.value.trim() : '';
-        let rawToken = tokenInput ? tokenInput.value.trim() : '';
+        let rawToken = tokenInput ? tokenInput.value.trim().replace(/^["']|["']$/g, '') : '';
 
         // Sanitize owner if a URL was entered
         if (rawOwner.includes('github.com/')) {
@@ -153,12 +196,16 @@ function setupAuth() {
         }
 
         GH_TOKEN = rawToken;
+        if (GH_TOKEN.startsWith('github_pat_')) {
+            GH_AUTH_SCHEME = 'Bearer';
+        }
 
         if (!GH_OWNER || !GH_REPO || !GH_TOKEN) {
             showAuthError("Please provide your GitHub Username, Repository Name, and Personal Access Token.");
             return;
         }
 
+        isConnecting = true;
         // Show loading state
         if (btnText) btnText.textContent = 'Connecting...';
         if (btnSpinner) btnSpinner.classList.remove('hidden');
@@ -168,9 +215,20 @@ function setupAuth() {
             const res = await githubRequest(`https://api.github.com/repos/${encodeURIComponent(GH_OWNER)}/${encodeURIComponent(GH_REPO)}`);
 
             if (res.ok) {
-                sessionStorage.setItem('gh_owner', GH_OWNER);
-                sessionStorage.setItem('gh_repo', GH_REPO);
-                sessionStorage.setItem('gh_token', GH_TOKEN);
+                try {
+                    const repoInfo = await res.json();
+                    if (repoInfo && repoInfo.default_branch) {
+                        GH_BRANCH = repoInfo.default_branch;
+                        safeSessionSet('gh_branch', GH_BRANCH);
+                    }
+                } catch (e) {
+                    console.warn('Could not inspect repo default branch:', e);
+                }
+
+                safeSessionSet('gh_owner', GH_OWNER);
+                safeSessionSet('gh_repo', GH_REPO);
+                safeSessionSet('gh_token', GH_TOKEN);
+                safeSessionSet('gh_auth_scheme', GH_AUTH_SCHEME);
                 showDashboard();
             } else if (res.status === 401) {
                 showAuthError("Invalid Token (401): GitHub rejected this Personal Access Token. Make sure you copied the full token without spaces and that it hasn't expired.");
@@ -184,6 +242,7 @@ function setupAuth() {
         } catch (error) {
             showAuthError(`Connection error: ${error.message || "Failed to contact GitHub API. Please check your network or browser settings."}`);
         } finally {
+            isConnecting = false;
             if (btnText) btnText.textContent = 'Connect to Admin';
             if (btnSpinner) btnSpinner.classList.add('hidden');
             if (connectBtn) connectBtn.disabled = false;
@@ -219,7 +278,7 @@ function setupAuth() {
 
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
-            sessionStorage.clear();
+            safeSessionClear();
             location.reload();
         });
     }
@@ -234,10 +293,18 @@ function showAuthError(msg) {
 }
 
 function showDashboard() {
-    document.getElementById('auth-section').classList.add('hidden');
-    document.getElementById('dashboard-section').classList.remove('hidden');
-    document.getElementById('connected-repo').textContent = `${GH_OWNER}/${GH_REPO}`;
+    const authSec = document.getElementById('auth-section');
+    const dashSec = document.getElementById('dashboard-section');
+    if (authSec) authSec.classList.add('hidden');
+    if (dashSec) dashSec.classList.remove('hidden');
+
+    const connRepo = document.getElementById('connected-repo');
+    if (connRepo) connRepo.textContent = `${GH_OWNER}/${GH_REPO}`;
     
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        try { window.lucide.createIcons(); } catch (e) {}
+    }
+
     fetchSiteData();
 }
 
@@ -251,8 +318,10 @@ async function fetchFileFromGithub(path) {
     if (!res.ok) throw new Error(`Failed to fetch ${path}`);
     const data = await res.json();
     
-    // Decode base64 content securely
-    const content = decodeURIComponent(escape(window.atob(data.content)));
+    // Decode base64 content securely supporting UTF-8
+    const binary = window.atob((data.content || '').replace(/\s/g, ''));
+    const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+    const content = new TextDecoder('utf-8').decode(bytes);
     return {
         content: JSON.parse(content),
         sha: data.sha
@@ -260,13 +329,18 @@ async function fetchFileFromGithub(path) {
 }
 
 async function saveFileToGithub(path, contentStr, message, sha) {
-    // Encode to base64 securely
-    const base64Content = window.btoa(unescape(encodeURIComponent(contentStr)));
+    // Encode to base64 securely supporting UTF-8
+    const utf8Bytes = new TextEncoder().encode(contentStr);
+    let binaryStr = '';
+    for (let i = 0; i < utf8Bytes.length; i++) {
+        binaryStr += String.fromCharCode(utf8Bytes[i]);
+    }
+    const base64Content = window.btoa(binaryStr);
     
     const body = {
         message: message,
         content: base64Content,
-        branch: 'main'
+        branch: GH_BRANCH || 'main'
     };
     if (sha) body.sha = sha;
 
@@ -873,14 +947,12 @@ window.uploadAchievementImage = async function(index, fileInput) {
             const body = {
                 message: `Admin: Upload achievement image ${filename}`,
                 content: base64Image,
-                branch: 'main'
+                branch: GH_BRANCH || 'main'
             };
 
-            const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${imagePath}`, {
+            const res = await githubRequest(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${imagePath}`, {
                 method: 'PUT',
                 headers: {
-                    'Authorization': `Bearer ${GH_TOKEN}`,
-                    'Accept': 'application/vnd.github.v3+json',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(body)

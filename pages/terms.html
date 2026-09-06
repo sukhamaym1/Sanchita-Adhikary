@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Use | Sanchita Adhikary Barman</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="alternate icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/favicon.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms of Use | Sanchita Adhikary Barman - LIC Insurance Advisor</title>
+    <meta name="description" content="Terms and Conditions governing the use of Sanchita Adhikary Barman's official advisory portal, calculators, and consultation requests." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     <script>
       (function() {
         try {
@@ -29,81 +30,345 @@
         });
       })();
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      tailwind.config = { theme: { extend: { colors: { navy: { 800: '#1E293B', 900: '#0F172A' }, gold: { 400: '#F3E5AB', 500: '#D4AF37', 600: '#C59A26' } }, fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Manrope', 'sans-serif'] } } } }
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                navy: "#062A5A",
+                midnight: "#031B3A",
+                gold: "#D9A62E",
+                softgold: "#F3D98B",
+                warmwhite: "#FAFBFD",
+                purewhite: "#FFFFFF",
+                text: "#172033",
+                muted: "#64748B",
+                border: "#E5EAF0",
+                whatsapp: "#16A34A",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              heading: ['"Playfair Display"', "serif"],
+            },
+          },
+        },
+      };
     </script>
-    <link rel="stylesheet" href="../css/style.css">
-</head>
-<body class="antialiased text-gray-800 bg-slate-50 flex flex-col min-h-screen">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script>
+      (function() {
+        try {
+          const storedTheme = localStorage.getItem('theme');
+          if (storedTheme === 'dark' || (!storedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="flex flex-col min-h-screen bg-brand-warmwhite dark:bg-slate-950 text-brand-text dark:text-gray-100 antialiased">
+    <!-- Header -->
+    <header class="bg-brand-navy sticky top-0 z-50 shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <div class="flex-shrink-0 flex items-center gap-3 sm:gap-4">
+            <a href="/#home" class="flex flex-col">
+              <span class="font-heading italic text-brand-gold text-2xl leading-none">Sanchita</span>
+              <span class="font-sans font-bold text-brand-purewhite text-xs tracking-widest leading-tight mt-1">ADHIKARY BARMAN</span>
+              <span class="text-[10px] text-brand-gold/90 font-medium tracking-wide">LIC INSURANCE ADVISOR</span>
+            </a>
+          </div>
 
-    <header class="w-full top-0 z-50 glass-effect border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <a href="../index.html" class="flex flex-col">
-                    <span class="font-heading font-bold text-xl text-navy-900 tracking-tight" data-config="name">Sanchita Adhikary Barman</span>
-                    <span class="text-xs font-medium text-gold-600 uppercase tracking-wider" data-config="designation">LIC Insurance Advisor</span>
-                </a>
-                <a href="../index.html" class="text-sm font-medium text-navy-900 hover:text-gold-600 transition-colors">&larr; Back to Home</a>
+          <!-- Desktop Navigation -->
+          <nav class="hidden lg:flex items-center space-x-7">
+            <a href="/pages/resources.html" class="text-sm font-medium text-brand-purewhite hover:text-brand-gold transition-colors">Calculators</a>
+            <a href="/pages/lic-links.html" class="text-sm font-medium text-brand-purewhite hover:text-brand-gold transition-colors">Official LIC Links</a>
+            <a href="/#contact" class="text-sm font-medium text-brand-purewhite hover:text-brand-gold transition-colors">Contact</a>
+
+            <!-- Theme Toggle -->
+            <button
+              id="theme-toggle"
+              aria-label="Toggle Theme"
+              class="p-2.5 rounded-full text-brand-gold hover:bg-brand-midnight transition-colors border border-brand-gold/30 flex items-center justify-center"
+            >
+              <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-brand-gold"></i>
+              <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-brand-gold"></i>
+            </button>
+
+            <!-- Call / WhatsApp Actions -->
+            <div class="flex items-center gap-2">
+              <a
+                href="tel:[ADD PHONE NUMBER]"
+                data-config-href="phone"
+                class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-lg bg-brand-midnight text-brand-purewhite border border-brand-gold/40 hover:border-brand-gold transition-all"
+              >
+                <i data-lucide="phone" class="w-3.5 h-3.5 text-brand-gold"></i>
+                Call
+              </a>
+              <a
+                href="https://wa.me/917047870951"
+                data-config-href="whatsapp"
+                class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition-all shadow-sm"
+              >
+                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                WhatsApp
+              </a>
             </div>
+          </nav>
+
+          <!-- Mobile Actions -->
+          <div class="flex items-center gap-3 lg:hidden">
+            <button
+              id="theme-toggle-mobile"
+              aria-label="Toggle Theme"
+              class="p-2 rounded-full text-brand-gold hover:bg-brand-midnight transition-colors border border-brand-gold/30"
+            >
+              <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-brand-gold"></i>
+              <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-brand-gold"></i>
+            </button>
+            <a
+              href="/#home"
+              class="text-xs font-semibold text-brand-gold border border-brand-gold/40 px-3 py-1.5 rounded-lg hover:bg-brand-midnight transition-colors"
+            >
+              Back to Home
+            </a>
+          </div>
         </div>
+      </div>
     </header>
 
-    <main class="flex-grow py-12">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 bg-white p-8 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
-            <h1 class="text-3xl font-heading font-bold text-navy-900 mb-6">Terms of Use</h1>
-            
-            <div class="prose prose-slate max-w-none text-sm text-gray-600 space-y-6">
-                
-                <section>
-                    <h2 class="text-lg font-bold text-navy-900 mb-2">1. Agreement to Terms</h2>
-                    <p>By accessing this personal professional website, you agree to be bound by these Terms of Use and to use the site in accordance with these Terms, our Privacy Policy, and any additional terms and conditions that may apply to specific sections of the site or to products and services available through the site.</p>
-                </section>
-
-                <section>
-                    <h2 class="text-lg font-bold text-navy-900 mb-2">2. Intellectual Property Rights</h2>
-                    <p>Unless otherwise indicated, the Site is our proprietary property. LIC, the LIC logo, and all related names, logos, product and service names, designs, and slogans are trademarks of the Life Insurance Corporation of India. We are an authorized agent acting in an independent professional capacity.</p>
-                </section>
-
-                <section>
-                    <h2 class="text-lg font-bold text-navy-900 mb-2">3. User Representations</h2>
-                    <p>By using the Site, you represent and warrant that: (1) all registration information you submit will be true, accurate, current, and complete; (2) you will maintain the accuracy of such information; (3) you will not access the Site through automated or non-human means.</p>
-                </section>
-
-                <section>
-                    <h2 class="text-lg font-bold text-navy-900 mb-2">4. Disclaimer of Guarantee</h2>
-                    <p>All calculators and projection tools provided on this website are purely illustrative. We do not guarantee any specific returns, investment performance, or approval of claims, which are strictly subject to the official underwriting policies of the insurance provider.</p>
-                </section>
-
-            </div>
+    <!-- Page Title & Breadcrumb -->
+    <section class="bg-brand-navy dark:bg-slate-900 border-b border-brand-border dark:border-slate-800 py-10 sm:py-14 text-center">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-midnight/80 border border-brand-gold/30 text-brand-gold text-xs font-semibold uppercase tracking-wider mb-4">
+          <i data-lucide="file-check" class="w-4 h-4"></i>
+          User Agreement &amp; Portal Terms
         </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-brand-purewhite mb-4">
+          Terms of Use
+        </h1>
+        <p class="text-base text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          Standard terms governing the use of information, financial calculator estimators, and advisory consultation bookings.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="flex-grow py-12 sm:py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-brand-purewhite dark:bg-slate-900 border border-brand-border dark:border-slate-800 rounded-2xl p-6 sm:p-10 shadow-sm space-y-8">
+          
+          <div class="text-xs text-brand-muted dark:text-gray-400 font-medium">
+            Last Updated: <span class="font-semibold text-brand-navy dark:text-brand-gold">September 2026</span>
+          </div>
+
+          <!-- Section 1 -->
+          <section class="space-y-3">
+            <h2 class="text-xl font-heading font-bold text-brand-navy dark:text-brand-gold flex items-center gap-2.5">
+              <span class="w-7 h-7 rounded-full bg-brand-navy/10 dark:bg-brand-gold/20 text-brand-navy dark:text-brand-gold inline-flex items-center justify-center text-sm font-sans font-bold">1</span>
+              Acceptance of Terms
+            </h2>
+            <p class="text-brand-muted dark:text-gray-300 text-base leading-relaxed pl-9">
+              By accessing and browsing this website, you confirm your agreement to comply with and be bound by these Terms of Use, our Privacy Policy, and applicable Indian regulatory statutes. If you do not agree with any part of these terms, please discontinue using this portal.
+            </p>
+          </section>
+
+          <!-- Section 2 -->
+          <section class="space-y-3">
+            <h2 class="text-xl font-heading font-bold text-brand-navy dark:text-brand-gold flex items-center gap-2.5">
+              <span class="w-7 h-7 rounded-full bg-brand-navy/10 dark:bg-brand-gold/20 text-brand-navy dark:text-brand-gold inline-flex items-center justify-center text-sm font-sans font-bold">2</span>
+              Intellectual Property &amp; Trademarks
+            </h2>
+            <p class="text-brand-muted dark:text-gray-300 text-base leading-relaxed pl-9">
+              "Life Insurance Corporation of India", "LIC", and the iconic "Yogakshema" emblem are registered trademarks and statutory properties of Life Insurance Corporation of India. Sanchita Adhikary Barman is an authorized insurance advisor displaying these marks in an authorized professional capacity to facilitate policyholder services.
+            </p>
+          </section>
+
+          <!-- Section 3 -->
+          <section class="space-y-3">
+            <h2 class="text-xl font-heading font-bold text-brand-navy dark:text-brand-gold flex items-center gap-2.5">
+              <span class="w-7 h-7 rounded-full bg-brand-navy/10 dark:bg-brand-gold/20 text-brand-navy dark:text-brand-gold inline-flex items-center justify-center text-sm font-sans font-bold">3</span>
+              Use of Calculators and Illustrative Estimates
+            </h2>
+            <p class="text-brand-muted dark:text-gray-300 text-base leading-relaxed pl-9">
+              The financial calculators provided on this portal (Human Life Value, Child Education Fund, Retirement Pension, and Wealth Accumulation) are interactive simulation models created for conceptual and educational planning purposes. Actual policy returns, surrender values, bonuses, and loan eligibility are calculated exclusively by LIC's central underwriting systems based on age, medical underwriting, tenure, and official declared bonus rates.
+            </p>
+          </section>
+
+          <!-- Section 4 -->
+          <section class="space-y-3">
+            <h2 class="text-xl font-heading font-bold text-brand-navy dark:text-brand-gold flex items-center gap-2.5">
+              <span class="w-7 h-7 rounded-full bg-brand-navy/10 dark:bg-brand-gold/20 text-brand-navy dark:text-brand-gold inline-flex items-center justify-center text-sm font-sans font-bold">4</span>
+              User Conduct &amp; Accurate Information
+            </h2>
+            <p class="text-brand-muted dark:text-gray-300 text-base leading-relaxed pl-9">
+              When submitting inquiry forms, users agree to provide accurate and verifiable contact information (valid name and 10-digit mobile number). Automated spam submissions, scraping, or misuse of contact numbers for unsolicited promotions is strictly prohibited.
+            </p>
+          </section>
+
+          <!-- Section 5 -->
+          <section class="space-y-3">
+            <h2 class="text-xl font-heading font-bold text-brand-navy dark:text-brand-gold flex items-center gap-2.5">
+              <span class="w-7 h-7 rounded-full bg-brand-navy/10 dark:bg-brand-gold/20 text-brand-navy dark:text-brand-gold inline-flex items-center justify-center text-sm font-sans font-bold">5</span>
+              Governing Law &amp; Jurisdiction
+            </h2>
+            <p class="text-brand-muted dark:text-gray-300 text-base leading-relaxed pl-9">
+              These terms and any advisory service interactions shall be governed by and construed in accordance with the laws of India. Any disputes arising shall be subject to the exclusive jurisdiction of the competent courts in Cooch Behar District, West Bengal.
+            </p>
+          </section>
+
+          <!-- Action Card -->
+          <div class="pt-6 border-t border-brand-border dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-sm text-brand-muted dark:text-gray-400 text-center sm:text-left">
+              Need personalized insurance advisory tailored to your financial timeline?
+            </div>
+            <a
+              href="/#contact"
+              class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-brand-navy text-brand-purewhite font-semibold hover:bg-brand-midnight hover:text-brand-gold border border-transparent dark:border-slate-700 transition-all text-sm shadow-sm"
+            >
+              <i data-lucide="calendar" class="w-4 h-4 text-brand-gold"></i>
+              Schedule Consultation
+            </a>
+          </div>
+
+        </div>
+      </div>
     </main>
 
-    <footer class="bg-navy-900 py-8 border-t border-navy-800 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-slate-500 text-xs">
-                &copy; <span id="current-year"></span> Sanchita Adhikary Barman. All Rights Reserved.
+    <!-- Footer -->
+    <footer class="bg-brand-midnight text-brand-purewhite pt-16 pb-12 border-t border-brand-border dark:border-slate-800 mt-auto">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+          <!-- Column 1 -->
+          <div>
+            <div class="mb-4">
+              <span class="font-heading italic text-brand-gold text-2xl">Sanchita</span>
+              <span class="block font-sans font-bold text-brand-purewhite text-sm tracking-widest mt-1">ADHIKARY BARMAN</span>
+            </div>
+            <p class="text-base text-gray-300 mb-6 leading-relaxed">
+              Professional, transparent life insurance and retirement guidance. Protecting families and securing aspirations across West Bengal.
             </p>
+            <div class="flex gap-3">
+              <a href="https://wa.me/917047870951" data-config-href="whatsapp" class="w-9 h-9 rounded-full bg-brand-navy flex items-center justify-center text-brand-gold hover:bg-brand-gold hover:text-brand-midnight transition-colors" aria-label="WhatsApp">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+              </a>
+              <a href="tel:[ADD PHONE NUMBER]" data-config-href="phone" class="w-9 h-9 rounded-full bg-brand-navy flex items-center justify-center text-brand-gold hover:bg-brand-gold hover:text-brand-midnight transition-colors" aria-label="Phone">
+                <i data-lucide="phone" class="w-4 h-4"></i>
+              </a>
+              <a href="mailto:Sanchita.lic18@gmail.com" data-config-href="email" class="w-9 h-9 rounded-full bg-brand-navy flex items-center justify-center text-brand-gold hover:bg-brand-gold hover:text-brand-midnight transition-colors" aria-label="Email">
+                <i data-lucide="mail" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div>
+            <h3 class="text-base font-bold text-brand-gold uppercase tracking-wider mb-5">Quick Links</h3>
+            <ul class="space-y-2.5 text-sm text-gray-300">
+              <li><a href="/#home" class="hover:text-brand-gold transition-colors">Home</a></li>
+              <li><a href="/#services" class="hover:text-brand-gold transition-colors">Services Offered</a></li>
+              <li><a href="/pages/resources.html" class="hover:text-brand-gold transition-colors">Interactive Calculators</a></li>
+              <li><a href="/pages/lic-links.html" class="hover:text-brand-gold transition-colors">Official LIC Portal Links</a></li>
+              <li><a href="/#contact" class="hover:text-brand-gold transition-colors">Book Consultation</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3 -->
+          <div>
+            <h3 class="text-base font-bold text-brand-gold uppercase tracking-wider mb-5">Advisory Services</h3>
+            <ul class="space-y-2.5 text-sm text-gray-300">
+              <li><a href="/#services" class="hover:text-brand-gold transition-colors">Life Insurance Planning</a></li>
+              <li><a href="/#services" class="hover:text-brand-gold transition-colors">Child Future &amp; Higher Education</a></li>
+              <li><a href="/#services" class="hover:text-brand-gold transition-colors">Retirement &amp; Pension Funds</a></li>
+              <li><a href="/#services" class="hover:text-brand-gold transition-colors">Policy Revival &amp; Servicing</a></li>
+              <li><a href="/#services" class="hover:text-brand-gold transition-colors">Claim Settlement Assistance</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4 -->
+          <div>
+            <h3 class="text-base font-bold text-brand-gold uppercase tracking-wider mb-5">Advisor Contact</h3>
+            <ul class="space-y-3 text-sm text-gray-300">
+              <li class="flex items-start gap-2.5">
+                <i data-lucide="map-pin" class="w-4 h-4 text-brand-gold mt-1 flex-shrink-0"></i>
+                <span data-config="serviceArea">Tufanganj, Cooch Behar, West Bengal</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <i data-lucide="phone" class="w-4 h-4 text-brand-gold mt-1 flex-shrink-0"></i>
+                <span data-config="phone">+91 7047870951</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <i data-lucide="mail" class="w-4 h-4 text-brand-gold mt-1 flex-shrink-0"></i>
+                <span data-config="email">Sanchita.lic18@gmail.com</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <i data-lucide="award" class="w-4 h-4 text-brand-gold mt-1 flex-shrink-0"></i>
+                <span data-config="credential">DM Club Member</span>
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <!-- Product Manufacturer Banner -->
+        <div class="mb-10 p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-5 shadow-md">
+          <div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+            <div class="w-16 h-14 rounded-xl bg-slate-950 p-2 flex items-center justify-center flex-shrink-0 border border-brand-gold/30">
+              <img src="/lic-logo-white.svg" alt="LIC Logo" class="max-h-full max-w-full object-contain" />
+            </div>
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider text-brand-gold mb-0.5 flex items-center justify-center sm:justify-start gap-1.5">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-brand-gold"></i>
+                Official Product Manufacturer &amp; Underwriter
+              </div>
+              <p class="text-sm font-semibold text-white">
+                Life Insurance Corporation of India (भारतीय जीवन बीमा निगम)
+              </p>
+              <p class="text-xs text-gray-400 mt-0.5">
+                Statutory Corporation established under the LIC Act, 1956 &bull; Central Office: Mumbai
+              </p>
+            </div>
+          </div>
+          <div class="flex-shrink-0">
+            <span class="inline-flex items-center gap-1.5 text-xs text-brand-softgold font-semibold px-3 py-1.5 rounded-lg bg-brand-gold/10 border border-brand-gold/30">
+              <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-brand-gold"></i>
+              Sovereign Guarantee (Sec 37)
+            </span>
+          </div>
+        </div>
+
+        <!-- Copyright & Legal Links -->
+        <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 gap-4">
+          <p class="text-center md:text-left">
+            &copy; <span id="current-year"></span> Sanchita Adhikary Barman. All Rights Reserved. Independent LIC Insurance Advisor Portal.
+          </p>
+          <div class="flex items-center gap-6">
+            <a href="/pages/disclaimer.html" class="hover:text-brand-purewhite transition-colors">Disclaimer</a>
+            <a href="/pages/privacy-policy.html" class="hover:text-brand-purewhite transition-colors">Privacy Policy</a>
+            <a href="/pages/terms.html" class="text-brand-gold font-semibold transition-colors">Terms of Use</a>
+          </div>
+        </div>
+      </div>
     </footer>
-    
-    <script>
-        (function() {
-            var yearEl = document.getElementById('current-year');
-            if (yearEl) yearEl.textContent = new Date().getFullYear();
-            
-            fetch('../data/config.json')
-                .then(res => res.ok ? res.json() : fetch('/data/config.json').then(r => r.json()))
-                .then(config => {
-                    if (!config) return;
-                    document.querySelectorAll('[data-config]').forEach(el => {
-                        const key = el.getAttribute('data-config');
-                        if (config[key]) el.textContent = config[key];
-                    });
-                })
-                .catch(() => {});
-        })();
-    </script>
-</body>
+
+    <!-- Back to top -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to Top">
+      <i data-lucide="chevron-up" class="w-6 h-6"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/main.js"></script>
+  </body>
 </html>
