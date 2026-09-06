@@ -42,13 +42,34 @@ function safeSessionClear() {
     } catch (e) {}
 }
 
-// Check if already logged in via Session Storage
+// Helpers for safe LocalStorage access for persistent login across browser tabs
+function safeLocalGet(key) {
+    try {
+        return localStorage.getItem(key);
+    } catch (e) {
+        return null;
+    }
+}
+
+function safeLocalSet(key, value) {
+    try {
+        localStorage.setItem(key, value);
+    } catch (e) {}
+}
+
+function safeLocalRemove(key) {
+    try {
+        localStorage.removeItem(key);
+    } catch (e) {}
+}
+
+// Check if already logged in via Session Storage or Local Storage
 function initAdmin() {
-    const storedOwner = safeSessionGet('gh_owner');
-    const storedRepo = safeSessionGet('gh_repo');
-    const storedToken = safeSessionGet('gh_token');
-    const storedBranch = safeSessionGet('gh_branch');
-    const storedScheme = safeSessionGet('gh_auth_scheme');
+    const storedOwner = safeSessionGet('gh_owner') || safeLocalGet('gh_owner');
+    const storedRepo = safeSessionGet('gh_repo') || safeLocalGet('gh_repo');
+    const storedToken = safeSessionGet('gh_token') || safeLocalGet('gh_token');
+    const storedBranch = safeSessionGet('gh_branch') || safeLocalGet('gh_branch');
+    const storedScheme = safeSessionGet('gh_auth_scheme') || safeLocalGet('gh_auth_scheme');
 
     if (storedScheme) GH_AUTH_SCHEME = storedScheme;
     if (storedBranch) GH_BRANCH = storedBranch;
@@ -122,7 +143,23 @@ function setupAuth() {
     const ownerInput = document.getElementById('gh-owner');
     const repoInput = document.getElementById('gh-repo');
     const tokenInput = document.getElementById('gh-token');
+    const rememberCheckbox = document.getElementById('gh-remember');
     const toggleTokenBtn = document.getElementById('toggle-token-visibility');
+
+    // Pre-fill with saved or canonical defaults
+    const savedOwner = safeLocalGet('gh_owner') || safeSessionGet('gh_owner');
+    const savedRepo = safeLocalGet('gh_repo') || safeSessionGet('gh_repo');
+    const savedToken = safeLocalGet('gh_token') || safeSessionGet('gh_token');
+
+    if (ownerInput && !ownerInput.value) {
+        ownerInput.value = savedOwner || 'sukhamaym1';
+    }
+    if (repoInput && !repoInput.value) {
+        repoInput.value = savedRepo || 'Sanchita.lic';
+    }
+    if (tokenInput && !tokenInput.value && savedToken) {
+        tokenInput.value = savedToken;
+    }
 
     // Password visibility toggle
     if (toggleTokenBtn && tokenInput) {
@@ -171,6 +208,9 @@ function setupAuth() {
         let rawRepo = repoInput ? repoInput.value.trim() : '';
         let rawToken = tokenInput ? tokenInput.value.trim().replace(/^["']|["']$/g, '') : '';
 
+        // Strip invisible zero-width characters and spaces
+        rawToken = rawToken.replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
+
         // Sanitize owner if a URL was entered
         if (rawOwner.includes('github.com/')) {
             const clean = rawOwner.replace(/^https?:\/\/github\.com\//i, '').replace(/\/+$/, '');
@@ -184,8 +224,21 @@ function setupAuth() {
             }
             if (ownerInput) ownerInput.value = GH_OWNER;
         } else {
-            GH_OWNER = rawOwner.replace(/^@/, '').replace(/\/+$/, '');
+            GH_OWNER = rawOwner.replace(/^@/, '').replace(/\/+$/, '').trim();
             GH_REPO = rawRepo.replace(/\.git$/i, '').trim();
+        }
+
+        // Auto-correct common mistakes:
+        // 1. If user typed their email prefix 'sukhamay153' instead of GitHub handle 'sukhamaym1'
+        if (GH_OWNER.toLowerCase() === 'sukhamay153') {
+            GH_OWNER = 'sukhamaym1';
+            if (ownerInput) ownerInput.value = GH_OWNER;
+        }
+
+        // 2. If user typed previous repository name variations
+        if (['sanchita-adhikary', 'sanchita_adhikary', 'sanchita-lic'].includes(GH_REPO.toLowerCase())) {
+            GH_REPO = 'Sanchita.lic';
+            if (repoInput) repoInput.value = GH_REPO;
         }
 
         // Clean up repo if full URL was entered
@@ -207,35 +260,123 @@ function setupAuth() {
 
         isConnecting = true;
         // Show loading state
-        if (btnText) btnText.textContent = 'Connecting...';
+        if (btnText) btnText.textContent = 'Verifying with GitHub...';
         if (btnSpinner) btnSpinner.classList.remove('hidden');
         if (connectBtn) connectBtn.disabled = true;
 
         try {
+            // STEP 1: Verify the token itself by checking GitHub User API
+            const userRes = await githubRequest('https://api.github.com/user');
+
+            if (userRes.status === 401) {
+                showAuthError(`
+                    <div class="space-y-2 text-left">
+                        <div class="font-bold flex items-center gap-1.5 text-red-800">
+                            <span>❌ Token Expired or Invalid (401 Bad credentials)</span>
+                        </div>
+                        <p class="text-xs text-red-700 leading-relaxed">
+                            GitHub rejected this token. <strong>GitHub Personal Access Tokens expire every 30 days by default</strong>, which is why this login error appears periodically.
+                        </p>
+                        <div class="pt-1">
+                            <a href="https://github.com/settings/tokens/new?description=Sanchita-Website-Admin&scopes=repo" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-700 hover:bg-red-800 text-white font-medium text-xs rounded transition-colors shadow-xs">
+                                🔑 Generate New Token on GitHub (1-Click)
+                            </a>
+                        </div>
+                        <p class="text-[11px] text-red-600 mt-0.5">
+                            <strong>Tip:</strong> In the GitHub token page, set <strong>Expiration</strong> to <strong>90 days</strong> or <strong>No expiration</strong> and keep <strong>repo</strong> checked so you don't get logged out again.
+                        </p>
+                    </div>
+                `);
+                return;
+            }
+
+            if (userRes.ok) {
+                try {
+                    const userInfo = await userRes.json();
+                    if (userInfo && userInfo.login && userInfo.login.toLowerCase() !== GH_OWNER.toLowerCase()) {
+                        GH_OWNER = userInfo.login;
+                        if (ownerInput) ownerInput.value = GH_OWNER;
+                    }
+                } catch (e) {}
+            }
+
+            // STEP 2: Verify repository access
             const res = await githubRequest(`https://api.github.com/repos/${encodeURIComponent(GH_OWNER)}/${encodeURIComponent(GH_REPO)}`);
 
             if (res.ok) {
                 try {
                     const repoInfo = await res.json();
+                    if (repoInfo && repoInfo.name) {
+                        GH_REPO = repoInfo.name;
+                        if (repoInput) repoInput.value = GH_REPO;
+                    }
                     if (repoInfo && repoInfo.default_branch) {
                         GH_BRANCH = repoInfo.default_branch;
-                        safeSessionSet('gh_branch', GH_BRANCH);
                     }
                 } catch (e) {
                     console.warn('Could not inspect repo default branch:', e);
                 }
 
+                // Save to Session Storage
                 safeSessionSet('gh_owner', GH_OWNER);
                 safeSessionSet('gh_repo', GH_REPO);
                 safeSessionSet('gh_token', GH_TOKEN);
+                safeSessionSet('gh_branch', GH_BRANCH);
                 safeSessionSet('gh_auth_scheme', GH_AUTH_SCHEME);
+
+                // If user checked "Remember me", also save to Local Storage
+                const rememberEl = document.getElementById('gh-remember');
+                const shouldRemember = rememberEl ? rememberEl.checked : true;
+                if (shouldRemember) {
+                    safeLocalSet('gh_owner', GH_OWNER);
+                    safeLocalSet('gh_repo', GH_REPO);
+                    safeLocalSet('gh_token', GH_TOKEN);
+                    safeLocalSet('gh_branch', GH_BRANCH);
+                    safeLocalSet('gh_auth_scheme', GH_AUTH_SCHEME);
+                } else {
+                    safeLocalRemove('gh_owner');
+                    safeLocalRemove('gh_repo');
+                    safeLocalRemove('gh_token');
+                    safeLocalRemove('gh_branch');
+                    safeLocalRemove('gh_auth_scheme');
+                }
+
                 showDashboard();
-            } else if (res.status === 401) {
-                showAuthError("Invalid Token (401): GitHub rejected this Personal Access Token. Make sure you copied the full token without spaces and that it hasn't expired.");
             } else if (res.status === 404) {
-                showAuthError(`Repository not found (404): Could not find "${GH_OWNER}/${GH_REPO}". Check that the repository name matches GitHub exactly (case-sensitive) and that your token has the "repo" scope checked.`);
+                showAuthError(`
+                    <div class="space-y-2 text-left">
+                        <div class="font-bold text-red-800">Repository Not Found (404)</div>
+                        <p class="text-xs text-red-700">
+                            Could not find repository "<strong>${GH_OWNER}/${GH_REPO}</strong>".
+                        </p>
+                        <p class="text-xs text-red-700">
+                            Your official GitHub repository is <strong class="text-red-900">sukhamaym1/Sanchita.lic</strong>.
+                        </p>
+                        <button type="button" id="fix-repo-btn" class="px-3 py-1.5 bg-red-700 text-white rounded text-xs font-semibold hover:bg-red-800 transition-colors">
+                            Use "Sanchita.lic" &amp; Retry
+                        </button>
+                    </div>
+                `);
+                const fixBtn = document.getElementById('fix-repo-btn');
+                if (fixBtn) {
+                    fixBtn.addEventListener('click', () => {
+                        if (repoInput) repoInput.value = 'Sanchita.lic';
+                        GH_REPO = 'Sanchita.lic';
+                        handleConnect();
+                    });
+                }
             } else if (res.status === 403) {
-                showAuthError("Access Forbidden (403): Your token may lack the required 'repo' permission, or your account reached the GitHub API rate limit.");
+                showAuthError(`
+                    <div class="space-y-1.5 text-left">
+                        <div class="font-bold text-red-800">Access Forbidden (403)</div>
+                        <p class="text-xs text-red-700 leading-relaxed">
+                            Your token is valid, but it does not have permission to access <strong>${GH_OWNER}/${GH_REPO}</strong>. Make sure you checked the <code class="bg-red-100 px-1 py-0.5 rounded font-mono">repo</code> scope when generating your token on GitHub.
+                        </p>
+                        <a href="https://github.com/settings/tokens/new?description=Sanchita-Website-Admin&scopes=repo" target="_blank" rel="noopener" class="inline-block text-xs font-semibold text-red-800 underline mt-1">
+                            Generate token with repo scope &rarr;
+                        </a>
+                    </div>
+                `);
             } else {
                 showAuthError(`GitHub API error (${res.status}): Failed to connect to ${GH_OWNER}/${GH_REPO}.`);
             }
@@ -279,15 +420,24 @@ function setupAuth() {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
             safeSessionClear();
+            safeLocalRemove('gh_owner');
+            safeLocalRemove('gh_repo');
+            safeLocalRemove('gh_token');
+            safeLocalRemove('gh_branch');
+            safeLocalRemove('gh_auth_scheme');
             location.reload();
         });
     }
 }
 
-function showAuthError(msg) {
+function showAuthError(msgOrHtml) {
     const errEl = document.getElementById('auth-error');
     if (errEl) {
-        errEl.textContent = msg;
+        if (typeof msgOrHtml === 'string' && (msgOrHtml.includes('<div') || msgOrHtml.includes('<p') || msgOrHtml.includes('<a') || msgOrHtml.includes('<button'))) {
+            errEl.innerHTML = msgOrHtml;
+        } else {
+            errEl.textContent = msgOrHtml;
+        }
         errEl.classList.remove('hidden');
     }
 }
